@@ -71,6 +71,8 @@ function onSelectNickname() {
 	myPort.postMessage({alert: "boing"});
 	// browser.runtime.sendMessage({alert: "boing"});
 	var name = document.getElementById("Nickname").value;
+	console.log("Selected nick =", name);
+	sessionStorage.setItem("YKY-nickname", name);
 	myPort.postMessage({selectNickname: name});
 	// browser.runtime.sendMessage({selectNickname: name});
 	setTimeout(function() {

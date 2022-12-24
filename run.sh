@@ -1,5 +1,5 @@
 #!/bin/sh
-cd /home/yky/misc-programs/conceptual-keyboard
+cd /home/yky/misc-programs/conceptual-keyboard-v2
 # kill any previous Java Conkey processes:
 while read p; do
 	kill $p

@@ -69,7 +69,7 @@ function backListener(request) {
 
 	if (request.selectNickname != null) {
 		theNickname = request.selectNickname;
-		sessionStorage.setItem("YKYNickName", theNickname);
+		sessionStorage.setItem("YKY-nickname", theNickname);
 		console.log("Changed nickname in sessionStorage");
 		}
 
@@ -117,8 +117,12 @@ function backListener(request) {
 
 	// Request to play an alert sound (must be done thru background page)
 	if (request.alert != null) {
-		console.log("Boing!!")
-		var audio = new Audio(request.alert + ".ogg");
+		console.log("Play sound!!")
+		if (request.alert.endsWith(".wav") ||
+			request.alert.endsWith(".ogg"))
+			var audio = new Audio(request.alert);
+		else
+			var audio = new Audio(request.alert + ".ogg");
 		audio.play();
 
 		//~ if (request.alert == "hk2love") {
