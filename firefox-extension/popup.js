@@ -1,7 +1,7 @@
 // var app = chrome.runtime.getBackgroundPage();
 
 // **** These commands are processed in background.js ****
-let myPort = browser.runtime.connect({name:"PORT-popup"});
+let myPort = browser.runtime.connect({name: "PORT-popup"});
 
 // test sound
 function onClickButt1() {

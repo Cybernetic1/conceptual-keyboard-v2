@@ -75,8 +75,8 @@ function reqHandler(req, res) {
 			res.write(": \n\n");
 			// res.end();		// this causes "write after end" error
 			sse_res = res;
-			console.log("Connected event stream");
-		} else if (req.url == '/dreamstream') {
+			console.log("Connected event stream 1");
+		} else if (req.url == '/UTstream') {
 			res.writeHead(200, {
 				'Content-Type': 'text/event-stream; charset=utf-8',
 				'Cache-Control': 'no-cache',
@@ -118,14 +118,14 @@ function reqHandler(req, res) {
 		res.end();
 		return;	}
 
-	if (fileName === "/dreamland") {
+	if (fileName === "/UT-room") {
 		const buffer1 = [];
 		req.on('data', chunk => buffer1.push(chunk));
 		req.on('end', () => {
 			const data1 = Buffer.concat(buffer1);
 			if (sse_res2 != null)
 				sse_res2.write("data: " + data1 + '\n\n');
-			console.log("dream: " + data1);
+			console.log("UT-room: " + data1);
 			// console.log(unescape(encodeURIComponent(data)));
 		});
 		res.end();

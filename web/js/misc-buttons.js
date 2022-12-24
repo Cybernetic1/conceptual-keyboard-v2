@@ -16,45 +16,67 @@ white_box.onkeypress = function(e) {
 	// console.log("keyCode=", keyCode);
 	if (keyCode === 13 || keyCode === 10) {		// enter key = 13 or 10
 		// Don't know why but enter = 13, ctrl + enter = 10
-		quicksend(e.ctrlKey);
+		if (dreamState.value == "HK")
+			// normally, ctrlKey causes to send to Dream
+			shortsend(e.ctrlKey);
+		else
+			shortsend(!e.ctrlKey);
 		return false;
 	}
 };
 
-function send2Chat(str) {
-	// **** Now this is to Chatroom.HK only
-	var str2 = str.replace(/\//g, "|");
-	str = str2.replace(/\'/g, "`");
-	
-	$.ajax({
-		method: "POST",
-		url: "./fireFox",
-		data: str,
-		success: function(resp) {
-			// console.log("Fire: " + str);
+// This button controls where to send messages: Dream or Firefox
+// **** There is possibly a misnomer here...
+// Dream = UT-room.py 网际空间 = Dream Stream
+// Firefox = HK Chatroom (= other 寻梦园's ?)
+var dreamState = document.getElementById('UT-or-HK');
+dreamState.onclick = function () {
+	if (this.value == "UT") {
+		this.value = "HK";
+		this.innerText = "HK";
 		}
-	});
-}
+	else {
+		this.value = "UT";
+		this.innerText = "UT";
+		}
+	};
 
-function send2Dream(str) {
-	// **** Send to 寻梦园 only
-	if (str == last_dream)
-		str = "..." + str;
-	last_dream = str;
-	
-	// send to dreamland.py
-	$.ajax({
-		method: "POST",
-		url: "./dreamland",
-		data: str,
-		success: function(resp) {
-		// nothing
+var last_dream = ""
+function send2Chat(str, dream=false) {
+	if (dream || document.getElementById('UT-or-HK').value == 'UT') {
+		// **** Send to UT-room.py UT-网际空间 only
+		if (str == last_dream)
+			str = "..." + str;
+		last_dream = str;
+		
+		// send to UT-room
+		$.ajax({
+			method: "POST",
+			url: "./UT-room",
+			data: str,
+			success: function(resp) {
+				// console.log("Dream: " + str);
+				}
+			});
 		}
-	});
+	else {
+		// **** This is to Firefox (eg. Chatroom.HK, 寻梦园)
+		var str2 = str.replace(/\//g, "|");
+		str = str2.replace(/\'/g, "`");
+		
+		$.ajax({
+			method: "POST",
+			url: "./fireFox",
+			data: str,
+			success: function(resp) {
+				// console.log("Firefox: " + str);
+				}
+			});
+		}
 }
 
 // ************* This is used when 'enter' is pressed or '↵' button is clicked:
-function quicksend(dream = false) {
+function shortsend(dream = false) {
 	str = document.getElementById("white-box").value;
 
 	// **** If input ends with 'gg' ---> go to Google search
@@ -106,10 +128,7 @@ function quicksend(dream = false) {
 	}
 	*****/
 
-	if (dream)
-		send2Dream(str);
-	else
-		send2Chat(str);
+	send2Chat(str, dream);
 
 	// clear input box
 	document.getElementById("white-box").value = "";
@@ -118,7 +137,7 @@ function quicksend(dream = false) {
 	audio.play();
 }
 
-document.getElementById("send-white").addEventListener("click", quicksend.bind(null, false), false);
+document.getElementById("carriage-return").addEventListener("click", shortsend.bind(null, false), false);
 
 document.getElementById("quick-simplify").addEventListener("click", function() {
 	var whiteBox = document.getElementById("white-box");
@@ -241,8 +260,7 @@ butt3.addEventListener("click", function() {
 }, false);
 
 // Send message to DreamLand
-var last_dream = ""
-document.getElementById("to-dream").addEventListener("click", quicksend.bind(null, true), false);
+// document.getElementById("to-dream").addEventListener("click", shortsend.bind(null, true), false);
 
 // ==== For dealing with Drop-down menu ====
 

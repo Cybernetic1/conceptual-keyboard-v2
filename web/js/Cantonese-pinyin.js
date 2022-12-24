@@ -506,6 +506,22 @@ function char_SingleClick(ev) {
 	add_to_caret(c);
 }
 
+// Click on "Chinese-or-English" button
+document.getElementById('chin-or-eng').onclick = function () {
+	if (chin_or_eng == 1) {
+		chin_or_eng = 0;
+		status.innerText = "中";
+		status.style.backgroundColor = "#AA5555";
+		status.style.color = "white"
+		}
+	else {
+		chin_or_eng = 1;
+		status.innerText = "En";
+		status.style.backgroundColor = "Green";
+		status.style.color = "white"
+		}
+	};
+
 window.addEventListener('beforeunload', function (e) {
 	// on application exit:
 	driver.close();

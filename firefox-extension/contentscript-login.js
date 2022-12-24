@@ -6,7 +6,7 @@
 // DONE:
 // * be able to pause auto-login
 
-let myPort = browser.runtime.connect({name:"PORT-popup"});
+let myPort = browser.runtime.connect({name: "PORT-login"});
 
 var nickname = "Cybernetic1";
 const nicknames = ["Cybernetic1", "Cybernetic2", "雷米", "電飯"];
@@ -70,11 +70,9 @@ document.addEventListener("keypress", function (event) {
 } );
 
 // This runs only once, as "login" page is loaded
-console.log("Content script #3 = LOGIN (05 Dec 2022) loaded....");
+console.log("Content script #3 = LOGIN (24 Dec 2022) loaded....");
 
-/***********  This part seems able to communicate with Background script:
-
-// * TO-DO: talk to background.js via "connection" instead of messages
+/***********  Old method to communicate with Background script:
 
 function handleResponse(message) {
 	nickname = message.response;

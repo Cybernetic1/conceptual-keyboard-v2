@@ -941,7 +941,7 @@ function flushTypings() {
 	return null;
 }
 
-document.getElementById("send-white").addEventListener("click", quicksend, false);
+document.getElementById("carriage-return").addEventListener("click", quicksend, false);
 
 // Browsing history with up and down arrows
 document.onkeydown = checkKey;

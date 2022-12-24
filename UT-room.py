@@ -52,7 +52,7 @@ my_nick = "Cybernetic1"
 print("Default nick =", my_nick)
 my_nick = input("Change nick to: ") or my_nick
 
-eventStream = SSEClient('http://localhost:8484/dreamstream',
+eventStream = SSEClient('http://localhost:8484/UTstream',
 	headers={'Content-type': 'text/plain; charset=utf-8'})
 
 # This handles alerts such as "請勿重覆發言!":
@@ -263,7 +263,7 @@ while True:
 					continue
 				# Alert if talk directly at me:
 				if ("給 [" + my_nick + "]  的密語") in line:
-					playsound("dreamland-talk-to-me.wav")
+					playsound("UT-talk-to-me.wav")
 					log_file.write(line + '\n')
 					log_file.flush()
 					prefix = '\x1b[36m'

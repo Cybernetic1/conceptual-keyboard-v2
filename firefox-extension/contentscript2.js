@@ -21,6 +21,18 @@ var logName = "log.txt";					// Name of the log file, to be filled
 
 var chat_history = new Array();				// log of chat messages
 
+// **** Establish connection with background script
+
+// (name of the port seems insignificant)
+let myPort = browser.runtime.connect({name: "PORT-script-2"});
+// myPort.postMessage({greeting: "HELLO from content script-2"});
+
+// ******** Detect mouse-over on ChatRoom page
+// Notify background.js, who decides ultimately which script-2 to output to
+document.addEventListener("mouseover", function() {
+	myPort.postMessage({chatroom: document.URL});
+});
+
 // Write chat history to localhost server via AJAX
 function saveLog(name) {
 	// get the data-time and make it into filename
@@ -46,37 +58,14 @@ function saveLog(name) {
 	});
 }
 
-// **** Establish connection with background script
-
-let myPort = browser.runtime.connect({name:"PORT-script-2"});
-// myPort.postMessage({greeting: "HELLO from content script-2"});
-
-// ******** Detect mouse-over on ChatRoom page
-// Notify background.js, who decides ultimately which script-2 to output to
-document.addEventListener("mouseover", function(){
-	if (document.URL.indexOf("ip131") >= 0)
-		myPort.postMessage({chatroom: "ip131"});
-	if (document.URL.indexOf("ip4") >= 0)
-		myPort.postMessage({chatroom: "ip4"});
-	if (document.URL.indexOf("ip69") >= 0)
-		myPort.postMessage({chatroom: "ip69"});
-	if (document.URL.indexOf("ip203") >= 0)
-		myPort.postMessage({chatroom: "ip203"});
-	if (document.URL.indexOf("chatroom.hk") >= 0)
-		myPort.postMessage({chatroom: "roomHK"});
-
-	// ip68, ip203, ip4, hklovechat, hk2love, etc...
-});
-
 function his() {
-	console.log("Chat history:");
 	for (i = 0; i < chat_history.length; ++i)
 		console.log(chat_history[i]);
 }
 
 // browser.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
-myPort.onMessage.addListener(function(request) {
+myPort.onMessage.addListener(function (request) {
 	// console.log("processing message...");
 	// console.log(sender.tab ?	"from a content script:" + sender.tab.url :	"from the extension");
 	// console.log("roomHKChat =", roomHKChat);
@@ -91,41 +80,31 @@ myPort.onMessage.addListener(function(request) {
 
 		// check for save-log command:
 		if (str.indexOf("!log") > -1) {
-			// Determine this script instance is for the current active page...
-			// If not, no action should be taken
-			if ((document.URL.indexOf("chatroom.hk") >= 0) ||
-				(document.URL.indexOf("ip131") >= 0) ||
-				(document.URL.indexOf("ip203") >= 0) ||
-				(document.URL.indexOf("ip4") >= 0) ||
-				(document.URL.indexOf("ip69") >= 0) ||
-				(document.URL.indexOf("hk2love") >= 0)) {
-
-				// the string following by "!log " is the Nickname, hence 5 chars
-				// console.log("log person = " + str.slice(5));
-				// save log array to file
-				// window.webkitRequestFileSystem(window.TEMPORARY, 1024*1024, onInitFs, errorHandler);
-				saveLog(str.slice(5));
-				return true;
+			// The "!log" message is only sent to the current active page...
+			// The string following by "!log " is the Nickname, hence 5 chars
+			// console.log("log person = " + str.slice(5));
+			// Save log array to file
+			saveLog(str.slice(5));
+			return true;
 			}
-		}
 
 		if (str.indexOf("!clear") > -1) {
 			chat_history = new Array();
 			console.log("history cleared");
 			return true;
-		}
+			}
 
 		if (str.indexOf("!his") > -1) {
-			console.log("history:");
+			console.log("History:");
 			his();
 			return true;
-		}
+			}
 
 		if (str.indexOf("!test") > -1) {
 			console.log("Testing sound...");
-			browser.runtime.sendMessage({alert: "sendFail"});
+			browser.runtime.sendMessage({alert: "testing"});
 			return true;
-		}
+			}
 
 		/* if (str.indexOf("!uninstall") > -1) {
 			// Perhaps unload own script?
@@ -175,7 +154,7 @@ myPort.onMessage.addListener(function(request) {
 			chat_history[chat_history.length] = str + "\n";
 			}
 
-		/* This one is for: 寻梦园 长直发／忘年之戀 */
+		/* This one is for: 寻梦园 various rooms */
 		if ((document.URL.indexOf("ip4") >= 0) ||
 			(document.URL.indexOf("ip69") >= 0) ||
 			(document.URL.indexOf("ip203") >= 0))
@@ -225,6 +204,22 @@ myPort.onMessage.addListener(function(request) {
 
 			// record own messages
 			console.log("attempted speech: " + str);
+			chat_history[chat_history.length] = "me: " + str + "\n";
+			}
+
+		// **** for UT-room UT-网际空间
+		if (document.URL.indexOf("60.199.209.72/VIP5D/index.phtml") >= 0)
+			{
+			var inputBox = document.getElementsByName("c")[0].contentWindow.document.getElementsByName("SAYS")[0];
+			// console.log("DOM element: " + inputBox);
+			inputBox.value = str;
+			// and then perhaps click "enter"?
+			var sendButton = document.getElementsByName("c")[0].contentWindow.document.getElementsByClassName("Off2")[0];
+			// var sendButton = document.getElementsByName("c")[0].contentWindow.document.querySelectorAll("input[value='發言']")[0];
+			sendButton.click();
+
+			// For Adult chat, need to record own messages
+			// because own messages appear as broken pieces on their page
 			chat_history[chat_history.length] = "me: " + str + "\n";
 			}
 
@@ -314,7 +309,7 @@ myPort.onMessage.addListener(function(request) {
 		*/
 
 		}
-		
+
 	return true;
 	});
 
@@ -322,19 +317,16 @@ console.log("Added message listener");
 //console.log("Return value =  ", returnVal);
 
 // Indexes of bottom-most lines in the chat frames:
-var lastVoovLine = 1;
-var lastVoovLine2 = "";
-var lastAdultIndex = 1;
+// var lastVoovLine = 1;
+// var lastVoovLine2 = "";
+// var lastAdultIndex = 1;
 var lastIp131Index = 1;
-var lastIp203Index = 1;
-var lastHk2loveIndex = 1;
-var lastHk2loveLine = "";
+var lastIpXIndex = 1;		// Ip 4, 203, 69 shared
+// var lastHk2loveIndex = 1;
+// var lastHk2loveLine = "";
 var lastRoomHKIndex = 1;
 var lastRoomHKLine = "";
-var lastIp4Index = 1;
-var lastIp69Index = 1;
-var lastIpXIndex = 1;
-var lastIpXLine = "";
+var lastUTIndex = 1;
 
 // After spoken, wait for 10 secs to check if really spoken, if not, re-send
 // New method checks for existence of spoken text in last 5 lines of log
@@ -478,7 +470,7 @@ setInterval( function() {
 		chatWin = html.children[1].children[7];		// sometimes [1][6]
 		// number of lines in chat win:
 		lastIndex = chatWin.childElementCount - 1;
-		if ((chatWin != null) && (lastIndex > lastIp4Index)) {
+		if ((chatWin != null) && (lastIndex > lastIpXIndex)) {
 			var alert = false;
 			for (i = lastIndex; i > lastIpXIndex; i--) {
 				stuff = chatWin.children[i].innerText;
@@ -496,6 +488,33 @@ setInterval( function() {
 				// browser.runtime.sendMessage({alert: "ip69"});
 		}
 		lastIpXIndex = lastIndex;
+	}
+
+	if (document.URL.indexOf("VIP5D/index.phtml") >= 0)
+		{
+		// this gives us an HTML element of the public chat area:
+		const html = document.getElementsByTagName("frame")[3].contentDocument.childNodes[0].childNodes[1];
+		// this is the <p> element containing all chat lines, broken into pieces:
+		const chatWin = html.childNodes[1];
+		// number of lines in chat win:
+		lastIndex = chatWin.childElementCount - 1;
+		if ((chatWin != null) && (lastIndex > lastUTIndex)) {
+			var alert = false;
+			for (i = lastIndex; i > lastUTIndex; i--) {
+				stuff = chatWin.children[i].innerText;
+				if (stuff.indexOf("對 訪客_Cybernetic2") > -1 ||
+					stuff.indexOf("對 訪客_Cybernetic1") > -1) {
+					// sound alert
+					alert = true;
+					chat_history[chat_history.length] = timeStamp + ' ' + stuff + "\n";
+					// console.log(timeStamp + stuff);
+				}
+				// To-do:  On Adult page, own messages appear as broken pieces
+			}
+			if (alert == true)
+				myPort.postMessage({alert: "UT"});
+		}
+		lastUTIndex = lastIndex;
 	}
 
 	/*
@@ -744,7 +763,7 @@ setTimeout(function() {
 2000);
 
 // This seems to be run only once, as each "Chatroom" page is loaded.
-console.log("Content script #2 (29 Nov 2022) RE/LOADED....");
+console.log("Content script #2 (25 Dec 2022) RE/LOADED....");
 
 /* *******************************************************************************
 

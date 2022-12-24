@@ -2,25 +2,19 @@
 // Read from Conceptual Keyboard tab and feed into input box of another tab.
 
 var theNickname = "Cybernetic1";
-var whoIsActive = "roomHK";
+var whoIsActive = "";			// to be filled with a URL
 
-var port_roomHK = null;
-var port_ip131 = null;
-// collectively for ip4, ip69, ip203 (assuming only one is open)
-var port_ipX = null;
-var port_popup = null;
+var port_map = {	// dictionary to look up port for each chatroom
+	"" : null
+	};
+
+// **** The "stream" listens to Conkey.js
 
 function streamEventHandler(e) {
-	// Directly output to chatroom
-	if (whoIsActive == "ip131")
-		port_ip131.postMessage({sendtext: e.data});
-	else if ((whoIsActive == "ip4") ||
-			 (whoIsActive == "ip69") ||
-			 (whoIsActive == "ip203"))
-		port_ipX.postMessage({sendtext: e.data});
-	else if (whoIsActive == "roomHK")
-		port_roomHK.postMessage({sendtext: e.data});
-	console.log("Event: " + e.data);
+	// Specifically output to the ACTIVE chatroom only
+	const port = port_map[whoIsActive];
+	port.postMessage({sendtext: e.data});
+	console.log("/stream: " + e.data);
 }
 
 var evtSource = null;
@@ -40,18 +34,11 @@ function initEventSource() {
 
 function connected(p) {
 	// title = p.sender.tab.title;
-	url = p.sender.url;
-	console.log("CONNECTED to tab:", url);
-	if (url.indexOf("ip131") >= 0)
-		port_ip131 = p;
-	else if ((url.indexOf("ip4") >= 0) ||
-			 (url.indexOf("ip69") >= 0) ||
-			 (url.indexOf("ip203") >= 0))
-		port_ipX = p;
-	else if (url.indexOf("chatroom.hk") >= 0)
-		port_roomHK = p;
-	else if (url.indexOf("popup.html") >= 0)
-		port_popup = p;
+	const url = p.sender.url;
+	console.log("CONNECTED to tab:", url, "with port:", p);
+
+	port_map[url] = p;			// record the port for this URL
+	whoIsActive = url;
 
 	// console.log("Background: CONNECTED to content-scripts-2");
 	// portScript2.postMessage({greeting: "hi there content script2!"});
@@ -70,13 +57,13 @@ function backListener(request) {
 	if (request.selectNickname != null) {
 		theNickname = request.selectNickname;
 		sessionStorage.setItem("YKY-nickname", theNickname);
-		console.log("Changed nickname in sessionStorage");
+		console.log("sessionStorage nick =", theNickname);
 		}
 
 	if (request.askNickname != null) {
-		// port_ipX.postMessage({response: theNickname});
-		port_ip131.postMessage({response: theNickname});
-		port_roomHK.postMessage({response: theNickname});		
+		for (var key in port_map) {
+			port_map[key].postMessage({response: theNickname});
+			}
 		}
 
 	if (request.speak != null) {
@@ -95,24 +82,10 @@ function backListener(request) {
 
 	// Request to change target chatroom
 	// The request is sent from contentscript2:mouseover event
+	// This script (background.js) decides which room to speak to.
 	if (request.chatroom != null) {
-		// background.js decides which room to speak to
 		whoIsActive = request.chatroom;
 		// console.log("switched to:", request.chatroom)
-
-		// port_ip131.postMessage({chatroom2: request.chatroom});
-		// port_roomHK.postMessage({chatroom2: request.chatroom});
-
-		/*
-		querying = browser.tabs.query({url: "http://chatroom.hk/*"});
-		querying.then((tabs) => {
-			for (var tab of tabs) {
-				roomHKId = tab.id;
-				portScript2.postMessage({chatroom2: request.chatroom});
-				// browser.tabs.sendMessage(roomHKId, {chatroom2: request.chatroom});
-				}},
-			function() {roomHKId = null;});
-		*/
 		}
 
 	// Request to play an alert sound (must be done thru background page)
@@ -124,13 +97,7 @@ function backListener(request) {
 		else
 			var audio = new Audio(request.alert + ".ogg");
 		audio.play();
-
-		//~ if (request.alert == "hk2love") {
-			//~ // console.log("hk2love alert")
-			//~ var audio = new Audio("hk2love_alert.ogg");
-			//~ audio.play();
-		//~ }
-	}
+		}
 
 	// save log:
 	if (request.saveLog != null) {
@@ -140,16 +107,12 @@ function backListener(request) {
 			"active": true,
 			"currentWindow": true
 		}, function (tabs) {
-			if (port_ip131 != null)
-				port_ip131.postMessage({sendtext: "!log " + request.saveLog});
-			if (port_ipX != null)
-				port_ipX.postMessage({sendtext: "!log " + request.saveLog});
-			if (port_roomHK != null)
-				port_roomHK.postMessage({sendtext: "!log " + request.saveLog});
-			// browser.tabs.sendMessage(tabs[0].id, { sendtext: "!log " + request.saveLog });
+			for (var key in port_map) {
+				port_map[key].postMessage({sendtext: "!log " + request.saveLog});
+				}
 		});
 
-		var audio = new Audio("ip69.ogg");
+		var audio = new Audio("log-saved.ogg");
 		audio.play();
 	}
 
@@ -160,14 +123,12 @@ function backListener(request) {
 			"active": true,
 			"currentWindow": true
 		}, function (tabs) {
-			if (port_ip131 != null)
-				port_ip131.postMessage({sendtext: "!clear"});
-			if (port_roomHK != null)
-				port_roomHK.postMessage({sendtext: "!clear"});
-			// browser.tabs.sendMessage(tabs[0].id, { sendtext: "!clear" });
+			for (var key in port_map) {
+				port_map[key].postMessage({sendtext: "!clear"});
+				}
 		});
 
-		var audio = new Audio("ip69.ogg");
+		var audio = new Audio("clear-history.ogg");
 		audio.play();
 	}
 
@@ -194,7 +155,7 @@ function backListener(request) {
 // End of message-listener
 }
 
-console.log("Background Script.js (05-Dec-2022) RE/LOADED");
+console.log("Background Script.js (25-Dec-2022) RE/LOADED");
 
 /*
 querying = browser.tabs.query({url: "http://ip131.ek21.com/*"});
