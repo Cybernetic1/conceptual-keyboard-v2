@@ -16,7 +16,7 @@ white_box.onkeypress = function(e) {
 	// console.log("keyCode=", keyCode);
 	if (keyCode === 13 || keyCode === 10) {		// enter key = 13 or 10
 		// Don't know why but enter = 13, ctrl + enter = 10
-		if (dreamState.value == "HK")
+		if (dreamState.value == "all")
 			// normally, ctrlKey causes to send to Dream
 			shortsend(e.ctrlKey);
 		else
@@ -29,11 +29,11 @@ white_box.onkeypress = function(e) {
 // **** There is possibly a misnomer here...
 // Dream = UT-room.py 网际空间 = Dream Stream
 // Firefox = HK Chatroom (= other 寻梦园's ?)
-var dreamState = document.getElementById('UT-or-HK');
+var dreamState = document.getElementById('UT-or-all');
 dreamState.onclick = function () {
 	if (this.value == "UT") {
-		this.value = "HK";
-		this.innerText = "HK";
+		this.value = "all";
+		this.innerText = "∀";
 		}
 	else {
 		this.value = "UT";
@@ -43,7 +43,7 @@ dreamState.onclick = function () {
 
 var last_dream = ""
 function send2Chat(str, dream=false) {
-	if (dream || document.getElementById('UT-or-HK').value == 'UT') {
+	if (dream || document.getElementById('UT-or-all').value == 'UT') {
 		// **** Send to UT-room.py UT-网际空间 only
 		if (str == last_dream)
 			str = "..." + str;

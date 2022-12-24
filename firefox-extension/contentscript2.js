@@ -495,24 +495,22 @@ setInterval( function() {
 		// this gives us an HTML element of the public chat area:
 		const html = document.getElementsByTagName("frame")[3].contentDocument.childNodes[0].childNodes[1];
 		// this is the <p> element containing all chat lines, broken into pieces:
-		const chatWin = html.childNodes[1];
-		// number of lines in chat win:
-		lastIndex = chatWin.childElementCount - 1;
+		const p = html.childNodes[1];
+		// number of pieces in chat win:
+		lastIndex = p.childElementCount - 1;
 		if ((chatWin != null) && (lastIndex > lastUTIndex)) {
 			var alert = false;
 			for (i = lastIndex; i > lastUTIndex; i--) {
-				stuff = chatWin.children[i].innerText;
-				if (stuff.indexOf("對 訪客_Cybernetic2") > -1 ||
-					stuff.indexOf("對 訪客_Cybernetic1") > -1) {
-					// sound alert
+				// If it is a TABLE then it's addressed to me:
+				if (p.children[i].tagName == "TABLE") {
+					stuff = p.children[i].innerText;
 					alert = true;
-					chat_history[chat_history.length] = timeStamp + ' ' + stuff + "\n";
-					// console.log(timeStamp + stuff);
+					chat_history[chat_history.length] = stuff + "\n";	// has timeStamp already
+					// console.log(stuff);
 				}
-				// To-do:  On Adult page, own messages appear as broken pieces
 			}
 			if (alert == true)
-				myPort.postMessage({alert: "UT"});
+				myPort.postMessage({alert: "UT-room"});
 		}
 		lastUTIndex = lastIndex;
 	}
