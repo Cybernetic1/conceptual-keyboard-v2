@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<!-- To Do:
+* new columns-only mode
+	-- remove "selections" area
+	-- use only 2 columns
+	-- first column = sub-dirs
+	-- second column = words
+	-- special heading = current dir (including path)
+* use pictures
+* save chat history somewhere (perhaps via Chrome script)
+* utilize chat history
+-->
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>Conceptual Keyboard</title>
+
+		<style type="text/css">
+			body {
+				font-size: 125%;
+				font-family: "Trebuchet MS",Verdana, Arial, Helvetica, sans-serif;
+				padding-top: 0px;
+				background-color: #000000;
+				color: #ccffff;
+			}
+
+			// label { display: block; margin-top: 10px; color: #0066cc; }
+
+			button {
+				border: None;
+				// border: #333333;
+				// border-width: 2px;
+				// border-style: solid;
+				border-radius: 5px;
+				color: white;
+				background-color: #275D80;
+				padding: 5px;
+				// text-align: left;
+				font-size: 20px;
+				line-height: 1.1;
+				// width: 40px;
+				// height: 40px;
+				cursor: pointer;
+				// margin-right: 1px;
+				// margin-bottom: 2px;
+				margin-top: 5px;
+			}
+
+			button:hover {
+				background-color: #AAAAAA;
+			}
+
+			/* button {
+				background-color: #555555;
+				color: #ffffff;
+				padding: 2px;
+				font: 9px;
+				font-weight: bold;
+				text-decoration: none;
+				border: 3px solid #000;
+				border-color: #aaa #333 #333 #aaa;
+			} */
+
+			textarea {
+				height: 35px;
+				font-size: 130%;
+				background-color: #000000;
+				color: #ffffff;
+				/* font-weight: bold; */
+			}
+
+			input[type=text] {		// This is no longer used
+				font-size: 100%;
+				background-color: #000000;
+				color: #ffffff;
+				/* font-weight: bold; */
+			}
+
+			a {
+				color: #aaaaFF;
+				text-decoration: none;
+				border-bottom: 1px dotted #0066cc;
+			}
+
+			#column1 {
+				overflow: auto;
+				float:left;
+				width:25%;
+				padding:0px;
+				border:1px solid #ccffff;
+			}
+			#column2 {
+				// overflow: auto;
+				float:left;
+				width:74%;
+				padding:0px;
+				line-height: 170%;
+				// margin: 5px 5px;
+				border:1px solid #ccffff;
+			}
+
+			#header-bar {
+				height: 30px;
+				color: #ffffff;
+				padding: 6px 0px 0px 0px;	// top right bottom left
+				// margin: 5px 5px;
+			}
+
+			#suggestions span, #red-box span, #green-box span {
+				background: #003333;
+				padding: 1px;
+				border: 1px solid #00bb00;
+				margin: 3px;
+			}
+
+			#header-bar span {
+				background: #000000;
+				padding: 1px;
+				border: 1px solid #ff0000;
+				margin: 1px;
+				color: #ff0000;
+			}
+
+			.selected td {
+				background: #003333;
+				border: 1px solid #00bb00;
+			}
+
+			/* Drop-down button */
+			.dropbtn {
+				background-color: #3498DB;
+				color: blue;
+				padding: 2px;
+				border: none;
+				cursor: pointer;
+			}
+
+			/* container <div> -- needed to position the dropdown content */
+			.dropdown {
+				position: relative;
+				display: inline-block;
+			}
+
+			/* dropdown content (hidden by default) */
+			.dropdown-content {
+				display: none;
+				position: absolute;
+				background-color: #3498DB;
+				padding: 5px;
+				/* text-align: justify; */
+				/* text-align-last: center; */
+			    max-width: 410px;
+				margin-left: 70px;
+				z-index: 1;
+			}
+
+			/* Links inside the dropdown */
+			.dropdown-content a {
+				color: black;
+				padding: 12px 16px;
+				text-decoration: none;
+				display: block;
+			}
+
+			/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+			.show {display:block;}
+
+		</style>
+	</head>
+
+	<body>
+		<!-- input type="text" id="white-box2" style="width:100%; height:120%;"
+		ondrop="drop(event);" ondragover="allowDrop(event)" value="" -->
+		<textarea id="white-box" style="width:100%;" rows="1"></textarea>
+		<br>
+		<!-- div id="green-box" ondrop="drop(event);" ondragover="allowDrop(event)" -->
+		</div>
+
+		<button type="button" id="quick-simplify">简</button>
+		<button type="button" id="quick-complex">烦</button>
+
+		<button type="button" id="send-white">↲</button>
+		<!-- input type="button" value="↲" id="send-green" style="color: #33ff33;" -->
+		<!-- input type="button" value="▲" id="send-up" -->
+		<!-- input type="button" value="▼" id="send-down" -->
+		<!-- input type="button" value="▲" id="history-up" -->
+		<!-- input type="button" value="▼" id="history-down" -->
+		<button type="button" id="clear-white">X</button>
+		<!-- input type="button" value="X" id="clear-green" style="color: #33ff33;" -->
+		<!-- input type="button" value="<x" id="clear-green1-L" style="color: #33ff33;" -->
+		<!-- input type="button" value="x>" id="clear-green1-R" style="color: #33ff33;" -->
+		<!-- input type="button" value="X" id="clear-red" style="color: #ff3333;" -->
+		<button type="button" id="smile">:)</button>
+		<button type="button" id="quotes">「」</button>
+		<button type="button" id="parentheses">()</button>
+		<button type="button" id="to-dream">梦</button>
+
+		<button type="button" id="send-clipboard">✂</button>
+
+		<button onclick="onDropDown()" class="dropbtn">❋</button>
+		<div id="dropdown" class="dropdown-content">
+			<button type="button" id="do-log">log</button>
+			<button type="button" id="do-history">show history</button>
+			<button type="button" id="do-URL-escape">URL un-escape</button>
+			<button type="button" id="do-Google">Google</button>
+			<button type="button" id="do-traditionalize">繁</button>
+			<button type="button" id="do-Mandarin">国语</button>
+			<button type="button" id="do-Cantonese">广东话</button>
+			<button type="button" id="do-pinyin">拼音</button>
+			<button type="button" id="do-resize">re-size</button>
+			<input type="checkbox" id="simplify" style="width:20px; height:20px;">简</input> <!-- may add "checked" attribute -->
+			<input type="checkbox" id="speech" style="width:20px; height:20px;">声</input>
+		</div>
+
+		<!--
+		<input type="button" value="国" id="mandarin">
+		<input type="button" value="粤" id="cantonize">
+		<input type="button" value="拼" id="pinyin-it">
+		<input type="button" value="URL" id="unescape">
+		<input type="button" value="log" id="save-log">
+		!-->
+
+		<!--
+		<select name="actions" style="width:80px">
+			<option value="log">log</option>
+			<option value="history">history</option>
+			<option value="URL">URL un-escape</option>
+			<option value="Google">Google</option>
+			<option value="Mandarin">国语</option>
+			<option value="Cantonize">广东话</option>
+			<option value="pin-yin">拼音</option>
+		</select>
+		<input type="button" value="▶" id="do-action">
+		!-->
+
+		<!--
+		<input type="checkbox" id="to-pidgin0" style="width:20px; height:20px;">
+		<input type="button" value="0" id="send-pidgin0">
+		<select name="pidgin-who0" style="width:80px">
+			<option value="auto">[auto]</option>
+			<option value="886939769022">軟軟小布丁</option>
+			<option value="8615010095417">Hanasaki</option>
+			<option value="85264883664">ms</option>
+			<option value="vbnm0826">尊命主人</option>
+			<option value="foreverann0726">ann forever</option>
+		</select>
+
+		<input type="checkbox" id="to-pidgin1" style="width:20px; height:20px;">
+		<input type="button" value="1" id="send-pidgin1">
+		<select name="pidgin-who1" style="width:80px">
+			<option value="auto">[auto]</option>
+		</select>
+
+		<input type="button" value="名" id="pidgin-names">
+		!-->
+
+		<button type="button" id="paste1">1</button>
+		<button type="button" id="paste2">2</button>
+		<button type="button" id="paste3">3</button>
+		<!-- input type="checkbox" id="firefox" style="width:20px; height:20px;" checked>Fire -->
+
+		<br>
+		<span id="pinyin-box" style="width:100%; color:#8888ff"></span>
+
+		<!-- &nbsp;Skype <input type="radio" name="group1" id="skype" style="width:25px; height:25px;" -->
+
+		<div id="header-bar">
+		</div>
+
+		<div id="mid-levels">
+
+			<div id="column1">
+				<table id="sub-dirs">
+				</table>
+			</div>
+
+			<div id="column2">
+				<table id="suggestions">
+				</table>
+			</div>
+
+			<br style="clear:both;"/>
+		</div>
+
+		<div id="bottom">
+			<!-- input type="radio" name="group1" id="voov" checked style="width:25px; height:25px;"> 夢 &nbsp;
+			<input type="radio" name="group1" id="adult" style="width:25px; height:25px;"> VIP &nbsp;
+			<input type="radio" name="group1" id="hklove" style="width:25px; height:25px;"> HKlove &nbsp;
+			<input type="radio" name="group1" id="ip131" style="width:25px; height:25px;"> ip131 &nbsp;
+			<input type="radio" name="group1" id="ip203" style="width:25px; height:25px;"> ip203 &nbsp;
+			<br -->
+			<input type="checkbox" id="delete" style="width:20px; height:20px;">delete
+			<input type="checkbox" id="change" style="width:20px; height:20px;">change
+			<input type="checkbox" id="append" style="width:20px; height:20px;">add
+			<button type="button" id="insert" style="color: #aaffaa;">+</button>
+			<button type="button" id="add-child" style="color: #aaffaa;">+node</button>
+
+			<br>
+			<button type="button" id="loadDB">load</button>
+			<button type="button" id="saveDB">save</button>
+			&nbsp; <a href="javascript:loadDB('synonym_forest')">同義詞詞林</a>
+			&nbsp; <a href="javascript:loadDB('rogets_thesaurus')">Roget's</a>
+			&nbsp; <button type="button" id="flush-typings">typings</button>
+		</div>
+
+		<div id="genifer">
+			<input type="text" id="pink-box" style="height:26px;" value="database_default">
+			<input type="text" id="red-box" style="height:26px;" value="database_default">
+			<br>
+			<button type="button" id="genifer-teach">teach</button>
+			<button type="button" id="genifer-reward">reward</button>
+			<button type="button" id="genifer-punish">punish</button>
+			<br>
+		</div>
+
+		<!-- div style="position:absolute;bottom:-20px;right:0;">
+			<a href="javascript:loadDB('synonym_forest_YKY_database.txt')">(Load 同義詞詞林) </a>
+			<a href="javascript:saveDB()">(Save DB) </a>
+		</div -->
+
+		<script src="js/jquery-1.10.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/Conkey-menu.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/YKY-input-method.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/history.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/utils.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/buttons.js"></script>
+	</body>
+</html>

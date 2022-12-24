@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>iCant -- intelligent Cantonese input 智能广东话拼音输入</title>
+
+		<style type="text/css">
+			body {
+				font-size: 130%;
+				font-family: "Trebuchet MS",Verdana, Arial, Helvetica, sans-serif;
+				padding-top: 0px;
+				background-color: #000000;
+				color: #eeeeee;
+			}
+
+			button {
+				border: None;
+				border-radius: 5px;
+				color: #444444;
+				background-color: #aaaaaa;
+				padding: 5px;
+				font-size: 92%;
+				font-weight: bold;
+				line-height: 1.1;
+				cursor: pointer;
+				margin-top: 5px;
+			}
+
+			button:hover {
+				background-color: #FF0000;
+			}
+
+			input[type=text] {
+				font-size: 130%;
+				background-color: #c0c030;		// yellowish "grey-out" color
+				color: #aaaaaa;
+			}
+
+			input[type=text]:focus {
+				background-color: #000000;
+				color: #ffffff;
+			}
+
+			a {
+				color: #aaaaFF;
+				text-decoration: none;
+				border-bottom: 1px dotted #0066cc;
+			}
+
+			span {
+				cursor: pointer;
+			}
+
+			#pinyin-bar {
+				display: inline-block; 
+				// height: 50px;
+				width: 125px;
+				color: #ff5555;
+				font-family: "Courier New", Courier, monospace;
+				font-size: 20px;
+				font-weight: bold;
+				// padding: 6px 0px 0px 0px;	// top right bottom left
+				// margin: 5px 5px;
+			}
+
+			#columnA {
+				width: 54%;
+				height:120px;
+				overflow-y: auto;
+				float: left;
+				font-family: "Courier New", Courier, monospace;
+				margin-left: 0px
+				margin-right: 0px;
+				margin-top: 5px;
+				margin-bottom: 5px;
+				line-height: 1.2;
+				// border: 2px solid #007700;
+			}
+
+			#columnB {
+				width: 44%;
+				height:120px;
+				overflow-y: auto;
+				overflow: auto;
+				float: right;
+				margin-left: 0px
+				margin-right: 0px;
+				margin-top: 5px;
+				margin-bottom: 5px;
+				// padding: 5px 5px;
+				line-height: 1.2;
+				// border: 2px solid #7777bb;
+			}
+
+			#columnA span {
+				display:inline-block;
+				background: #606060;
+				padding-top: 5px;
+				padding-right: 3px;
+				padding-bottom: 1px;
+				padding-left: 1px;
+				// border: 1px solid #606060;
+				border: none;
+				border-radius: 5px;
+				margin: 5px 5px;
+			}
+
+			#columnB span {
+				display:inline-block;
+				background: #275D80;
+				padding-top: 1px;
+				padding-right: 1px;
+				padding-bottom: 1px;
+				padding-left: 1px;
+				// border: 1px solid #9999bb;
+				border: None;
+				border-radius: 5px;
+				margin: 5px 5px;
+			}
+
+			#columnA span:hover,
+			#columnB span:hover,
+			#column2 span:hover {
+				background: #ff0000;
+				color: #000000;
+				}
+
+
+			#upperLevels {
+				height:120px;
+				overflow: auto;
+				overflow-y: auto;
+				float: left;
+				font-family: "Courier New", Courier, monospace;
+				margin-top: 5px;
+				margin-bottom: 5px;
+				line-height: 1.2;
+			}
+
+			span {
+				display:inline-block;
+				padding-top: 5px;
+				padding-right: 3px;
+				padding-bottom: 1px;
+				padding-left: 1px;
+				// border: 1px solid #606060;
+				border: none;
+				border-radius: 5px;
+				margin: 5px 5px;
+			}
+
+			.W {
+				background: #275D80;
+			}
+
+			.C {
+				background: #606060;
+			}
+
+			#upperLevels span:hover,
+			#column2 span:hover {
+				background: #ff0000;
+				color: #000000;
+				}
+
+			#header-bar span {
+				background: #000000;
+				padding: 1px;
+				border: 1px solid #ff0000;
+				margin: 1px;
+				color: #ff0000;
+			}
+
+			#column1 {
+				overflow: auto;
+				float:left;
+				width:25%;
+				padding:0px;
+				border:1px solid #ccffff;
+			}
+
+			#column2 {
+				// overflow: auto;
+				float:left;
+				width:74%;
+				padding:0px;
+				line-height: 170%;
+				// margin: 5px 5px;
+				// border:1px solid #ccffff;
+			}
+
+			#suggestions span {
+				background: #336633;
+				padding: 1px;
+				// border: 1px solid #00bb00;
+				border: None;
+				border-radius: 5px;
+				margin: 3px;
+			}
+
+			.selected td {
+				background: #003333;
+				border: 1px solid #00bb00;
+			}
+
+			/* Drop-down button */
+			.dropbtn {
+				background-color: #3498DB;
+				color: blue;
+				padding: 2px;
+				border: none;
+				cursor: pointer;
+			}
+
+			/* container <div> -- needed to position the dropdown content */
+			.dropdown {
+				position: relative;
+				display: inline-block;
+			}
+
+			/* dropdown content (hidden by default) */
+			.dropdown-content {
+				display: none;
+				position: absolute;
+				background-color: #3498DB;
+				padding: 10px;
+				/* text-align: justify; */
+				/* text-align-last: center; */
+			    max-width: 410px;
+				margin-left: 70px;
+				z-index: 1;
+			}
+
+			/* Links inside the dropdown */
+			.dropdown-content a {
+				color: black;
+				padding: 12px 16px;
+				text-decoration: none;
+				display: block;
+			}
+
+			/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+			.show {display:block;}
+		
+		</style>
+	</head>
+
+	<body>
+		<input type="text" id="white-box" style="width:98%; height:120%;"
+		ondrop="drop(event);" ondragover="allowDrop(event)" value="">
+
+		<div><span id="▼" style="color:gray;">▼</span>
+		<span id="pinyin-bar"></span>
+		<button type="button" id="quick-simplify">简</button>
+		<button type="button" id="quick-complex">烦</button>
+		<button type="button" id="send-white">↲</button>
+		<button type="button" id="clear-white">X</button>
+		<button type="button" id="smile">:)</button>
+		<button type="button" id="quotes">┌</button>
+		<button type="button" id="parentheses">()</button>
+		<button type="button" id="to-dream">梦</button>
+		<!--button type="button" id="send-clipboard">✂</button-->
+
+		<button onclick="onDropDown()" class="dropbtn">❋</button>
+		<div id="dropdown" class="dropdown-content">
+			<button type="button" id="do-log">log</button>
+			<button type="button" id="do-history">show history</button>
+			<button type="button" id="do-URL-escape">URL un-escape</button>
+			<button type="button" id="do-Google">Google</button>
+			<button type="button" id="do-traditionalize">繁</button>
+			<button type="button" id="do-Mandarin">国语</button>
+			<button type="button" id="do-Cantonese">广东话</button>
+			<button type="button" id="do-pinyin">拼音</button>
+			<button type="button" id="do-resize">re-size</button>
+			<input type="checkbox" id="simplify" style="width:20px; height:20px;">简</input>
+		</div>
+
+		<button type="button" id="paste1">1</button>
+		<button type="button" id="paste2">2</button>
+		<button type="button" id="paste3">3</button>
+
+		<button type="button" id="chin-or-eng" style="color:white; background-color:green;">En</button>
+		</div>
+		<span id="pinyin-box" style="width:100%; color:#8888ff">abc</span>
+
+		<div id="upperLevels">
+			<div id="columnA">&nbsp;
+			</div>
+
+			<div id="columnB">&nbsp;
+			</div>
+
+		  <br style="clear:both;"/>
+		</div>
+
+		<div id="mid-levels">
+			<div id="header-bar"></div>
+
+			<div id="column1">
+				<table id="sub-dirs">
+				</table>
+			</div>
+
+			<div id="column2">
+				<table id="suggestions">
+				</table>
+			</div>
+
+			<!--br style="clear:both;"/-->
+		</div>
+
+
+		<div id="bottom">
+			<input type="checkbox" id="delete" style="width:20px; height:20px;">delete
+			<input type="checkbox" id="change" style="width:20px; height:20px;">change
+			<input type="checkbox" id="append" style="width:20px; height:20px;">add
+			<button type="button" id="insert" style="color: #aaffaa;">+</button>
+			<button type="button" id="add-child" style="color: #aaffaa;">+node</button>
+
+			<br>
+			<button type="button" id="loadDB">load</button>
+			<button type="button" id="saveDB">save</button>
+			&nbsp; <a href="javascript:loadDB('synonym_forest.txt')">同義詞詞林</a>
+			&nbsp; <a href="javascript:loadDB('rogets_thesaurus.txt')">Roget's</a>
+			&nbsp; <button type="button" id="flush-typings">typings</button>
+		</div>
+
+		<!-- dummy variables: -->
+		<span id="pinyin-box" style="display:none;"></span>
+
+		<script src="js/min/jquery-1.10.1.min.js"></script>
+		<script src="js/min/neo4j-web.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/Cantonese-pinyin.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/history.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/phrases.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/text-n-char-utils.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/misc-buttons.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/Conkey-database.js"></script>
+
+	</body>
+</html>

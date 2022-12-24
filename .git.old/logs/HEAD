@@ -1,0 +1,82 @@
+0000000000000000000000000000000000000000 795d4472a12296956fe55d7f39afc58619253536 Yan King Yin <yky@Vivobook.(none)> 1546839959 +0800	clone: from https://github.com/Cybernetic1/conceptual-keyboard.git
+795d4472a12296956fe55d7f39afc58619253536 234a9c398f4c92e5844e7e59aec26ddb1d7890ec Cybernetic1 <generic.intelligence@gmail.com> 1547023896 +0800	commit: adjust for Vivobook
+234a9c398f4c92e5844e7e59aec26ddb1d7890ec 3ef73b0c4aca08fda24aa29365673fc64a38b090 Cybernetic1 <generic.intelligence@gmail.com> 1547394755 +0800	commit: load-firefox.sh
+3ef73b0c4aca08fda24aa29365673fc64a38b090 3ef73b0c4aca08fda24aa29365673fc64a38b090 Cybernetic1 <generic.intelligence@gmail.com> 1560057580 +0800	reset: moving to HEAD
+3ef73b0c4aca08fda24aa29365673fc64a38b090 3ef73b0c4aca08fda24aa29365673fc64a38b090 Cybernetic1 <generic.intelligence@gmail.com> 1560057739 +0800	reset: moving to HEAD
+3ef73b0c4aca08fda24aa29365673fc64a38b090 ebce1e9373a17be031d3e158ca01ff38b2074612 Cybernetic1 <generic.intelligence@gmail.com> 1560057746 +0800	pull origin master: Fast-forward
+ebce1e9373a17be031d3e158ca01ff38b2074612 eae878deb9e99fa42acca8866811f88af291844d Cybernetic1 <generic.intelligence@gmail.com> 1562030243 +0800	commit: minor
+eae878deb9e99fa42acca8866811f88af291844d d67aeaaf40fe2742affdb2b84452ca1667fa1839 Cybernetic1 <generic.intelligence@gmail.com> 1562030418 +0800	commit (merge): Merge branch 'master' of https://github.com/Cybernetic1/conceptual-keyboard
+d67aeaaf40fe2742affdb2b84452ca1667fa1839 574f74cb79c1c455aec07a8e6c45e651cc26cf95 Cybernetic1 <generic.intelligence@gmail.com> 1573587658 +0800	commit: 撚
+574f74cb79c1c455aec07a8e6c45e651cc26cf95 0c2d504dd5155a3a81e6169e1e3790df5c533c22 Cybernetic1 <generic.intelligence@gmail.com> 1574250567 +0800	pull: Fast-forward
+0c2d504dd5155a3a81e6169e1e3790df5c533c22 cf34131bb820bda1b97f7aa7e751e118ea334381 Cybernetic1 <generic.intelligence@gmail.com> 1574275842 +0800	commit: fix message-passing bug
+cf34131bb820bda1b97f7aa7e751e118ea334381 3e4eeb81574d31106d02e04022b8048082ff88b2 Cybernetic1 <generic.intelligence@gmail.com> 1574276591 +0800	commit: minor
+3e4eeb81574d31106d02e04022b8048082ff88b2 ce7eb7c0f9b5d11f037eaa8cf940a6138340d1c2 Cybernetic1 <generic.intelligence@gmail.com> 1574658239 +0800	pull: Fast-forward
+ce7eb7c0f9b5d11f037eaa8cf940a6138340d1c2 2e5271ad3b8854ebdc9ff6529a6b8c21029095ff Cybernetic1 <generic.intelligence@gmail.com> 1578118894 +0800	pull: Fast-forward
+2e5271ad3b8854ebdc9ff6529a6b8c21029095ff eb826a8123e7bbae5c2f61a570e5ba23019899d2 Cybernetic1 <generic.intelligence@gmail.com> 1579067671 +0800	pull: Fast-forward
+eb826a8123e7bbae5c2f61a570e5ba23019899d2 ea2827654aa9d6fb91bbe989638839cfe12a6208 Cybernetic1 <generic.intelligence@gmail.com> 1582626109 +0800	pull: Fast-forward
+ea2827654aa9d6fb91bbe989638839cfe12a6208 93955beb48eae52d63a61994cf4f77ae3ec6f166 Cybernetic1 <generic.intelligence@gmail.com> 1586159298 +0800	pull: Fast-forward
+93955beb48eae52d63a61994cf4f77ae3ec6f166 f94c937361e1612307b3169d5b34fe624f76b3f9 Cybernetic1 <generic.intelligence@gmail.com> 1586159331 +0800	commit: use vivaldi
+f94c937361e1612307b3169d5b34fe624f76b3f9 a29e5e7aa60ac6df0d3d101ac2c9d5c48acbfcf4 Cybernetic1 <generic.intelligence@gmail.com> 1590989113 +0800	pull: Fast-forward
+a29e5e7aa60ac6df0d3d101ac2c9d5c48acbfcf4 2f8929366fc27627801c4dd2b50ac52a2ccfa464 Cybernetic1 <generic.intelligence@gmail.com> 1591090815 +0800	commit: traditionalize
+2f8929366fc27627801c4dd2b50ac52a2ccfa464 2d4ebf56eab72c96e04211124cca5b1499edf0a2 Cybernetic1 <generic.intelligence@gmail.com> 1605108658 +0800	commit: minor
+2d4ebf56eab72c96e04211124cca5b1499edf0a2 d502056949cb4ab452b1fdacc89a25bf5e7a2cef Cybernetic1 <generic.intelligence@gmail.com> 1605108856 +0800	commit (merge): minor merge
+d502056949cb4ab452b1fdacc89a25bf5e7a2cef ce4e8337af8c3f1545ff27e107d319607e7a261c Cybernetic1 <generic.intelligence@gmail.com> 1609766181 +0800	pull: Fast-forward
+ce4e8337af8c3f1545ff27e107d319607e7a261c 963178b6d685ec1bf79cf77557b16f88c6649e5d Cybernetic1 <generic.intelligence@gmail.com> 1611928972 +0800	commit: load firefox glitch
+963178b6d685ec1bf79cf77557b16f88c6649e5d cf2a9f9fef54912fcab0ae65e25848286eb4d4e3 Cybernetic1 <generic.intelligence@gmail.com> 1614774373 +0800	pull: Merge made by the 'recursive' strategy.
+cf2a9f9fef54912fcab0ae65e25848286eb4d4e3 bd6e0cc7b8812f14c1ce4ef7d87c061dc15fe522 Cybernetic1 <generic.intelligence@gmail.com> 1616047376 +0800	pull: Merge made by the 'recursive' strategy.
+bd6e0cc7b8812f14c1ce4ef7d87c061dc15fe522 39fde46bb95fc66ac4a9ca0583d87df2eee1b30d Cybernetic1 <generic.intelligence@gmail.com> 1616578091 +0800	commit: Canto input method
+39fde46bb95fc66ac4a9ca0583d87df2eee1b30d e68d9642dad57c0bf8818b7764cf808495dca92e Cybernetic1 <generic.intelligence@gmail.com> 1616608005 +0800	commit: exact Google pinyins
+e68d9642dad57c0bf8818b7764cf808495dca92e 7e11db9a9e5743ab6ed3837c49cee762a6c09088 Cybernetic1 <generic.intelligence@gmail.com> 1616612251 +0800	commit: exact Google pinyin list
+7e11db9a9e5743ab6ed3837c49cee762a6c09088 a93e2748e69460344e8bdff87d1096d3d20f5a43 Cybernetic1 <generic.intelligence@gmail.com> 1616615234 +0800	commit: minor
+a93e2748e69460344e8bdff87d1096d3d20f5a43 325c7279423f7087b759f74c6c133ab9259df621 Cybernetic1 <generic.intelligence@gmail.com> 1616752900 +0800	pull: Fast-forward
+325c7279423f7087b759f74c6c133ab9259df621 814c16d2eefab2329e5612d97563e35dd009ef83 Cybernetic1 <generic.intelligence@gmail.com> 1616787646 +0800	commit: got Canto consonants vowels
+814c16d2eefab2329e5612d97563e35dd009ef83 613e0382f74947f6ce74bb6326b3841ef5e6c376 Cybernetic1 <generic.intelligence@gmail.com> 1616930488 +0800	commit: use relative frequencies
+613e0382f74947f6ce74bb6326b3841ef5e6c376 cf4dd260ff7eabbf75cc3b23f4b2e5dc38b7ef2f Cybernetic1 <generic.intelligence@gmail.com> 1616930567 +0800	commit (merge): Merge branch 'master' of https://github.com/Cybernetic1/conceptual-keyboard
+cf4dd260ff7eabbf75cc3b23f4b2e5dc38b7ef2f 5e3aeb363619b36c3e82c4a6243d71eb3465c246 Cybernetic1 <generic.intelligence@gmail.com> 1616940944 +0800	commit: consonants etc
+5e3aeb363619b36c3e82c4a6243d71eb3465c246 6f77e3167eb924f38707cd4be2462c1c1e74264e Cybernetic1 <generic.intelligence@gmail.com> 1617005031 +0800	pull: Fast-forward
+6f77e3167eb924f38707cd4be2462c1c1e74264e 43112160fa1cfec248d60a432aa88d4a6dc77498 Cybernetic1 <generic.intelligence@gmail.com> 1617021591 +0800	commit: YKY custom pinyins
+43112160fa1cfec248d60a432aa88d4a6dc77498 e13f08b3e8e9700d5d3c069f4d8949c08107bd8a Cybernetic1 <generic.intelligence@gmail.com> 1617154558 +0800	pull: Fast-forward
+e13f08b3e8e9700d5d3c069f4d8949c08107bd8a 7cee5e9c3def93700c17b20f709cd07453c22d9b Cybernetic1 <generic.intelligence@gmail.com> 1617164605 +0800	commit: YKY pinyins
+7cee5e9c3def93700c17b20f709cd07453c22d9b 2a95471a481eea695a08e89d7b9875571396d6f4 Cybernetic1 <generic.intelligence@gmail.com> 1617187520 +0800	pull: Fast-forward
+2a95471a481eea695a08e89d7b9875571396d6f4 a243340b7dfb681e4540bc07b9a4a124e98f5943 Cybernetic1 <generic.intelligence@gmail.com> 1617471235 +0800	pull: Fast-forward
+a243340b7dfb681e4540bc07b9a4a124e98f5943 89c282b342d84129dc40fe288d33135e0a1b303e Cybernetic1 <generic.intelligence@gmail.com> 1617774209 +0800	pull: Fast-forward
+89c282b342d84129dc40fe288d33135e0a1b303e 3cb90b8142e10fce3d4ef767cf7bbd2f0271c335 Cybernetic1 <generic.intelligence@gmail.com> 1617778830 +0800	commit: almost migrated completely
+3cb90b8142e10fce3d4ef767cf7bbd2f0271c335 6c40a73c0f41b4145579937d012ac3291ae763db Cybernetic1 <generic.intelligence@gmail.com> 1617778894 +0800	commit: icant.sh
+6c40a73c0f41b4145579937d012ac3291ae763db 2af8978adcae5e33c9d042501619b995e825ad78 Cybernetic1 <generic.intelligence@gmail.com> 1617792505 +0800	commit: customize YKY.py
+2af8978adcae5e33c9d042501619b995e825ad78 59604ee71982f8d54a4ec6a039cb0928511bda8b Cybernetic1 <generic.intelligence@gmail.com> 1617798707 +0800	commit: recognize 2-char words
+59604ee71982f8d54a4ec6a039cb0928511bda8b 7037016677d98f47b28d69197ae86c532a657b4a Cybernetic1 <generic.intelligence@gmail.com> 1617805489 +0800	commit: added neo4j database dump
+7037016677d98f47b28d69197ae86c532a657b4a 2c64c5f7cfcb48722b0e142870f7422aafc1410f Cybernetic1 <generic.intelligence@gmail.com> 1617808277 +0800	commit: build graph DB-2.py
+2c64c5f7cfcb48722b0e142870f7422aafc1410f 5ae22e471e1b1fb056497f49e332e9410abbc093 Cybernetic1 <generic.intelligence@gmail.com> 1617873325 +0800	pull: Fast-forward
+5ae22e471e1b1fb056497f49e332e9410abbc093 4f688bc588b405a96211cd2f0441a71c7be0d135 Cybernetic1 <generic.intelligence@gmail.com> 1617882212 +0800	commit: words.js
+4f688bc588b405a96211cd2f0441a71c7be0d135 8c1be79e18dab754240b611e5a677aa573f66e4e Cybernetic1 <generic.intelligence@gmail.com> 1617900815 +0800	commit: some custom pinyins
+8c1be79e18dab754240b611e5a677aa573f66e4e a44136ad3ed0a5cf03469e69072106a753c1f713 Cybernetic1 <generic.intelligence@gmail.com> 1617956006 +0800	pull: Fast-forward
+a44136ad3ed0a5cf03469e69072106a753c1f713 87d8a62d07f2f10cdea58a0164536f2a1b506362 Cybernetic1 <generic.intelligence@gmail.com> 1617964687 +0800	commit: test-chars.js working perfectly
+87d8a62d07f2f10cdea58a0164536f2a1b506362 b9b2519598b5ff779bc56a2da76749552546ae0f Cybernetic1 <generic.intelligence@gmail.com> 1617979396 +0800	commit: test-chars.js
+b9b2519598b5ff779bc56a2da76749552546ae0f 8cffc82d72434eaac1f62e181cc2ed749df005c3 Cybernetic1 <generic.intelligence@gmail.com> 1617983466 +0800	commit: drop and raise Conkey menu
+8cffc82d72434eaac1f62e181cc2ed749df005c3 805d25a7f070664c4a4ac35d953df8bb7e32697c Cybernetic1 <generic.intelligence@gmail.com> 1618140818 +0800	pull: Fast-forward
+805d25a7f070664c4a4ac35d953df8bb7e32697c fc73e73dfc7f73c31c1d9ce9bff208a9d06f6abe Cybernetic1 <generic.intelligence@gmail.com> 1618143399 +0800	commit: more data files
+fc73e73dfc7f73c31c1d9ce9bff208a9d06f6abe 723724bd673835862c39f3e7c67f26be006690e1 Cybernetic1 <generic.intelligence@gmail.com> 1618148123 +0800	commit: merge freq lists
+723724bd673835862c39f3e7c67f26be006690e1 dc9c6d073b665ff57c3ff13b583ef2900384bd0b Cybernetic1 <generic.intelligence@gmail.com> 1618295479 +0800	pull: Fast-forward
+dc9c6d073b665ff57c3ff13b583ef2900384bd0b 27d23545394b99e8b4c7cd054e0851e9b725e0e6 Cybernetic1 <generic.intelligence@gmail.com> 1618302808 +0800	pull: Fast-forward
+27d23545394b99e8b4c7cd054e0851e9b725e0e6 0d31d5db00e9135b6ac344a836ecc3b3c2c36b2d Cybernetic1 <generic.intelligence@gmail.com> 1618439339 +0800	pull: Fast-forward
+0d31d5db00e9135b6ac344a836ecc3b3c2c36b2d a6a8b576972455251907b68205d28ad87c19f3f3 Cybernetic1 <generic.intelligence@gmail.com> 1618621485 +0800	pull: Fast-forward
+a6a8b576972455251907b68205d28ad87c19f3f3 cdc17cecf4cd8ffecaf7950e1fa52ca21f6fcb41 Cybernetic1 <generic.intelligence@gmail.com> 1618967578 +0800	pull: Fast-forward
+cdc17cecf4cd8ffecaf7950e1fa52ca21f6fcb41 bf1f96bc023c0036e42f5f8206dbe0ff9fd46141 Cybernetic1 <generic.intelligence@gmail.com> 1618996853 +0800	commit: minor
+bf1f96bc023c0036e42f5f8206dbe0ff9fd46141 8fd4dedcc9313176a1b3404e3b80070aa76855b7 Cybernetic1 <generic.intelligence@gmail.com> 1619544688 +0800	commit: minor
+8fd4dedcc9313176a1b3404e3b80070aa76855b7 d9996fe44011feb17ba6c0c4e264ac206b873d59 Cybernetic1 <generic.intelligence@gmail.com> 1619544698 +0800	pull: Merge made by the 'recursive' strategy.
+d9996fe44011feb17ba6c0c4e264ac206b873d59 9f31045f4963e43e89808dfbd9baf978386b2f62 Cybernetic1 <generic.intelligence@gmail.com> 1619771000 +0800	commit: minor
+9f31045f4963e43e89808dfbd9baf978386b2f62 cb644930ccd86be4208e18ec46a59ec06973e4c2 Cybernetic1 <generic.intelligence@gmail.com> 1621838018 +0800	pull: Fast-forward
+cb644930ccd86be4208e18ec46a59ec06973e4c2 9186c37168f52fa6873b0ab3fbc819042a75daf1 Cybernetic1 <generic.intelligence@gmail.com> 1623286181 +0800	pull: Fast-forward
+9186c37168f52fa6873b0ab3fbc819042a75daf1 2f60e97785fdb5b50de8bdd39a5c55d09bdd33e1 Cybernetic1 <generic.intelligence@gmail.com> 1627789153 +0800	pull: Fast-forward
+2f60e97785fdb5b50de8bdd39a5c55d09bdd33e1 7a18931d0791f3cba9cd9c8ed80c8540b11fcddf Cybernetic1 <generic.intelligence@gmail.com> 1627867496 +0800	pull: Fast-forward
+7a18931d0791f3cba9cd9c8ed80c8540b11fcddf c31e73674697e1e861d38ebf136063d0b5b3aeae Cybernetic1 <generic.intelligence@gmail.com> 1628443752 +0800	pull: Fast-forward
+c31e73674697e1e861d38ebf136063d0b5b3aeae f6a3f5ad2222c0432e9bf444582aae8fa9f28eb8 Cybernetic1 <generic.intelligence@gmail.com> 1628468438 +0800	commit: selenium exception
+f6a3f5ad2222c0432e9bf444582aae8fa9f28eb8 4fc5482064a6a2cf61bc216eb84899c195c7ace7 Cybernetic1 <generic.intelligence@gmail.com> 1628477418 +0800	pull: Fast-forward
+4fc5482064a6a2cf61bc216eb84899c195c7ace7 fd6c26a1f6a9c767391efadbc17fc27993085ae3 Cybernetic1 <generic.intelligence@gmail.com> 1628593029 +0800	commit: fix playsound bug -- not really in the code
+fd6c26a1f6a9c767391efadbc17fc27993085ae3 cc38f50a5d37946188cbd1ef591cf077b2a2e1b2 Cybernetic1 <generic.intelligence@gmail.com> 1629905267 +0800	pull: Fast-forward
+cc38f50a5d37946188cbd1ef591cf077b2a2e1b2 e62b49ccbf0e6963404118472ce701887a42cbea Cybernetic1 <generic.intelligence@gmail.com> 1632127714 +0800	pull: Fast-forward
+e62b49ccbf0e6963404118472ce701887a42cbea 78397625be25cbc6b5b459c0610331735305708a Cybernetic1 <generic.intelligence@gmail.com> 1639361080 +0800	pull: Fast-forward
+78397625be25cbc6b5b459c0610331735305708a c7f02dce90120d06c055d524786238b2b3cdb619 Cybernetic1 <generic.intelligence@gmail.com> 1639386019 +0800	commit: UT-room parse HTML works
+c7f02dce90120d06c055d524786238b2b3cdb619 5c9709c6072d27e821712fd8512c0349153b50c3 Cybernetic1 <generic.intelligence@gmail.com> 1641445733 +0800	pull: Fast-forward
+5c9709c6072d27e821712fd8512c0349153b50c3 df23147d9def6128d6129408aab7046576ff22fa Cybernetic1 <generic.intelligence@gmail.com> 1670785414 +0800	pull: Fast-forward
+df23147d9def6128d6129408aab7046576ff22fa d4a0e4f721bd66fca5acc5038e4f0fdf8c85547d Cybernetic1 <generic.intelligence@gmail.com> 1671807813 +0800	pull: Fast-forward
