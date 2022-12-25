@@ -24,6 +24,7 @@
 	"content_scripts": [
 
 		{"matches": [
+			"*://chat.f1.com.tw/*",
 			"*://ip131.ek21.com/oaca_1/*",
 			"*://ip4.ek21.com/ofi_11/*",
 			"*://ip69.ek21.com/ofi_11/*",

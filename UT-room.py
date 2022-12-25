@@ -111,7 +111,7 @@ time.sleep(1)	# in seconds
 driver.find_element('xpath', '/html/body/form/table/tbody/tr/td[2]/input').send_keys(my_nick)
 Select(driver.find_element('xpath', '/html/body/form/table/tbody/tr/td[4]/select')).select_by_index(0) # male
 Select(driver.find_element('xpath', '/html/body/form/table/tbody/tr/td[8]/select')).select_by_index(21) # Hong Kong
-Select(driver.find_element('xpath', '/html/body/form/table/tbody/tr/td[10]/select')).select_by_index(50-17) # age = 50
+Select(driver.find_element('xpath', '/html/body/form/table/tbody/tr/td[10]/select')).select_by_index(50-17) # age = 51
 driver.find_element('xpath', '/html/body/table[6]/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr[2]/td[1]/a').click()
 
 print("Logged into UT网际空间 聊天二房")

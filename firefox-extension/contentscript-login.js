@@ -26,8 +26,12 @@ function findNickname() {
 	console.log("Current nickname =", nickname);
 	}
 
+function getElementByXpath(path) {
+	return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+	}
+
 function autoLogin() {
-	// ****** 寻梦园, fill in password
+	// ****** 寻梦园, fill in name
 	if ((document.URL.indexOf("ip131.ek21.com\/oaca") >= 0) ||
 		(document.URL.indexOf("ip69.ek21.com\/ofi") >= 0) ||
 		(document.URL.indexOf("ip203.ek21.com\/ofi") >= 0) ||
@@ -35,13 +39,24 @@ function autoLogin() {
 		{
 		document.getElementsByClassName("nameform 12")[0].value = nickname;
 		document.getElementsByClassName("mainenter")[0].click();
-	}
+		}
 
-	// ****** chatroom.HK, fill in password
-	if (document.URL.indexOf("chatroom.hk") >= 0) {
+	// ****** chatroom.HK, fill in name
+	if (document.URL.indexOf("chatroom.hk") >= 0)
+		{
 		document.getElementById("name").value = nickname;
 		document.getElementById("submit").click();
-	}
+		}
+
+	// ****** UT-room, fill in details
+	if (document.URL.indexOf("chat.f1.com.tw") >= 0)
+		{
+		getElementByXpath('/html/body/form/table/tbody/tr/td[2]/input').value = nickname;
+		getElementByXpath('/html/body/form/table/tbody/tr/td[4]/select').value = 1; // male
+		getElementByXpath('/html/body/form/table/tbody/tr/td[8]/select').value = 21; // Hong Kong
+		getElementByXpath('/html/body/form/table/tbody/tr/td[10]/select').value = 51; // age
+		getElementByXpath('/html/body/table[6]/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr[2]/td[1]/a').click();
+		}
 }
 
 document.addEventListener("keypress", function (event) {

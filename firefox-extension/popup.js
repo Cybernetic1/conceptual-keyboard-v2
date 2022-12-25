@@ -51,7 +51,9 @@ function onClickButt5() {
 
 // reload extension
 function onClickButt6() {
+	myPort.postMessage({alert: "browser-reload"});
 	browser.runtime.reload();
+	// Seems that stuffs below here are unused...
 	setTimeout(function() {
 		window.close();
 		}, 500);
@@ -68,11 +70,10 @@ function onClickButt7() {
 
 // select nickname
 function onSelectNickname() {
-	myPort.postMessage({alert: "boing"});
-	// browser.runtime.sendMessage({alert: "boing"});
 	var name = document.getElementById("Nickname").value;
 	console.log("Selected nick =", name);
 	sessionStorage.setItem("YKY-nickname", name);
+	myPort.postMessage({alert: name});		// Common nicknames have a sound file
 	myPort.postMessage({selectNickname: name});
 	// browser.runtime.sendMessage({selectNickname: name});
 	setTimeout(function() {
