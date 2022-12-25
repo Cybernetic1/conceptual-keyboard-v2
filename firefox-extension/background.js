@@ -2,11 +2,9 @@
 // Read from Conceptual Keyboard tab and feed into input box of another tab.
 
 var theNickname = "Cybernetic1";
-var whoIsActive = "";			// to be filled with a URL
+var whoIsActive = null;			// to be filled with a URL
 
-var port_map = {	// dictionary to look up port for each chatroom
-	"" : null
-	};
+var port_map = {};	// dictionary to look up port for each chatroom
 
 // **** The "stream" listens to Conkey.js
 
@@ -37,14 +35,16 @@ function connected(p) {
 	const url = p.sender.url;
 	console.log("CONNECTED to tab:", url, "with port:", p);
 
-	port_map[url] = p;			// record the port for this URL
-	whoIsActive = url;
+	// **** Record the port for this URL
+	if (p.name !== "PORT-popup") {		// no need to connect to popup
 
-	// console.log("Background: CONNECTED to content-scripts-2");
-	// portScript2.postMessage({greeting: "hi there content script2!"});
+		port_map[url] = p;
+		whoIsActive = url;
+
+		initEventSource();
+		}
 
 	p.onMessage.addListener(backListener);
-	initEventSource();
 }
 
 browser.runtime.onConnect.addListener(connected);

@@ -1,6 +1,5 @@
-// var app = chrome.runtime.getBackgroundPage();
-
 // **** These commands are processed in background.js ****
+// Seems that this port is disconnected as soon as the popup window is closed
 let myPort = browser.runtime.connect({name: "PORT-popup"});
 
 // test sound
@@ -87,6 +86,5 @@ document.getElementById('butt3').addEventListener('click', onClickButt3);
 document.getElementById('butt4').addEventListener('click', onClickButt4);
 document.getElementById('butt5').addEventListener('click', onClickButt5);
 document.getElementById('butt6').addEventListener('click', onClickButt6);
-document.getElementById('butt7').addEventListener('click', onClickButt6);
-
+document.getElementById('butt7').addEventListener('click', onClickButt7);
 document.getElementById('Nickname').addEventListener('change', onSelectNickname);
