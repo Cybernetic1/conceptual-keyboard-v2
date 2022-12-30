@@ -25,10 +25,11 @@ white_box.onkeypress = function(e) {
 	}
 };
 
-// This button controls where to send messages: Dream or Firefox
-// **** There is possibly a misnomer here...
-// Dream = UT-room.py 网际空间 = Dream Stream
-// Firefox = HK Chatroom (= other 寻梦园's ?)
+// This button controls where to send messages: UT stream or Firefox stream
+// As the universal stream is now working perfectly, this function is not
+// needed.
+// UT Stream = UT-room.py 网际空间
+// Firefox = HK Chatroom (and other 寻梦园's) = universal
 var dreamState = document.getElementById('UT-or-all');
 dreamState.onclick = function () {
 	if (this.value == "UT") {

@@ -65,7 +65,7 @@ function history() {
 // browser.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 myPort.onMessage.addListener(function (request) {
-	// console.log("processing message...");
+	console.log("processing message...");
 	// console.log(sender.tab ?	"from a content script:" + sender.tab.url :	"from the extension");
 	// console.log("roomHKChat =", roomHKChat);
 	// console.log("me =", document.URL);
@@ -200,7 +200,7 @@ myPort.onMessage.addListener(function (request) {
 			}
 
 		// **** for UT-room UT-网际空间
-		if (document.URL.indexOf("60.199.209.72/VIP5D/index.phtml") >= 0)
+		if (document.URL.indexOf("/VIP5D/index.phtml") >= 0)
 			{
 			var inputBox = document.getElementsByName("c")[0].contentWindow.document.getElementsByName("SAYS")[0];
 			// console.log("DOM element: " + inputBox);

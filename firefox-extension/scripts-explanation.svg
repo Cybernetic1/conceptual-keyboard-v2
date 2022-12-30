@@ -6,7 +6,7 @@
    height="376.40378"
    id="svg2"
    version="1.1"
-   inkscape:version="1.2.1 (1:1.2.1+202210291244+9c6d41e410)"
+   inkscape:version="1.2.2 (1:1.2.2+202212051550+b0a8486541)"
    sodipodi:docname="scripts-explanation.svg"
    inkscape:export-filename="scripts-explanation.png"
    inkscape:export-xdpi="80"
@@ -145,6 +145,84 @@
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
          transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend9313"
+       orient="auto"
+       refY="0"
+       refX="0"
+       style="overflow:visible"
+       id="Arrow1Mend9313">
+      <path
+         id="path17095"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill-rule:evenodd;stroke:#0000ff;stroke-width:1pt;stroke-opacity:1.0;fill-opacity:1.0;fill:#0000ff"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend2915"
+       orient="auto"
+       refY="0"
+       refX="0"
+       style="overflow:visible"
+       id="Arrow1Mend2915">
+      <path
+         id="path17098"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill-rule:evenodd;stroke:#0000ff;stroke-width:1pt;stroke-opacity:1.0;fill-opacity:1.0;fill:#0000ff"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend2722"
+       orient="auto"
+       refY="0"
+       refX="0"
+       style="overflow:visible"
+       id="Arrow1Mend2722">
+      <path
+         id="path17365"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1.0;fill-opacity:1.0;fill:#ff0000"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend2059"
+       orient="auto"
+       refY="0"
+       refX="0"
+       style="overflow:visible"
+       id="Arrow1Mend2059">
+      <path
+         id="path17547"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill-rule:evenodd;stroke:#008000;stroke-width:1pt;stroke-opacity:1.0;fill-opacity:1.0;fill:#008000"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend9338"
+       orient="auto"
+       refY="0"
+       refX="0"
+       style="overflow:visible"
+       id="Arrow1Mend9338">
+      <path
+         id="path17835"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1.0;fill-opacity:1.0;fill:#ff0000"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend83"
+       orient="auto"
+       refY="0"
+       refX="0"
+       style="overflow:visible"
+       id="Arrow1Mend83">
+      <path
+         id="path18161"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill-rule:evenodd;stroke:#008000;stroke-width:1pt;stroke-opacity:1.0;fill-opacity:1.0;fill:#008000"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -161,8 +239,8 @@
      showgrid="false"
      inkscape:window-width="1036"
      inkscape:window-height="764"
-     inkscape:window-x="632"
-     inkscape:window-y="97"
+     inkscape:window-x="34"
+     inkscape:window-y="297"
      inkscape:window-maximized="0"
      showborder="true"
      inkscape:showpageshadow="0"
@@ -184,6 +262,22 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-5.0468749,-386.04654)">
+    <text
+       xml:space="preserve"
+       style="font-weight:300;font-size:17.3333px;line-height:1.25;font-family:'Alibaba PuHuiTi';-inkscape-font-specification:'Alibaba PuHuiTi, Light';letter-spacing:0px;word-spacing:0px;fill:#ff0000"
+       x="134.06041"
+       y="495.06122"
+       id="text17255-6"><tspan
+         sodipodi:role="line"
+         id="tspan17253-8"
+         x="134.06041"
+         y="495.06122"
+         style="font-weight:normal;font-size:17.3333px;fill:#ff0000">SSE-3</tspan><tspan
+         sodipodi:role="line"
+         x="134.06041"
+         y="516.72784"
+         style="font-weight:normal;font-size:17.3333px;fill:#ff0000"
+         id="tspan17935">/conkey</tspan></text>
     <flowRoot
        xml:space="preserve"
        id="flowRoot2985"
@@ -323,12 +417,12 @@
          id="flowPara3079"
          style="font-size:16px;line-height:1.25;font-family:sans-serif">&quot;contentscript2.js&quot;</flowPara></flowRoot>
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       style="fill:none;stroke:#008000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend2059)"
        d="m 92,467.36218 -1,71"
        id="path3081"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       style="fill:none;stroke:#ff0000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend9338)"
        d="m 116,537.36218 v -67"
        id="path3083"
        inkscape:connector-curvature="0" />
@@ -353,47 +447,96 @@
        id="path3083-1"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
-       d="m 218,567.61218 h 36"
+       style="fill:none;stroke:#ff0000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend2722)"
+       d="m 180,565.61218 h 92"
        id="path3083-9"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
-       d="m 256.75,583.36218 h -36"
+       style="fill:none;stroke:#008000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend83)"
+       d="m 272.75,583.36218 h -92"
        id="path3083-9-2"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
-       d="m 471.625,570.48718 h 36"
+       style="fill:none;stroke:#0000ff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend2915)"
+       d="m 461.625,556.48718 h 58"
        id="path3083-9-8"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
-       d="m 510.375,586.23718 h -36"
+       style="fill:none;stroke:#0000ff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend9313)"
+       d="m 520.375,592.23718 h -58"
        id="path3083-9-2-6"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot4432"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0.01%;font-family:sans-serif;-inkscape-font-specification:Sans;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0.01%;font-family:sans-serif;-inkscape-font-specification:Sans;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#808080;fill-opacity:1;stroke:none"
        transform="translate(-71,-12)"><flowRegion
          id="flowRegion4434"
-         style="font-family:sans-serif"><rect
+         style="font-family:sans-serif;fill:#808080"><rect
            id="rect4436"
            width="514"
            height="113"
            x="190"
            y="651.36218"
-           style="fill:#ff0000" /></flowRegion><flowPara
+           style="fill:#808080" /></flowRegion><flowPara
          id="flowPara4438"
-         style="font-size:16px;line-height:1.25;font-family:sans-serif">Note:  the various pages and their associated scripts must communicate by message passing in the routes shown above.</flowPara><flowPara
+         style="font-size:16px;line-height:1.25;font-family:sans-serif;fill:#808080">Note:  the various pages and their associated scripts must communicate by message passing in the routes shown above.</flowPara><flowPara
          id="flowPara4440"
-         style="font-size:16px;line-height:1.25;font-family:sans-serif"> </flowPara><flowPara
+         style="font-size:16px;line-height:1.25;font-family:sans-serif;fill:#808080"> </flowPara><flowPara
          id="flowPara4442"
-         style="font-size:16px;line-height:1.25;font-family:sans-serif">Only the background script can play a sound and read / write clipboard contents.</flowPara></flowRoot>
+         style="font-size:16px;line-height:1.25;font-family:sans-serif;fill:#808080">Only the background script can play a sound and read / write clipboard contents.</flowPara></flowRoot>
+    <text
+       xml:space="preserve"
+       style="font-weight:300;font-size:17.3333px;line-height:1.25;font-family:'Alibaba PuHuiTi';-inkscape-font-specification:'Alibaba PuHuiTi, Light';letter-spacing:0px;word-spacing:0px;fill:#0000ff"
+       x="470.25781"
+       y="579.60913"
+       id="text16995"><tspan
+         sodipodi:role="line"
+         id="tspan16993"
+         x="470.25781"
+         y="579.60913"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.3333px;font-family:'Alibaba PuHuiTi';-inkscape-font-specification:'Alibaba PuHuiTi';fill:#0000ff">port</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:300;font-size:17.3333px;line-height:1.25;font-family:'Alibaba PuHuiTi';-inkscape-font-specification:'Alibaba PuHuiTi, Light';letter-spacing:0px;word-spacing:0px;fill:#ff0000"
+       x="165.79007"
+       y="553.89905"
+       id="text17255"><tspan
+         sodipodi:role="line"
+         id="tspan17253"
+         x="165.79007"
+         y="553.89905"
+         style="font-weight:normal;font-size:17.3333px;fill:#ff0000">SSE-1/stream</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:300;font-size:17.3333px;line-height:1.25;font-family:'Alibaba PuHuiTi';-inkscape-font-specification:'Alibaba PuHuiTi, Light';letter-spacing:0px;word-spacing:0px;fill:#ff0000"
+       x="182.06041"
+       y="610.06122"
+       id="text17255-9"><tspan
+         sodipodi:role="line"
+         id="tspan17253-2"
+         x="182.06041"
+         y="610.06122"
+         style="font-weight:normal;font-size:17.3333px;fill:#008000">HTTP fetch</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:300;font-size:17.3333px;line-height:1.25;font-family:'Alibaba PuHuiTi';-inkscape-font-specification:'Alibaba PuHuiTi, Light';letter-spacing:0px;word-spacing:0px"
+       x="39.291275"
+       y="492.41742"
+       id="text17619"><tspan
+         sodipodi:role="line"
+         id="tspan17617"
+         x="39.291275"
+         y="492.41742"
+         style="font-weight:normal;font-size:17.3333px;fill:#008000">HTTP</tspan><tspan
+         sodipodi:role="line"
+         x="39.291275"
+         y="514.08405"
+         id="tspan17621"
+         style="font-weight:normal;font-size:17.3333px;fill:#008000">Ajax</tspan></text>
   </g>
 </svg>

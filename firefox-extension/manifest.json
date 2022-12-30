@@ -55,7 +55,11 @@
 
 	"permissions": [
 		"tabs",
-		"http://localhost/",
+		"webRequest",
+		"webRequestBlocking",
+		"http://localhost:8484/*",
+		"https://localhost:8484/*",
+		"<all_urls>",
 		"clipboardRead",
 		"clipboardWrite",
 		"contextMenus"

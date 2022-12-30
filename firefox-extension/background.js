@@ -67,6 +67,8 @@ function backListener(request) {
 		}
 
 	if (request.speak != null) {
+		// jQuery is undefined -- this won't work
+		console.log("jQuery =", window.jQuery);
 		$.ajax({
 			method: "POST",
 			url: "http://localhost:8484/shellCommand/",
@@ -86,6 +88,31 @@ function backListener(request) {
 	if (request.chatroom != null) {
 		whoIsActive = request.chatroom;
 		// console.log("switched to:", request.chatroom)
+
+		var whichRoom = "?";
+			 if (whoIsActive.indexOf("VIP5D") >= 0)
+			whichRoom = "UT";
+		else if (whoIsActive.indexOf("chatroom.hk") >= 0)
+			whichRoom = "HK";
+		else if (whoIsActive.indexOf("ip131") >= 0)
+			whichRoom = "梦1";
+		else if (whoIsActive.indexOf("ip4") >= 0)
+			whichRoom = "梦4";
+		else if (whoIsActive.indexOf("ip69") >= 0)
+			whichRoom = "梦6";
+		else if (whoIsActive.indexOf("ip203") >= 0)
+			whichRoom = "梦3";
+		// console.log("whichRoom =", whichRoom);
+
+		fetch('http://localhost:8484/whichRoom/', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json, text/plain, */*',
+				// important: if this content-type is not set it won't work
+				'Content-Type':'application/x-www-form-urlencoded'
+				},
+			body: whichRoom
+			}); // .then(res => console.log(res));
 		}
 
 	// Request to play an alert sound (must be done thru background page)

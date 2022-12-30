@@ -6,15 +6,18 @@
 // * ./saveDatabase/:name
 
 // FIXED:
-// * ./speakMandarin/, extra "text=" at beginning of data (fixed in contentscript2, ajax POST)
-// * log data is not decoded, with extra "data=" (fixed in contentscript2, ajax POST)
-// * log file name = "quick" if name is in Chinese; (added decodeURIComponent)
+// * ./speakMandarin/, extra "text=" at beginning of data
+//		(fixed in contentscript2, ajax POST)
+// * log data is not decoded, with extra "data="
+//		(fixed in contentscript2, ajax POST)
+// * log file name = "quick" if name is in Chinese;
+//		(added decodeURIComponent)
 // * ./saveChatLog/
 // * contentscript2 doesn't seem to load for 寻梦园 (add-on is temporary)
 // * ./fireFox "data" has '+' instead of spaces (fixed)
 // * to be able to output to 寻梦园 at least
 // * Strange, double sending /fireFox, why?  And it's always twice...!?
-//	 (is it because the login page triggered another copy of contentscript.js?)
+//	 (is it because login page triggered another copy of contentscript.js?)
 //	 (maybe because console.log($.ajax POST...)?)
 //   (problem seems disappeared now but I forgot why)
 // * how to decide if both Chrome and Firefox have chat windows?
@@ -55,11 +58,14 @@ var path = require("path");
 
 var sse_res = null;			// for SSE = Server-Side Events
 var sse_res2 = null;
+var sse_res3 = null;
 
 function reqHandler(req, res) {
 
-	// SSE handler:  this allows server to *respond* to events, as opposed to
-	// a plain server which can only be read from / written to.
+	// SSE handler: this allows server to *respond* to events, as opposed
+	// to a plain server which can only be read from / written to.
+	// SSE is *unidirectional*, it only sends from server to client
+	// the /stream is connected to Firefox extension's background.js
 	if (req.headers.accept && req.headers.accept == 'text/event-stream') {
 		if (req.url == '/stream') {
 			res.writeHead(200, {
@@ -75,7 +81,7 @@ function reqHandler(req, res) {
 			res.write(": \n\n");
 			// res.end();		// this causes "write after end" error
 			sse_res = res;
-			console.log("Connected event stream 1");
+			console.log("Connected event stream 1: /stream");
 		} else if (req.url == '/UTstream') {
 			res.writeHead(200, {
 				'Content-Type': 'text/event-stream; charset=utf-8',
@@ -90,7 +96,22 @@ function reqHandler(req, res) {
 			res.write(": \n\n");
 			// res.end();		// this causes "write after end" error
 			sse_res2 = res;
-			console.log("Connected event stream 2");
+			console.log("Connected event stream 2: /UTstream");
+		} else if (req.url == '/conkey') {
+			res.writeHead(200, {
+				'Content-Type': 'text/event-stream; charset=utf-8',
+				'Cache-Control': 'no-cache',
+				'Connection': 'keep-alive'
+			});
+			res.write("retry: 10000\n");
+			res.write("event: connecttime\n");
+			// res.write("data: " + (new Date()) + "\n\n");
+			// res.write("data: " + (new Date()) + "\n\n");
+			res.write(": \n\n");
+			res.write(": \n\n");
+			// res.end();		// this causes "write after end" error
+			sse_res3 = res;
+			console.log("Connected event stream 3: /conkey");
 		} else {
 			res.writeHead(404);
 			res.end();
@@ -104,29 +125,44 @@ function reqHandler(req, res) {
 	if (fileName === "/")
 		fileName = "/index.html";
 
-	// **** This is the route to send to firefox content script
+	// **** This is the route to send to Firefox content script
 	if (fileName === "/fireFox") {
-		const buffer1 = [];
-		req.on('data', chunk => buffer1.push(chunk));
+		const buffer = [];
+		req.on('data', chunk => buffer.push(chunk));
 		req.on('end', () => {
-			const data1 = Buffer.concat(buffer1);
+			const data = Buffer.concat(buffer);
 			if (sse_res != null)
-				sse_res.write("data: " + data1 + '\n\n');
-			console.log("data: " + data1);
+				sse_res.write("data: " + data + '\n\n');
+			console.log("SSE1 /firefox data: " + data);
 			// console.log(unescape(encodeURIComponent(data)));
 		});
 		res.end();
 		return;	}
 
+	// Similar to above, send to UT-room (obsolete now)
 	if (fileName === "/UT-room") {
-		const buffer1 = [];
-		req.on('data', chunk => buffer1.push(chunk));
+		const buffer = [];
+		req.on('data', chunk => buffer.push(chunk));
 		req.on('end', () => {
-			const data1 = Buffer.concat(buffer1);
+			const data = Buffer.concat(buffer);
 			if (sse_res2 != null)
-				sse_res2.write("data: " + data1 + '\n\n');
-			console.log("UT-room: " + data1);
+				sse_res2.write("data: " + data + '\n\n');
+			console.log("SSE2 /UT-room data: " + data);
 			// console.log(unescape(encodeURIComponent(data)));
+		});
+		res.end();
+		return;	}
+
+	// **** Notify server of active chatroom
+	if (fileName === "/whichRoom/") {
+		const buffer = [];
+		req.on('data', chunk => buffer.push(chunk));
+		req.on('end', () => {
+			const data = Buffer.concat(buffer);
+			// console.log("SSE3 (/whichRoom) data: " + data);
+			// send to SSE3 stream
+			if (sse_res3 != null)
+				sse_res3.write("data: " + data + '\n\n');
 		});
 		res.end();
 		return;	}
@@ -357,11 +393,11 @@ function reqHandler(req, res) {
 var s = http.createServer(reqHandler);
 s.listen(8484, "127.0.0.1");
 
-var s2 = http.createServer(reqHandler);		// Seems redundant??
-s2.listen(8585, "127.0.0.1");
+// var s2 = http.createServer(reqHandler);		// Seems redundant??
+// s2.listen(8585, "127.0.0.1");
 
 // Beep sound to signify server is being started
 var shell = require('child_process').exec;
 shell("beep", function(err, stdout, stderr) {});
 
-console.log("Servers running at http://127.0.0.1:8484/ and :8585/");
+console.log("Servers running at http://127.0.0.1:8484/");
