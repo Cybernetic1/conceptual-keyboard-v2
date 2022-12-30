@@ -34,7 +34,7 @@ function autoLogin() {
 	// ****** 寻梦园, fill in name
 	if ((document.URL.indexOf("ip131.ek21.com\/oaca") >= 0) ||
 		(document.URL.indexOf("ip69.ek21.com\/ofi") >= 0) ||
-		(document.URL.indexOf("ip203.ek21.com\/ofi") >= 0) ||
+		(document.URL.indexOf("ip203.ek21.com\/obzc") >= 0) ||
 		(document.URL.indexOf("ip4.ek21.com\/ofi") >= 0))
 		{
 		document.getElementsByClassName("nameform 12")[0].value = nickname;
