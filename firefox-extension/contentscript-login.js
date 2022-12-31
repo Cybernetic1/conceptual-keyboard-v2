@@ -13,7 +13,7 @@ const nicknames = ["Cybernetic1", "Cybernetic2", "雷米", "電飯"];
 var current_nick_idx = 0;
 
 // ******** Execute only once, at start of page-load **********
-var timer = setTimeout(autoLogin, 3000);
+var timer = setTimeout(autoLogin, 5000);
 
 function findNickname() {
 	// NOTE: a page session lasts as long as the tab or the browser is open,
