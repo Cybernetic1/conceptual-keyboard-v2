@@ -84,6 +84,9 @@ document.addEventListener("keypress", function (event) {
 		}
 } );
 
+findNickname();
+myPort.postMessage({alert: nickname + ".ogg"});
+
 // This runs only once, as "login" page is loaded
 console.log("Content script #3 = LOGIN (24 Dec 2022) loaded....");
 
