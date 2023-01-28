@@ -215,13 +215,14 @@ document.getElementById("smile").addEventListener("click", function() {
 	document.getElementById("white-box").value += " :)";
 }, false);
 
-$("#smile").on("contextmenu", function(ev) {
+document.getElementById("smile").oncontextmenu = function(ev) {
 //	document.getElementById("white-box").value += " :)";
 	send2Chat(" :)");
 	// console.log("I'm sending something");
 	var audio = new Audio("sending.ogg");
 	audio.play();
-});
+	return false;
+};
 
 document.getElementById("quotes").addEventListener("click", function(e) {
 	str = white_box.value;
@@ -253,12 +254,19 @@ butt2.addEventListener("click", function() {
 }, false);
 
 var butt3 = document.getElementById("paste3");
-butt3.title = "喜歡做什麼？";
+butt3.title = "晚上好 :)";
 butt3.addEventListener("click", function() {
 	send2Chat(butt3.title);
 	var audio = new Audio("sending.ogg");
 	audio.play();
 }, false);
+butt3.oncontextmenu = function() {
+	butt3.title = document.getElementById("white-box").value;
+	document.getElementById("white-box").value = "";
+	var audio = new Audio("sending.ogg");
+	audio.play();
+	return false;	// suppress context menu
+};
 
 // Send message to DreamLand
 // document.getElementById("to-dream").addEventListener("click", shortsend.bind(null, true), false);

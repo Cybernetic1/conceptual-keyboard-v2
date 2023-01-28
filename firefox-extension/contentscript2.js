@@ -187,11 +187,11 @@ myPort.onMessage.addListener(function (request) {
 
 			// var inputBox = document.getElementsByName("c")[0].contentWindow.document.getElementsByName("says_temp")[0];
 			// console.log("DOM element: " + inputBox);
-			var inputBox = document.getElementsByTagName("frame")[2].contentWindow.document.getElementsByName("message")[0];
+			var inputBox = document.getElementsByTagName("frame")[3].contentWindow.document.getElementsByName("message")[0];
 			inputBox.value = str + inputBox.value;
 			// and then perhaps click "enter"?
 			// var sendButton = document.getElementsByName("c")[0].contentWindow.document.querySelectorAll("input[value='送出']")[0];
-			var sendButton = document.getElementsByTagName("frame")[2].contentWindow.document.getElementsByName("submit")[0];
+			var sendButton = document.getElementsByTagName("frame")[3].contentWindow.document.getElementsByName("submit")[0];
 			sendButton.click();
 
 			// record own messages
