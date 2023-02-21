@@ -598,7 +598,7 @@ setInterval( function () {
 setTimeout(function() {
 	// ****** chatroom.HK:  click 'private chat' and 'auto scroll' automatically
 	if (document.URL.indexOf("chatroom.hk\/chatroom.php") >= 0) {
-		var secretBox = document.getElementsByTagName("frame")[2].contentWindow.document.getElementsByName("secret")[0];
+		var secretBox = document.getElementsByTagName("frame")[3].contentWindow.document.getElementsByName("secret")[0];
 		secretBox.checked = true;
 		var autoscrollBox = document.getElementsByTagName("frame")[2].contentWindow.document.getElementsByName("autoscroll")[0];
 		autoscrollBox.checked = true;
