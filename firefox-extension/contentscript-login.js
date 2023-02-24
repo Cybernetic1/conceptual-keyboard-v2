@@ -69,7 +69,8 @@ function autoLogin() {
 }
 
 document.addEventListener("keypress", function (event) {
-    if (event.key === 'q') {
+    if (event.key === 'q' ||
+		event.key === ' ') {
 		console.log("Auto-login cancelled.");
 		myPort.postMessage({alert: "login-cancelled.ogg"});
 		clearTimeout(timer);
@@ -94,7 +95,11 @@ document.addEventListener("keypress", function (event) {
 } );
 
 findNickname();
-myPort.postMessage({alert: nickname + ".ogg"});
+// Speak own nickname, except when login-page opens new pages
+if (! ( document.URL.indexOf("chatroom.php") >= 0 ||
+		document.URL.indexOf(".com/login") >= 0 ||
+		document.URL.indexOf("VIP5D/index.phtml") >= 0 ))
+	myPort.postMessage({alert: nickname + ".ogg"});
 
 // This runs only once, as "login" page is loaded
 console.log("Content script #3 = LOGIN (24 Dec 2022) loaded....");
