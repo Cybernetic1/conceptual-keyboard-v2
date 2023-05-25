@@ -133,7 +133,7 @@ function reqHandler(req, res) {
 			const data = Buffer.concat(buffer);
 			if (sse_res != null)
 				sse_res.write("data: " + data + '\n\n');
-			console.log("SSE1 /firefox data: " + data);
+			console.log("SSE1: /firefox/" + data);
 			// console.log(unescape(encodeURIComponent(data)));
 		});
 		res.end();
@@ -147,7 +147,7 @@ function reqHandler(req, res) {
 			const data = Buffer.concat(buffer);
 			if (sse_res2 != null)
 				sse_res2.write("data: " + data + '\n\n');
-			console.log("SSE2 /UT-room data: " + data);
+			console.log("SSE2: /UT-room/" + data);
 			// console.log(unescape(encodeURIComponent(data)));
 		});
 		res.end();
@@ -168,7 +168,7 @@ function reqHandler(req, res) {
 		return;	}
 
 	if (fileName.startsWith("/saveChatLog/")) {
-		var logname = decodeURIComponent(path.basename(req.url));
+		const logname = decodeURIComponent(path.basename(req.url));
 
 		res.writeHead(200, {
 				'Content-Type': 'text/event-stream',
@@ -191,6 +191,54 @@ function reqHandler(req, res) {
 			// console.log("log data: " + data);
 			// console.log(unescape(encodeURIComponent(data)));
 		});
+		res.end();
+		return;	}
+
+	if (fileName.startsWith("/dump")) {
+		const cmd = decodeURIComponent(path.basename(req.url));
+		console.log("Dump: " + cmd);
+
+		res.writeHead(200, {
+				'Content-Type': 'text/event-stream',
+			});
+
+		const buffer = [];
+		req.on('data', chunk => buffer.push(chunk));
+		req.on('end', () => {
+			const data = Buffer.concat(buffer);
+			const dataD = decodeURIComponent(data).toString('utf8');
+			console.log("Dumped: " + dataD + '\n');
+		});
+
+		res.end();
+		return;	}
+
+	if (fileName.startsWith("/shellCommand")) {
+		const cmd = decodeURIComponent(path.basename(req.url));
+		console.log("Shell command: " + cmd);
+
+		res.writeHead(200, {
+				'Content-Type': 'text/event-stream',
+			});
+
+		/*
+		const buffer = [];
+		req.on('data', chunk => buffer.push(chunk));
+		req.on('end', () => {
+			const data = Buffer.concat(buffer);
+			const dataD = decodeURIComponent(data).toString('utf8');
+			var exec = require('child_process').exec;
+			exec(dataD,
+				function (error, stdout, stderr)
+					{ console.log(stdout); }
+				);
+			console.log("Shell command: " + dataD);
+		});
+		*/
+		const exec = require('child_process').exec;
+		exec(cmd, function (error, stdout, stderr)
+			{ console.log(stdout); }
+			);
 		res.end();
 		return;	}
 
@@ -237,25 +285,6 @@ function reqHandler(req, res) {
 			console.log("Speak: " + data3b);
 			// console.log("log data: " + data3b);
 			// console.log(unescape(encodeURIComponent(data3b)));
-		});
-		res.end();
-		return;	}
-
-	if (fileName.startsWith("/shellCommand")) {
-		res.writeHead(200, {
-				'Content-Type': 'text/event-stream',
-			});
-
-		const buffer4 = [];
-		req.on('data', chunk => buffer4.push(chunk));
-		req.on('end', () => {
-			const data4 = Buffer.concat(buffer4);
-			const data4b = decodeURIComponent(data4).toString('utf8');
-			var exec = require('child_process').exec;
-			exec(data4b,
-				function (error, stdout, stderr)
-					{ console.log(stdout); });
-			console.log("Shell command: " + data4b);
 		});
 		res.end();
 		return;	}

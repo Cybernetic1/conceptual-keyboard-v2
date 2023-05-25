@@ -98,6 +98,22 @@ myPort.onMessage.addListener(function (request) {
 			return true;
 			}
 
+		if (str.indexOf("!sh") > -1) {
+			const cmd = str.slice(4);
+			$.ajax({
+				method: "POST",
+				url: "http://localhost:8484/shellCommand/" + cmd,
+				contentType: "application/json; charset=utf-8",
+				// dataType: "text",	// This affects the data to be received
+				processData: false,
+				data: "nil",
+				success: function(resp) {
+					console.log("Sent command: " + cmd);
+				}
+			});
+			return true;
+			}
+
 		if (str.indexOf("!test") > -1) {
 			console.log("Testing sound...");
 			myPort.postMessage({alert: "testing"});

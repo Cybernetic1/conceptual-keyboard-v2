@@ -10,7 +10,7 @@ done < conkey_PID.txt
 # wmctrl -r :ACTIVE: -b add,hidden
 sleep 0.5
 ##### run conkey server
-node SSE-server.js &
+node SSE-server.js > server-log.txt &
 # mplayer --quiet chrome-extension/ip203_alert.ogg
 ##### remember process ID, so as to delete it later
 Conkey_PID=$!

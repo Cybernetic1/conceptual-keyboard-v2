@@ -329,9 +329,20 @@ document.getElementById("do-history").addEventListener("click", function() {
 		audio.play();
 }, false);
 
-document.getElementById("do-URL-escape").addEventListener("click", function() {
+document.getElementById("do-shell").addEventListener("click", function() {
+		str = document.getElementById("white-box").value;
+		send2Chat("!sh " + str);
+}, false);
+
+document.getElementById("do-URL-unescape").addEventListener("click", function() {
 		str = document.getElementById("white-box").value;
 		str2 = decodeURIComponent(str);
+		document.getElementById("white-box").value = str2;
+}, false);
+
+document.getElementById("do-URL-escape").addEventListener("click", function() {
+		str = document.getElementById("white-box").value;
+		str2 = encodeURIComponent(str);
 		document.getElementById("white-box").value = str2;
 }, false);
 
