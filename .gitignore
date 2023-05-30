@@ -10,3 +10,4 @@
 *.bak
 conkey_PID.txt
 geckodriver.log
+server-log.txt
