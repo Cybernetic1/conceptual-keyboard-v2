@@ -218,7 +218,7 @@ function reqHandler(req, res) {
 		console.log("Shell command: " + cmd);
 
 		res.writeHead(200, {
-				'Content-Type': 'text/event-stream',
+				'Content-Type': 'text/html',
 			});
 
 		/*
@@ -239,7 +239,7 @@ function reqHandler(req, res) {
 		exec(cmd, function (error, stdout, stderr)
 			{ console.log(stdout); }
 			);
-		res.end();
+		res.end("OK\n");
 		return;	}
 
 	// * from Javascript I get the pinyin sequence

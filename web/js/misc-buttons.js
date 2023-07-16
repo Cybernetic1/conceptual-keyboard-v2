@@ -409,12 +409,12 @@ document.getElementById("do-pinyin").addEventListener("click", function() {
 document.getElementById("do-resize").addEventListener("click", function() {
 	$.ajax({
 		method: "POST",
-		url: "./shellCommand",
+		// command: " wmctrl -r 'iCant' -e 0,-1,-1,620,450",
+		url: "./shellCommand/wmctrl%20-r%20'iCant'%20-e%200%2C-1%2C-1%2C620%2C450",
 		contentType: "application/json; charset=utf-8",
 		processData: false,
-		data: "wmctrl -r 'iCant' -e 0,-1,-1,620,450",
 		success: function(resp) {
-			console.log("Shell command, wmctrl");
+			console.log("Success: shell command, wmctrl");
 		}
 	});
 }, false);

@@ -304,7 +304,8 @@ $("#white-box").keydown(function (e) {
 	var code = e.keyCode;
 	var displayChars = false;
 
-	if (code === 91) {						// "Windows" key
+	// if (code === 91) {						// "Windows" key
+	if (code === 18) {						// "right-Alt" key
 		if (chin_or_eng == 0) {
 			chin_or_eng = 1;
 			status.innerText = "En";
