@@ -293,7 +293,11 @@ window.onclick = function(event) {
   }
 }
 
-var menuShowing = true;
+var menuShowing = false;
+// These are copied from below:
+document.getElementById("upperLevels").style.display = "none";
+document.getElementById("mid-levels").style.display = "initial";
+document.getElementById("bottom").style.display = "initial";
 
 document.getElementById("▼").addEventListener("click", function() {
 	if (menuShowing) {
