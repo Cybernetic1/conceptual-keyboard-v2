@@ -54,7 +54,7 @@ function autoLogin() {
 		getElementByXpath('/html/body/form/table/tbody/tr/td[2]/input').value = nickname;
 		getElementByXpath('/html/body/form/table/tbody/tr/td[4]/select').value = 1; // male
 		getElementByXpath('/html/body/form/table/tbody/tr/td[8]/select').value = 21; // Hong Kong
-		getElementByXpath('/html/body/form/table/tbody/tr/td[10]/select').value = 51; // age
+		getElementByXpath('/html/body/form/table/tbody/tr/td[10]/select').value = 52; // age
 		var room = getElementByXpath('/html/body/table[6]/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr[1]/td[1]/a');
 		console.log("Room[1] = ", room.innerText);
 		if (room.innerText.localeCompare('成人聊天室 ') == 0)

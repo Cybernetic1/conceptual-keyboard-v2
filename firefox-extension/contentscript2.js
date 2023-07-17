@@ -616,12 +616,16 @@ setTimeout(function() {
 	if (document.URL.indexOf("chatroom.hk\/chatroom.php") >= 0) {
 		var secretBox = document.getElementsByTagName("frame")[3].contentWindow.document.getElementsByName("secret")[0];
 		secretBox.checked = true;
-		var autoscrollBox = document.getElementsByTagName("frame")[2].contentWindow.document.getElementsByName("autoscroll")[0];
+		var autoscrollBox = document.getElementsByTagName("frame")[3].contentWindow.document.getElementsByName("autoscroll")[0];
 		autoscrollBox.checked = true;
 	}
 
-	/* ******* 寻梦园:  set 女生优先, it seems working now */
-	if (document.URL.indexOf("ip131") >= 0) {
+	/* ******* 寻梦园: set 女生优先, it seems working now */
+	if ((document.URL.indexOf("ip131") >= 0) ||
+		(document.URL.indexOf("ip4") >= 0) ||
+		(document.URL.indexOf("ip203") >= 0) ||
+		(document.URL.indexOf("ip69") >= 0)) {
+
 		// Sort method = 女生优先
 		var e1 = document.getElementsByTagName("frameset")[4].getElementsByTagName("frame")[1].contentDocument.getElementsByTagName("select")[0];
 
@@ -633,6 +637,13 @@ setTimeout(function() {
 
 		e2.value="ffffff";
 		e2.onchange();
+	}
+
+	/* ******* UT 聊天室 */
+	if (document.URL.indexOf("VIP5D") >= 0) {
+		// Set "进出讯息" to OFF
+		const e1 = document.getElementById("OUT");
+		e1.checked = false;
 	}
 },
 2000);
