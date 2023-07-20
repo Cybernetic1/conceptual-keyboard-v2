@@ -639,14 +639,20 @@ setTimeout(function() {
 		e2.onchange();
 	}
 
+},
+2000);
+
+// ******* Working now, testing to shorten wait time
+setTimeout(function() {
 	/* ******* UT 聊天室 */
 	if (document.URL.indexOf("VIP5D") >= 0) {
 		// Set "进出讯息" to OFF
-		const e1 = document.getElementById("OUT");
+		const e1 = document.getElementsByTagName("frameset")[1].getElementsByTagName("frame")["c"].contentDocument.getElementById("OUT");
 		e1.checked = false;
 	}
+	console.log("click 進出訊息，得左！");
 },
-2000);
+3000);
 
 // This seems to be run only once, as each "Chatroom" page is loaded.
 console.log("Content script #2 (25 Dec 2022) RE/LOADED....");
