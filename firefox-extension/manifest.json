@@ -4,6 +4,12 @@
     "version": "7.0",
     "description": "allow communication between Conkey and chatroom pages",
 
+	"browser_specific_settings": {
+	  "gecko": {
+		"id": "conkey@YKY.com"
+	  }
+	}
+
     "icons": {
         "48": "icons/icon.png"
     },
@@ -11,7 +17,7 @@
     "browser_action": {
 		"browser_style": true,
 		"default_icon": {
-			"32": "icons/icon.png"
+			"48": "icons/icon.png"
 		},
 		"default_title": "Conkey",
 		"default_popup": "popup.html"
@@ -48,7 +54,7 @@
 			"*://www.hk2love.com/cgi-bin/*",
 			"*://www.hk2love.com/index.php?location=chat"
 			],
-		"js": ["jquery-1.11.2.min.js", "contentscript2.js" ],
+		"js": ["jquery-3.7.1.min.js", "contentscript2.js" ],
 		"run_at": "document_end"
 		}
 	],
