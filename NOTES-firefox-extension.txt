@@ -1,1 +1,14 @@
+* Open:
 https://addons.mozilla.org/en-US/developers/addon/49423d382a4d45859825/versions/5690693
+
+if asked about authentication code, look up 'firefox-authentication-codes.txt'
+
+* Update version number in "manifest.json"
+
+* rm ff.zip
+* zip ff.zip . -r
+
+click "upload new version" in the page
+
+* wait for "approval", the .zip file will become .xpi file
+* Download .xpi file from the above page.  It will automatically install to latest version.
