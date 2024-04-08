@@ -5,12 +5,26 @@
 
 // DONE:
 // * be able to pause auto-login
-
-let myPort = browser.runtime.connect({name: "PORT-login"});
+// * able to store nickname in background
+// * be able to read nickname from background
 
 var nickname = "Cybernetic1";
 const nicknames = ["Cybernetic1", "Cybernetic2", "雷米", "電飯"];
 var current_nick_idx = 0;
+
+let portLogin = browser.runtime.connect({name: "PORT-login"});
+
+portLogin.onMessage.addListener(function (request) {
+	if (request.thenick != null)
+		{
+		const name = request.thenick;
+		console.log("Reported nickname = ", name);
+		if (name != null) {
+			nickname = name;
+			portLogin.postMessage({alert: nickname + ".ogg"});
+			}
+		}
+});
 
 // ******** Execute only once, at start of page-load **********
 var timer = setTimeout(autoLogin, 5000);
@@ -18,12 +32,17 @@ var timer = setTimeout(autoLogin, 5000);
 function findNickname() {
 	// NOTE: a page session lasts as long as the tab or the browser is open,
 	// and survives over page reloads and restores.
-	var nick = sessionStorage.getItem("YKY-nickname");
-	if (nick != null) {
-		console.log("Found nickname:", nick);
-		nickname = nick;
-		}
-	console.log("Current nickname =", nickname);
+	//var nick = sessionStorage.getItem("YKY-nickname");
+	//if (nick != null) {
+		//console.log("Found nickname:", nick);
+		//nickname = nick;
+		//}
+	//else
+		//console.log("Found null nickname");
+
+	console.log("Old nickname =", nickname);
+	console.log("Asking nickname...");
+	portLogin.postMessage({askNickname: "null"});
 	}
 
 function getElementByXpath(path) {
@@ -72,34 +91,34 @@ document.addEventListener("keypress", function (event) {
     if (event.key === 'q' ||
 		event.key === ' ') {
 		console.log("Auto-login cancelled.");
-		myPort.postMessage({alert: "login-cancelled.ogg"});
+		portLogin.postMessage({alert: "login-cancelled.ogg"});
 		clearTimeout(timer);
 		}
     if (event.key === 'r') {
 		console.log("Auto-login resumed.");
-		myPort.postMessage({alert: "login-resumed.ogg"});
+		portLogin.postMessage({alert: "login-resumed.ogg"});
 		timer = setTimeout(autoLogin, 3000);
 		}
     if (event.key === 'n') {
 		findNickname();
-		myPort.postMessage({alert: nickname + ".ogg"});
 		}
     if (event.key === 'N') {
 		current_nick_idx += 1;
 		if (current_nick_idx >= nicknames.length)
 			current_nick_idx = 0;
 		nickname = nicknames[current_nick_idx];
+		portLogin.postMessage({selectNickname: nickname});
+		portLogin.postMessage({alert: nickname + ".ogg"});
 		console.log("Switched nickname to:", nickname);
-		myPort.postMessage({alert: nickname + ".ogg"});
 		}
 } );
 
 findNickname();
 // Speak own nickname, except when login-page opens new pages
-if (! ( document.URL.indexOf("chatroom.php") >= 0 ||
-		document.URL.indexOf(".com/login") >= 0 ||
-		document.URL.indexOf("VIP5D/index.phtml") >= 0 ))
-	myPort.postMessage({alert: nickname + ".ogg"});
+//if (! ( document.URL.indexOf("chatroom.php") >= 0 ||
+		//document.URL.indexOf(".com/login") >= 0 ||
+		//document.URL.indexOf("VIP5D/index.phtml") >= 0 ))
+	//portLogin.postMessage({alert: nickname + ".ogg"});
 
 // This runs only once, as "login" page is loaded
 console.log("Content script #3 = LOGIN (24 Dec 2022) loaded....");

@@ -1,6 +1,12 @@
 // Background script
 // Read from Conceptual Keyboard tab and feed into input box of another tab.
 
+// TO-DO:
+// *
+
+// DONE:
+// * background script should forget portLogin after login
+
 var theNickname = "Cybernetic1";
 var whoIsActive = null;			// to be filled with a URL
 
@@ -36,15 +42,22 @@ function connected(p) {
 	console.log("CONNECTED to tab:", url, "with port:", p);
 
 	// **** Record the port for this URL
-	if (p.name !== "PORT-popup") {		// no need to connect to popup
+	// if (p.name !== "PORT-popup") {		// avoid connecting to popup
+		// because the port always closes after popup closes
 
 		port_map[url] = p;
 		whoIsActive = url;
 
 		initEventSource();
-		}
+	// }
 
 	p.onMessage.addListener(backListener);
+
+	// After login, delete all login ports:
+	if (p.name == "PORT-script-2")
+		for (var key in port_map)
+			if (port_map[key].name == "PORT-login")
+				delete port_map[key];
 }
 
 browser.runtime.onConnect.addListener(connected);
@@ -61,9 +74,15 @@ function backListener(request) {
 		}
 
 	if (request.askNickname != null) {
+		console.log("asked nickname =", theNickname);
 		for (var key in port_map) {
-			port_map[key].postMessage({response: theNickname});
+			port_map[key].postMessage({thenick: theNickname});
+			// Delete port from list, because Popup always closes its port
+			// If this is not done, error will stop other ports from working
 			}
+		for (var key in port_map)
+			if (port_map[key].name == "PORT-popup")
+				delete port_map[key];
 		}
 
 	if (request.speak != null) {

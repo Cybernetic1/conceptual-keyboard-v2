@@ -1,10 +1,29 @@
+// NOTE:  Every time pop-up is opened, this script is re-initialized
+
+// TO-DO:
+// * display history in some window that does not require opening console
+
 // **** These commands are processed in background.js ****
-// Seems that this port is disconnected as soon as the popup window is closed
-let myPort = browser.runtime.connect({name: "PORT-popup"});
+// NOTE:  This port is disconnected as soon as the popup window is closed!
+let portPopup = browser.runtime.connect({name: "PORT-popup"});
+
+portPopup.onMessage.addListener(function (request) {
+	if (request.thenick != null)
+		{
+		const name = request.thenick;
+		console.log("Reported nickname = ", name);
+		if (name != null) {
+			nickname = name;
+			// Common nicknames have a sound file:
+			portPopup.postMessage({alert: name});
+			window.close();
+			}
+		}
+});
 
 // test sound
 function onClickButt1() {
-	myPort.postMessage({alert: "boing"});
+	portPopup.postMessage({alert: "boing"});
 	// browser.runtime.sendMessage({alert: "boing"});
 	window.close();
 	}
@@ -12,59 +31,60 @@ function onClickButt1() {
 // save log
 function onClickButt2() {
 	var fname = document.getElementById("logName").value;
-	myPort.postMessage({saveLog: fname});
+	portPopup.postMessage({saveLog: fname});
 	// browser.runtime.sendMessage({saveLog: fname});
 	setTimeout(function() {
 		window.close();
-		}, 500);
+		}, 1500);
 	}
 
 // clear history
 function onClickButt3() {
-	myPort.postMessage({clearHistory: "?"});
+	portPopup.postMessage({clearHistory: "?"});
 	// browser.runtime.sendMessage({clearHistory: "?"});
 	setTimeout(function() {
 		window.close();
-		}, 500);
+		}, 1500);
 	}
 
-// Reset event stream
+// Show history
 function onClickButt4() {
-	myPort.postMessage({showHistory: "?"});
+	console.log("Show history");
+	portPopup.postMessage({showHistory: "?"});
 	// browser.runtime.sendMessage({resetEventStream: "?"});
 	setTimeout(function() {
 		window.close();
-		}, 500);
+		}, 1500);
 	}
 
-// test chosen nickname
+// echo chosen nickname (from background script)
+// **** This is not working because background script cannot respond messages
+//		from Popup, because Popup's port is re-opened every time it pops up.
 function onClickButt5() {
-	var name = document.getElementById("Nickname").value;
-	myPort.postMessage({selectNickname: name});
-	// browser.runtime.sendMessage({selectNickname: name});
+	var name = sessionStorage.getItem("YKY-nickname");
 	console.log("Chosen nickname = ", name);
-	setTimeout(function() {
-		window.close();
-		}, 500);
+	// var name = document.getElementById("Nickname").value;
+	portPopup.postMessage({askNickname: "null"});
+	// browser.runtime.sendMessage({selectNickname: name});
 	}
 
 // reload extension
 function onClickButt6() {
-	myPort.postMessage({alert: "browser-reload"});
+	portPopup.postMessage({alert: "browser-reload"});
 	browser.runtime.reload();
 	// Seems that stuffs below here are unused...
 	setTimeout(function() {
 		window.close();
-		}, 500);
+		}, 1500);
 	}
 
 // Reset event stream (?) -- seems not needed anymore
 function onClickButt7() {
-	myPort.postMessage({resetEventStream: "?"});
+	portPopup.postMessage({resetEventStream: "?"});
 	// browser.runtime.sendMessage({resetEventStream: "?"});
 	setTimeout(function() {
 		window.close();
-		}, 500);
+		}, 1500);
 	}
 
 // select nickname
@@ -72,12 +92,12 @@ function onSelectNickname() {
 	var name = document.getElementById("Nickname").value;
 	console.log("Selected nick =", name);
 	sessionStorage.setItem("YKY-nickname", name);
-	myPort.postMessage({alert: name});		// Common nicknames have a sound file
-	myPort.postMessage({selectNickname: name});
+	portPopup.postMessage({alert: name});	// Common nicknames have sound files
+	portPopup.postMessage({selectNickname: name});
 	// browser.runtime.sendMessage({selectNickname: name});
 	setTimeout(function() {
 		window.close();
-		}, 500);
+		}, 1500);
 	}
 
 document.getElementById('butt1').addEventListener('click', onClickButt1);

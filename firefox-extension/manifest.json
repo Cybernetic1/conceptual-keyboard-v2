@@ -1,14 +1,14 @@
 {
     "manifest_version": 2,
     "name": "Conkey",
-    "version": "7.0",
+    "version": "8.19",
     "description": "allow communication between Conkey and chatroom pages",
 
 	"browser_specific_settings": {
-	  "gecko": {
-		"id": "conkey@YKY.com"
-	  }
-	}
+		"gecko": {
+			"id": "{64e29933-bbb6-4d87-b9ba-99850ce4be33}"
+			}
+	},
 
     "icons": {
         "48": "icons/icon.png"
@@ -48,9 +48,9 @@
 			"*://chat.hklovechat.com/frames.aspx*",
 			"*://chatroom.hk/chatroom.php*",
 			"*://ip131.ek21.com/login*",
-			"*://ip203.ek21.com/*",
-			"*://ip4.ek21.com/*",
-			"*://ip69.ek21.com/*",
+			"*://ip203.ek21.com/login*",
+			"*://ip4.ek21.com/login*",
+			"*://ip69.ek21.com/login*",
 			"*://www.hk2love.com/cgi-bin/*",
 			"*://www.hk2love.com/index.php?location=chat"
 			],
