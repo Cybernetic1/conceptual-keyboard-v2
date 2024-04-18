@@ -7,6 +7,8 @@
 // * be able to pause auto-login
 // * able to store nickname in background
 // * be able to read nickname from background
+// * sometimes port seems broken and nickname is unretrievable
+//		(problem seems to be with background.js)
 
 var nickname = "Cybernetic1";
 const nicknames = ["Cybernetic1", "Cybernetic2", "雷米", "電飯"];

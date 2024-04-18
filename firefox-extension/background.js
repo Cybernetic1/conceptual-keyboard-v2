@@ -2,10 +2,10 @@
 // Read from Conceptual Keyboard tab and feed into input box of another tab.
 
 // TO-DO:
-// *
 
 // DONE:
 // * background script should forget portLogin after login
+// * sometimes attempts to read port-login and breaks
 
 var theNickname = "Cybernetic1";
 var whoIsActive = null;			// to be filled with a URL
@@ -63,7 +63,7 @@ function connected(p) {
 browser.runtime.onConnect.addListener(connected);
 
 // Set up message listener
-function backListener(request) {
+function backListener(request, sender) {
 	// console.log(sender.tab ?	"from a content script:" + sender.tab.url :
 	//	"from the extension");
 
@@ -75,11 +75,14 @@ function backListener(request) {
 
 	if (request.askNickname != null) {
 		console.log("asked nickname =", theNickname);
+		console.log("sender =", sender.name);
 		for (var key in port_map) {
-			port_map[key].postMessage({thenick: theNickname});
-			// Delete port from list, because Popup always closes its port
-			// If this is not done, error will stop other ports from working
+			// This may break because Popup.js is not the only script that asks
+			if (port_map[key].name == sender.name)
+				port_map[key].postMessage({thenick: theNickname});
 			}
+		// Delete port from list, because Popup always closes its port
+		// If this is not done, error will stop other ports from working
 		for (var key in port_map)
 			if (port_map[key].name == "PORT-popup")
 				delete port_map[key];
