@@ -413,6 +413,19 @@ document.getElementById("do-pinyin").addEventListener("click", function() {
 document.getElementById("do-resize").addEventListener("click", function() {
 	$.ajax({
 		method: "POST",
+		// command: chromium --app=chrome-extension://mclkkofklkfljcocdinagocijmpgbhab/popup.html
+		url: "./shellCommand/chromium%20--app%3Dchrome-extension%3A%2F%2Fmclkkofklkfljcocdinagocijmpgbhab%2Fpopup.html",
+		contentType: "application/json; charset=utf-8",
+		processData: false,
+		success: function(resp) {
+			console.log("Success: shell command: chromium --app=chrome-extension://...");
+		}
+	});
+}, false);
+
+document.getElementById("do-Google-IME").addEventListener("click", function() {
+	$.ajax({
+		method: "POST",
 		// command: " wmctrl -r 'iCant' -e 0,-1,-1,620,450",
 		url: "./shellCommand/wmctrl%20-r%20'iCant'%20-e%200%2C-1%2C-1%2C620%2C450",
 		contentType: "application/json; charset=utf-8",
