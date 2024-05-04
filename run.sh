@@ -25,7 +25,7 @@ else
 	# vivaldi --app=http://localhost:8484/index.html
     browser --app=http://localhost:8484/Cantonese-input.html
 fi
-sleep 2.5
+sleep 4
 ##### set size and flags of Conkey broswer window
 wmctrl -r "iCant" -b remove,maximized_horz,maximized_vert
 wmctrl -r "iCant" -e 1,500,200,620,450

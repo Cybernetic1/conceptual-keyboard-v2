@@ -441,6 +441,7 @@ document.getElementById("do-last-logs").addEventListener("click", function() {
 		method: "POST",
 		// command: notify-send "$(ls -l | cut -d' ' -f5- | tail -n5)"
 		// command: ls | xargs stat --printf "%n (%s) %y\n"
+		// 而家問題係，SSE server 可以 send 啲資料去咩地方？ 可以係一個網頁。
 		url: "./shellCommand/notify-send%20%22%24(ls%20-l%20%7C%20cut%20-d'%20'%20-f5-%20%7C%20tail%20-n5)",
 		contentType: "application/json; charset=utf-8",
 		processData: false,
