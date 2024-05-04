@@ -436,19 +436,26 @@ document.getElementById("do-Google-IME").addEventListener("click", function() {
 	});
 }, false);
 
-document.getElementById("do-last-logs").addEventListener("click", function() {
+document.getElementById("do-last-logs").addEventListener("click", function(evt) {
 	$.ajax({
 		method: "POST",
+		// **** notify-send 冇用，因爲 SSE server 不可以用 display：
 		// command: notify-send "$(ls -l | cut -d' ' -f5- | tail -n5)"
 		// command: ls | xargs stat --printf "%n (%s) %y\n"
 		// 而家問題係，SSE server 可以 send 啲資料去咩地方？ 可以係一個網頁。
-		url: "./shellCommand/notify-send%20%22%24(ls%20-l%20%7C%20cut%20-d'%20'%20-f5-%20%7C%20tail%20-n5)",
+		// command: ls logs -rtlGg|cut -d' ' -f3-|tail -n5"
+		url: "./shellCommand/ls%20logs%20-rtlGg%7Ccut%20-d'%20'%20-f3-%7Ctail%20-n5",
 		contentType: "application/json; charset=utf-8",
-		processData: false,
-		success: function(resp) {
-			console.log("Success: shell command: notify-send $(ls -l)");
+		processData: true,
+		success: function(data) {
+			// Add some lines to element "filelist"
+			var flist = document.getElementById("filelist");
+			flist.innerHTML = "<pre>" + data + "</pre>";
+			console.log("Success: shell command: file list of /logs");
 		}
 	});
+	// Eat the mouse click event so the dropdown window doesn't close:
+	evt.stopPropagation();
 }, false);
 
 /*

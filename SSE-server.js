@@ -236,10 +236,12 @@ function reqHandler(req, res) {
 		});
 		*/
 		const exec = require('child_process').exec;
-		exec(cmd, function (error, stdout, stderr)
-			{ console.log(stdout); }
-			);
-		res.end("OK\n");
+		exec(cmd, function (error, stdout, stderr) {
+			res.write(stdout);
+			res.end();
+			console.log(stdout);
+			} );
+		// res.end();
 		return;	}
 
 	// * from Javascript I get the pinyin sequence

@@ -126,6 +126,11 @@
 				color: #000000;
 				}
 
+			#filelist pre {
+				// white-space: pre-wrap;
+				overflow: auto;
+				// word-wrap: break-word;
+				}
 
 			#upperLevels {
 				height:120px;
@@ -280,6 +285,8 @@
 			<button type="button" id="do-last-logs">logs</button>
 			<button type="button" id="UT-or-all" style="background-color:white;" value="all">∀</button>
 			<input type="checkbox" id="simplify" style="width:20px; height:20px;">简</input>
+			<!-- below is for listing /log files -->
+			<div id="filelist"></div>
 		</div>
 
 		<button type="button" id="paste1">1</button>
@@ -289,6 +296,7 @@
 		<button type="button" id="whichRoom" style="background-color:white;">&nbsp;</button>
 		<button type="button" id="chin-or-eng" style="color:white; background-color:green;">En</button>
 		</div>
+
 		<span id="pinyin-box" style="width:100%; color:#8888ff">abc</span>
 
 		<div id="upperLevels">
