@@ -318,11 +318,15 @@ document.getElementById("▼").addEventListener("click", function() {
 });
 
 document.getElementById("do-log").addEventListener("click", function() {
-		// No need to get date & time -- server will do that automatically
+		// **** No need to get date & time -- server will do that automatically
 		// Get date and time
 		// var date = new Date();
 		// var logName = date.toDateString().replace(/ /g,"-");
-		send2Chat("!log quick");
+		const fname = document.getElementById("white-box").value;
+		if (fname.length == 0)
+			send2Chat("!log quick");
+		else
+			send2Chat("!log " + fname);
 		var audio = new Audio("sending.ogg");
 		audio.play();
 }, false);
