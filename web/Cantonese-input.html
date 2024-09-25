@@ -31,12 +31,13 @@
 				background-color: #FF0000;
 			}
 
-			input[type=text] {
+			textarea, input[type=text] {
 				font-size: 130%;
 				background-color: #c0c030;		// yellowish "grey-out" color
 				color: #aaaaaa;
 			}
 
+			textarea:focus,
 			input[type=text]:focus {
 				background-color: #000000;
 				color: #ffffff;
@@ -252,8 +253,9 @@
 	</head>
 
 	<body>
-		<input type="text" id="white-box" style="width:98%; height:120%;"
-		ondrop="drop(event);" ondragover="allowDrop(event)" value="">
+		<!-- input type="text" id="white-box" style="width:98%; height:120%;"
+		ondrop="drop(event);" ondragover="allowDrop(event)" value=""-->
+		<textarea id="white-box" style="width:98%; height:40px;" ondrop="drop(event);" ondragover="allowDrop(event)"></textarea>
 
 		<div><span id="▼" style="color:gray;">▼</span>
 		<span id="pinyin-bar"></span>
@@ -281,6 +283,8 @@
 			<button type="button" id="do-Cantonese">广东话</button>
 			<button type="button" id="do-pinyin">拼音</button>
 			<button type="button" id="do-resize">re-size</button>
+			<button type="button" id="do-rotate">rotate</button>
+			<button type="button" id="do-flip">flip</button>
 			<button type="button" id="do-Google-IME">Google IME</button>
 			<button type="button" id="do-last-logs">logs</button>
 			<button type="button" id="UT-or-all" style="background-color:white;" value="all">∀</button>
