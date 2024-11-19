@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>Display previous URL visited by visitor</title>
+
+		<style type="text/css">
+			body {
+				font-size: 130%;
+				font-family: "Trebuchet MS",Verdana, Arial, Helvetica, sans-serif;
+				background-color: #FFF;
+				color: #333;
+				}
+		</style>
+	</head>
+
+	<body>
+		<p>	URL =
+		<pre id="referrer">http://localhost:8484/test-referrer.html</pre>
+		</p>
+
+		<a href="#" id="click_me">Check URL</a>
+
+		<script src="js/min/jquery-1.10.1.min.js"></script>
+
+		<script type="text/javascript">
+			const r = document.getElementById('referrer');
+			r.innerText = document.referrer + " !";
+		</script>
+
+	</body>
+</html>
