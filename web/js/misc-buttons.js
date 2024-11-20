@@ -417,8 +417,18 @@ document.getElementById("do-pinyin").addEventListener("click", function() {
 	});
 }, false);
 
+// For 中文
 document.getElementById("do-rotate").addEventListener("click", function() {
 	str = document.getElementById("white-box").value;
+
+	const rotatedChars = {
+	  '「': '﹁',
+	  '」': '﹂',
+	  '﹁':'「',
+	  '﹂':'」'
+	};
+
+	str = str.replace(/[「」]/g, m => rotatedChars[m]);
 	// break str into lines
 	strs = str.split('\n');
 	const numlines = strs.length;
