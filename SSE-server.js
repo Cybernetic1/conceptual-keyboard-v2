@@ -56,7 +56,7 @@ var fs = require("fs");
 var url = require("url");
 var path = require("path");
 
-var sse_res = null;			// for SSE = Server-Side Events
+var sse_res1 = null;			// for SSE = Server-Side Events
 var sse_res2 = null;
 var sse_res3 = null;
 
@@ -65,9 +65,12 @@ function reqHandler(req, res) {
 	// SSE handler: this allows server to *respond* to events, as opposed
 	// to a plain server which can only be read from / written to.
 	// SSE is *unidirectional*, it only sends from server to client
-	// the /stream is connected to Firefox extension's background.js
+	// the SSE-1: /background is for sending messages to Firefox extension's background.js
+	// the SSE-2: /UT-room is for sending messages to UT.py (old method using Selenium)
+	// the SSE-3: /conkey stream is for sending messages to Conkey's index.html
+	// The following code is for event-stream connections:
 	if (req.headers.accept && req.headers.accept == 'text/event-stream') {
-		if (req.url == '/stream') {
+		if (req.url == '/background') {
 			res.writeHead(200, {
 				'Content-Type': 'text/event-stream; charset=utf-8',
 				'Cache-Control': 'no-cache',
@@ -80,9 +83,9 @@ function reqHandler(req, res) {
 			res.write(": \n\n");
 			res.write(": \n\n");
 			// res.end();		// this causes "write after end" error
-			sse_res = res;
-			console.log("Connected event stream 1: /stream");
-		} else if (req.url == '/UTstream') {
+			sse_res1 = res;
+			console.log("Connected event stream 1: /background");
+		} else if (req.url == '/UT-room') {
 			res.writeHead(200, {
 				'Content-Type': 'text/event-stream; charset=utf-8',
 				'Cache-Control': 'no-cache',
@@ -96,7 +99,7 @@ function reqHandler(req, res) {
 			res.write(": \n\n");
 			// res.end();		// this causes "write after end" error
 			sse_res2 = res;
-			console.log("Connected event stream 2: /UTstream");
+			console.log("Connected event stream 2: /UT-room");
 		} else if (req.url == '/conkey') {
 			res.writeHead(200, {
 				'Content-Type': 'text/event-stream; charset=utf-8',
@@ -125,21 +128,22 @@ function reqHandler(req, res) {
 	if (fileName === "/")
 		fileName = "/index.html";
 
-	// **** This is the route to send to Firefox content script
+	// **** This is the route to send to Firefox content script (background.js)
+	// For example, every chat message from me (index.html) passes here
 	if (fileName === "/fireFox") {
 		const buffer = [];
 		req.on('data', chunk => buffer.push(chunk));
 		req.on('end', () => {
 			const data = Buffer.concat(buffer);
-			if (sse_res != null)
-				sse_res.write("data: " + data + '\n\n');
-			console.log("SSE1: /firefox/" + data);
+			if (sse_res1 != null)
+				sse_res1.write("data: " + data + '\n\n');
+			console.log("/firefox/" + data + " --> SSE-1");
 			// console.log(unescape(encodeURIComponent(data)));
 		});
 		res.end();
 		return;	}
 
-	// Similar to above, send to UT-room (obsolete now)
+	// Similar to above, send to UT-room (seems obsolete now)
 	if (fileName === "/UT-room") {
 		const buffer = [];
 		req.on('data', chunk => buffer.push(chunk));
@@ -147,28 +151,34 @@ function reqHandler(req, res) {
 			const data = Buffer.concat(buffer);
 			if (sse_res2 != null)
 				sse_res2.write("data: " + data + '\n\n');
-			console.log("SSE2: /UT-room/" + data);
+			console.log("/UT-room/" + data + " --> SSE-2");
 			// console.log(unescape(encodeURIComponent(data)));
 		});
 		res.end();
 		return;	}
 
-	// **** Notify server of active chatroom
+	// **** Notify Conkey's index.html of active chatroom
+	// 1) contentscript2:mouseover notifies background.js which room is active
+	// 2) background.js POSTs here
+	// 3) here sends via SSE-3 to Conkey's index.html
 	if (fileName === "/whichRoom/") {
 		const buffer = [];
 		req.on('data', chunk => buffer.push(chunk));
 		req.on('end', () => {
 			const data = Buffer.concat(buffer);
-			// console.log("SSE3 (/whichRoom) data: " + data);
-			// send to SSE3 stream
+			// send to SSE-3 /background stream
 			if (sse_res3 != null)
 				sse_res3.write("data: " + data + '\n\n');
+			console.log("/whichRoom/" + data + " --> SSE-3");
 		});
 		res.end();
 		return;	}
 
-	if (fileName.startsWith("/saveChatLog/")) {
-		const logname = decodeURIComponent(path.basename(req.url));
+	// **** Ajax POST command eg. for save chat logs using "!log" etc
+	// eg. issued by contentscript2.js
+	if (fileName.startsWith("/saveFile/")) {
+		const fname = decodeURIComponent(req.url.substring(10));	// cut "/saveFile/"
+		console.log("filename =", fname);
 
 		res.writeHead(200, {
 				'Content-Type': 'text/event-stream',
@@ -182,18 +192,19 @@ function reqHandler(req, res) {
 
 			// Save to file
 			var fs = require('fs');
-			var stream = fs.createWriteStream("./logs/" + logname);
+			var stream = fs.createWriteStream(fname);
 			stream.once('open', function(fd) {
 				stream.write(data2);
 				stream.end();
 			});
-			console.log(logname + " saved!");
+			console.log(fname + " saved!");
 			// console.log("log data: " + data);
 			// console.log(unescape(encodeURIComponent(data)));
 		});
 		res.end();
 		return;	}
 
+	// **** Seems unused anywhere?
 	if (fileName.startsWith("/dump")) {
 		const cmd = decodeURIComponent(path.basename(req.url));
 		console.log("Dump: " + cmd);
@@ -213,6 +224,7 @@ function reqHandler(req, res) {
 		res.end();
 		return;	}
 
+	// **** Issued by index.html (misc-buttons.js), but also contentscript2.js
 	if (fileName.startsWith("/shellCommand")) {
 		const cmd = decodeURIComponent(path.basename(req.url));
 		console.log("Shell command: " + cmd);
@@ -269,6 +281,7 @@ function reqHandler(req, res) {
 		res.end();
 		return;	}
 
+	// **** Issued from Conkey's index.html
 	if (fileName.startsWith("/speakMandarin")) {
 		res.writeHead(200, {
 				'Content-Type': 'text/event-stream',
@@ -313,6 +326,7 @@ function reqHandler(req, res) {
 		res.end();
 		return;	}
 
+	// **** Issued from Conkey's index.html
 	if (fileName.startsWith("/saveDatabase/")) {
 		var filename = path.basename(url.parse(req.url).pathname);
 
@@ -362,6 +376,7 @@ function reqHandler(req, res) {
 		});
 		return; }
 
+	// **** seems unused anywhere?
 	if (fileName.startsWith("/appendFile/")) {
 		res.writeHead(200, {
 				'Content-Type': 'text/event-stream',

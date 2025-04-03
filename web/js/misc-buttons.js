@@ -1,4 +1,8 @@
-// TODO: 'gg' record in history also
+// TODO:
+// * 'gg' record in history also
+
+// DONE:
+// * 'do-shell' takes a circuitous route
 
 // ******************************* Menu buttons ********************************
 
@@ -48,7 +52,7 @@ dreamState.onclick = function () {
 var last_dream = ""
 function send2Chat(str, dream=false) {
 	if (dream || document.getElementById('UT-or-all').value == 'UT') {
-		// **** Send to UT-room.py UT-网际空间 only
+		// **** Send to UT-room.py UT-网际空间 only, old method using Selenium
 		if (str == last_dream)
 			str = "..." + str;
 		last_dream = str;
@@ -59,7 +63,7 @@ function send2Chat(str, dream=false) {
 			url: "./UT-room",
 			data: str,
 			success: function(resp) {
-				// console.log("Dream: " + str);
+				console.log("UT-room: " + str);
 				}
 			});
 		}
@@ -73,7 +77,7 @@ function send2Chat(str, dream=false) {
 			url: "./fireFox",
 			data: str,
 			success: function(resp) {
-				// console.log("Firefox: " + str);
+				console.log("Firefox: " + str);
 				}
 			});
 		}
@@ -342,7 +346,18 @@ document.getElementById("do-history").addEventListener("click", function() {
 
 document.getElementById("do-shell").addEventListener("click", function() {
 	str = document.getElementById("white-box").value;
-	send2Chat("!sh " + str);
+	// old method is inefficient: send2Chat("!sh " + str);
+	$.ajax({
+		method: "POST",
+		url: "http://localhost:8484/shellCommand/" + str,
+		contentType: "application/json; charset=utf-8",
+		// dataType: "text",	// This affects the data to be received
+		processData: false,
+		data: "nil",
+		success: function(resp) {
+			console.log("Sent command:", str);
+		}
+	});
 }, false);
 
 document.getElementById("do-URL-unescape").addEventListener("click", function() {
@@ -415,6 +430,18 @@ document.getElementById("do-pinyin").addEventListener("click", function() {
 			// nothing
 			}
 	});
+}, false);
+
+document.getElementById("do-Russian-1").addEventListener("click", function() {
+	str = document.getElementById("white-box").value;
+	var str2 = translateRussianToEnglish(str);
+	document.getElementById("pinyin-box").innerHTML = str2;
+}, false);
+
+document.getElementById("do-Russian").addEventListener("click", function() {
+	str = document.getElementById("white-box").value;
+	var str2 = translateEnglishToRussian(str);
+	document.getElementById("pinyin-box").innerHTML = str2;
 }, false);
 
 // For 中文

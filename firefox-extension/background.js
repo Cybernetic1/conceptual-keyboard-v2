@@ -18,13 +18,13 @@ function streamEventHandler(e) {
 	// Specifically output to the ACTIVE chatroom only
 	const port = port_map[whoIsActive];
 	port.postMessage({sendtext: e.data});
-	console.log("/stream: " + e.data);
+	console.log("/background: " + e.data);
 }
 
 var evtSource = null;
 function initEventSource() {
 	// Listen to Node.js server
-	evtSource = new EventSource("http://localhost:8484/stream");
+	evtSource = new EventSource("http://localhost:8484/background");
 	evtSource.onmessage = streamEventHandler;
 	evtSource.onerror = function(e) {
 		if (evtSource.readyState == 2) {

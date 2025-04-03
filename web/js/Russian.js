@@ -33,9 +33,9 @@ function translateEnglishToRussian(text) {
 	}).join('');
 }
 
-console.log(translateRussianToEnglish('Привет, мир')); // Outputs: Privet, mir
+console.log("Test Russian: Привет, мир (Hello, World) =", translateRussianToEnglish('Привет, мир')); // Outputs: Privet, mir
 
-console.log(translateEnglishToRussian('Tchaikovsky')); // Outputs: Чайковский
+console.log("Test Russian: Tchaikovsky =", translateEnglishToRussian('Tchaikovsky')); // Outputs: Чайковский
 
 russian = [
 "A", "А",

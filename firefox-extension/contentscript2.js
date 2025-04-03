@@ -5,9 +5,10 @@
 // To-do:
 // * feed logs into some HTML window
 // * Log all Ip* rooms
-// * 来客发声
+// * save/load notify list from somewhere
 
 // Done:
+// * 来客发声
 // * Be able to speak in various 寻梦园 rooms (ip4, ip69, ip203)
 // * record whom I am speaking to
 
@@ -16,6 +17,8 @@ var ip131SentText = "";
 var ipXSentText = "";
 
 var logName = "log.txt";					// Name of the log file, to be filled
+
+var notifyList = ["淫蕩角色扮演網愛", "OL愛聊色" ];
 
 var chat_history = new Array();				// log of chat messages
 
@@ -38,14 +41,16 @@ function saveLog(name) {
 	var timeStamp = datetime.toLocaleDateString().replace(/\//g, "-")
 			+ "(" +   datetime.getHours() + ":" + datetime.getMinutes() + ")";
 	// the string following by "!log " is the Nickname
-	logName = name.replace(/ /g, "_") + "." + timeStamp + ".txt";
-	// console.log("log file name = " + logName);
+	logName = "./logs/" + name.replace(/ /g, "_") + "." + timeStamp + ".txt";
+	console.log("log file name = " + logName);
 
 	var str = chat_history.join('');
+	console.log("log file size = ", str.length);
 
 	$.ajax({
 		method: "POST",
-		url: "http://localhost:8484/saveChatLog/" + logName,
+		// "./logs/" dir is already added above
+		url: "http://localhost:8484/saveFile/" + logName,
 		contentType: "application/json; charset=utf-8",
 		// dataType: "text",	// This affects the data to be received
 		processData: false,
@@ -117,6 +122,25 @@ myPort.onMessage.addListener(function (request) {
 		if (str.indexOf("!test") > -1) {
 			console.log("Testing sound...");
 			myPort.postMessage({alert: "testing"});
+			return true;
+			}
+
+		if (str.indexOf("!nicks") > -1) {
+			console.log("Retriving nicks...");
+			if (document.URL.indexOf("VIP5D") >= 0) {
+				// this gives us an HTML element of the nick list element:
+				const nicklist = document.getElementsByTagName("frame")[7].contentDocument.childNodes[0].childNodes[1].childNodes[0].childNodes[1].childNodes[3].childNodes[0].childNodes[0].childNodes[0];
+				console.log("Processing nicks:", nicklist.childElementCount);
+				// array index starts from 5, increment = 3
+				for (i = 5; i < nicklist.childElementCount; i += 3) {
+					const nickcolor = nicklist.childNodes[i].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].attributes["bgcolor"].value;
+					const nickname = nicklist.childNodes[i].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].innerText.substring(3);
+					if (nickcolor == "FF33FF")
+						console.log(nickname);
+					if (notifyList.indexOf(nickname) > -1)
+						myPort.postMessage({alert: "scream"});
+					}
+				}
 			return true;
 			}
 
@@ -444,6 +468,7 @@ setInterval( function () {
 		lastIpXIndex = lastIndex;
 	}
 
+	// ******** UT 网际空间 **************
 	if (document.URL.indexOf("VIP5D") >= 0) {
 		// this gives us an HTML element of the public chat area:
 		const html = document.getElementsByTagName("frame")[3].contentDocument.childNodes[0].childNodes[1];
@@ -456,13 +481,24 @@ setInterval( function () {
 			var alert = false;
 			for (i = lastIndex; i > lastUTIndex; i--) {
 				const el = p.children[i];
+				const stuff = el.innerText;
+				// console.log(" --->", stuff);
+				// Check for in-coming guests:
+				if (stuff.indexOf("我們有位朋友") >= 0 &&
+					stuff.indexOf("淫蕩角色扮演網愛") >= 0) {
+						console.log("screaming");
+						myPort.postMessage({alert: "scream"});
+					}
 				// If it's a TABLE and bgcolor="FFCCFF" then it's addressed to me
 				if ((el.tagName == "TABLE") &&
 					(el.getAttribute("bgcolor") == "FFCCFF")) {
-					// console.log("=>", el);
-					stuff = el.innerText;
-					alert = true;
-					chat_history[chat_history.length] = stuff + "\n";	// has timeStamp already
+					// **** prevent xyz123 說： 女 https://is.gd/[...]
+					if (stuff.indexOf("女 https://is.gd/") >= 0)
+						console.log("spam =>", stuff);
+					else {
+						alert = true
+						chat_history[chat_history.length] = stuff + "\n";	// has timeStamp already
+					}
 				}
 			}
 			if (alert == true)
