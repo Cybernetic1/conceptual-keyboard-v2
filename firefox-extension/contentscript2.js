@@ -133,6 +133,8 @@ myPort.onMessage.addListener(function (request) {
 				console.log("Processing nicks:", nicklist.childElementCount);
 				// array index starts from 5, increment = 3
 				for (i = 5; i < nicklist.childElementCount; i += 3) {
+					if (!nicklist.childNodes[i].hasChildNodes())
+						continue;
 					const nickcolor = nicklist.childNodes[i].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].attributes["bgcolor"].value;
 					const nickname = nicklist.childNodes[i].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].innerText.substring(3);
 					if (nickcolor == "FF33FF")

@@ -360,6 +360,12 @@ document.getElementById("do-shell").addEventListener("click", function() {
 	});
 }, false);
 
+document.getElementById("do-nicks").addEventListener("click", function() {
+	send2Chat("!nicks");
+	var audio = new Audio("sending.ogg");
+	audio.play();
+}, false);
+
 document.getElementById("do-URL-unescape").addEventListener("click", function() {
 	str = document.getElementById("white-box").value;
 	str2 = decodeURIComponent(str);
