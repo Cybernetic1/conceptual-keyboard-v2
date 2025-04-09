@@ -325,7 +325,7 @@ function loadDB(dbname)
 
 	console.log($.ajax({
 	method: "GET",
-	url: "/loadDatabase/" + dbname,		// Note: name without extension
+	url: "/loadFile/./web/" + dbname,		// Note: name without extension
 	cache: false,
 	success: function(data) {
 		var lines = data.split("\n");
@@ -436,7 +436,7 @@ function saveDB(dbname)
 	// Server side could save to a specific directory
 	console.log($.ajax({
 		method: "POST",
-		url: "/saveDatabase/" + dbname,
+		url: "/saveFile/./web/" + dbname,
 		data: s,
 		success: function(resp) {}
 	}));

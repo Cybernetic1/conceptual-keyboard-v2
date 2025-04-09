@@ -62,7 +62,7 @@ function read_chars() {
 	fname = document.getElementById("filename").value;
 	$.ajax({
 	method: "GET",
-	url: "/loadDatabase/" + fname,		// Note: use filename with extension
+	url: "/loadFile/./web/" + fname,		// Note: use filename with extension
 	cache: false,
 	success: function(data) {
 		var lines = data.split("\n");
@@ -204,7 +204,7 @@ document.getElementById("save").addEventListener("click", function() {
 
 	$.ajax({
 	method: "POST",
-	url: "/saveDatabase/" + "undisplayable-chars.txt",
+	url: "/saveFile/./web/" + "undisplayable-chars.txt",
 	data: found.join('\n'),
 	success: function(resp) {
 		console.log("Saved found[] to file.");

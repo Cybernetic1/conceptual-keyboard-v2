@@ -1,7 +1,6 @@
 // New server for Conkey, in Node.js
 
 // TO-DO:
-// * unify all read-file & write-file operations
 // * nickname-list is gotten by contentscript2.js, perhaps saved on server-side?
 //		then it can be read by a local web page
 // * read and write notify-list
@@ -9,6 +8,7 @@
 // * ./saveDatabase/:name
 
 // FIXED:
+// * unify all read-file & write-file operations
 // * alert when new girls arrive
 // * ./speakMandarin/, extra "text=" at beginning of data
 //		(fixed in contentscript2, ajax POST)
@@ -60,21 +60,21 @@ var fs = require("fs");
 var url = require("url");
 var path = require("path");
 
-var sse_res1 = null;			// for SSE = Server-Side Events
-var sse_res2 = null;
-var sse_res3 = null;
+var sse_res = [null, null, null];		// for SSE = Server-Side Events
+const sse_servers = ["/background", "/UT-room", "/conkey"];
 
 function reqHandler(req, res) {
 
 	// SSE handler: this allows server to *respond* to events, as opposed
 	// to a plain server which can only be read from / written to.
 	// SSE is *unidirectional*, it only sends from server to client
-	// the SSE-1: /background is for sending messages to Firefox extension's background.js
-	// the SSE-2: /UT-room is for sending messages to UT.py (old method using Selenium)
-	// the SSE-3: /conkey stream is for sending messages to Conkey's index.html
+	// the SSE[0]: /background is for sending messages to Firefox extension's background.js
+	// the SSE[1]: /UT-room is for sending messages to UT.py (old method using Selenium)
+	// the SSE[2]: /conkey stream is for sending messages to Conkey's index.html
 	// The following code is for event-stream connections:
 	if (req.headers.accept && req.headers.accept == 'text/event-stream') {
-		if (req.url == '/background') {
+		i = sse.servers.indexOf(req.url);
+		if (i >= 0) {
 			res.writeHead(200, {
 				'Content-Type': 'text/event-stream; charset=utf-8',
 				'Cache-Control': 'no-cache',
@@ -87,38 +87,8 @@ function reqHandler(req, res) {
 			res.write(": \n\n");
 			res.write(": \n\n");
 			// res.end();		// this causes "write after end" error
-			sse_res1 = res;
-			console.log("Connected event stream 1: /background");
-		} else if (req.url == '/UT-room') {
-			res.writeHead(200, {
-				'Content-Type': 'text/event-stream; charset=utf-8',
-				'Cache-Control': 'no-cache',
-				'Connection': 'keep-alive'
-			});
-			res.write("retry: 10000\n");
-			res.write("event: connecttime\n");
-			// res.write("data: " + (new Date()) + "\n\n");
-			// res.write("data: " + (new Date()) + "\n\n");
-			res.write(": \n\n");
-			res.write(": \n\n");
-			// res.end();		// this causes "write after end" error
-			sse_res2 = res;
-			console.log("Connected event stream 2: /UT-room");
-		} else if (req.url == '/conkey') {
-			res.writeHead(200, {
-				'Content-Type': 'text/event-stream; charset=utf-8',
-				'Cache-Control': 'no-cache',
-				'Connection': 'keep-alive'
-			});
-			res.write("retry: 10000\n");
-			res.write("event: connecttime\n");
-			// res.write("data: " + (new Date()) + "\n\n");
-			// res.write("data: " + (new Date()) + "\n\n");
-			res.write(": \n\n");
-			res.write(": \n\n");
-			// res.end();		// this causes "write after end" error
-			sse_res3 = res;
-			console.log("Connected event stream 3: /conkey");
+			sse_res[i] = res;
+			console.log("Connected event stream #", i, req.url);
 		} else {
 			res.writeHead(404);
 			res.end();
@@ -139,23 +109,23 @@ function reqHandler(req, res) {
 		req.on('data', chunk => buffer.push(chunk));
 		req.on('end', () => {
 			const data = Buffer.concat(buffer);
-			if (sse_res1 != null)
-				sse_res1.write("data: " + data + '\n\n');
-			console.log("/firefox/" + data + " --> SSE-1");
+			if (sse_res[0] != null)
+				sse_res[0].write("data: " + data + '\n\n');
+			console.log("/firefox/" + data + " --> SSE[0] --> background.js");
 			// console.log(unescape(encodeURIComponent(data)));
 		});
 		res.end();
 		return;	}
 
-	// Similar to above, send to UT-room (seems obsolete now)
+	// Similar to above, send to UT-room.py (old method)
 	if (fileName === "/UT-room") {
 		const buffer = [];
 		req.on('data', chunk => buffer.push(chunk));
 		req.on('end', () => {
 			const data = Buffer.concat(buffer);
-			if (sse_res2 != null)
-				sse_res2.write("data: " + data + '\n\n');
-			console.log("/UT-room/" + data + " --> SSE-2");
+			if (sse_res[1] != null)
+				sse_res[1].write("data: " + data + '\n\n');
+			console.log("/UT-room/" + data + " --> SSE[1] --> UT-room.py");
 			// console.log(unescape(encodeURIComponent(data)));
 		});
 		res.end();
@@ -164,16 +134,16 @@ function reqHandler(req, res) {
 	// **** Notify Conkey's index.html of active chatroom
 	// 1) contentscript2:mouseover notifies background.js which room is active
 	// 2) background.js POSTs here
-	// 3) here sends via SSE-3 to Conkey's index.html
+	// 3) here sends via SSE[2] to Conkey's index.html
 	if (fileName === "/whichRoom/") {
 		const buffer = [];
 		req.on('data', chunk => buffer.push(chunk));
 		req.on('end', () => {
 			const data = Buffer.concat(buffer);
-			// send to SSE-3 /background stream
-			if (sse_res3 != null)
-				sse_res3.write("data: " + data + '\n\n');
-			console.log("/whichRoom/" + data + " --> SSE-3");
+			// send to SSE[2] /background stream
+			if (sse_res[2] != null)
+				sse_res[2].write("data: " + data + '\n\n');
+			console.log("/whichRoom/" + data + " --> SSE[2] --> index.html");
 		});
 		res.end();
 		return;	}
@@ -185,7 +155,7 @@ function reqHandler(req, res) {
 		console.log("filename =", fname);
 
 		res.writeHead(200, {
-				'Content-Type': 'text/event-stream',
+				'Content-Type': 'text/event-stream; charset=utf-8',
 			});
 
 		const buffer2 = [];
@@ -196,7 +166,7 @@ function reqHandler(req, res) {
 
 			// Save to file
 			var fs = require('fs');
-			var stream = fs.createWriteStream(fname);
+			var stream = fs.createWriteStream(fname, {encoding: 'utf8'});
 			stream.once('open', function(fd) {
 				stream.write(data2);
 				stream.end();
@@ -208,25 +178,28 @@ function reqHandler(req, res) {
 		res.end();
 		return;	}
 
-	// **** Seems unused anywhere?
-	if (fileName.startsWith("/dump")) {
-		const cmd = decodeURIComponent(path.basename(req.url));
-		console.log("Dump: " + cmd);
+	if (fileName.startsWith("/loadFile/")) {
+		const fname = decodeURIComponent(req.url.substring(10));	// cut "/loadFile/"
+		console.log("filename =", fname);
 
 		res.writeHead(200, {
-				'Content-Type': 'text/event-stream',
+			"Content-Type":"text/html",
+			"Cache-Control":"no-cache",
+			"Connection":"keep-alive"
 			});
 
-		const buffer = [];
-		req.on('data', chunk => buffer.push(chunk));
-		req.on('end', () => {
-			const data = Buffer.concat(buffer);
-			const dataD = decodeURIComponent(data).toString('utf8');
-			console.log("Dumped: " + dataD + '\n');
+		fs = require('fs');
+		fs.readFile(fname, "utf-8", function (err, data) {
+			if (err) {
+				console.log(err)
+				res.writeHead(404);
+				res.end();
+				return;
+			}
+		res.writeHead(200, {"Content-Type": "text/html"});
+		res.end(data, "utf-8");
 		});
-
-		res.end();
-		return;	}
+		return; }
 
 	// **** Issued by index.html (misc-buttons.js), but also contentscript2.js
 	if (fileName.startsWith("/shellCommand")) {
@@ -237,20 +210,6 @@ function reqHandler(req, res) {
 				'Content-Type': 'text/html',
 			});
 
-		/*
-		const buffer = [];
-		req.on('data', chunk => buffer.push(chunk));
-		req.on('end', () => {
-			const data = Buffer.concat(buffer);
-			const dataD = decodeURIComponent(data).toString('utf8');
-			var exec = require('child_process').exec;
-			exec(dataD,
-				function (error, stdout, stderr)
-					{ console.log(stdout); }
-				);
-			console.log("Shell command: " + dataD);
-		});
-		*/
 		const exec = require('child_process').exec;
 		exec(cmd, function (error, stdout, stderr) {
 			res.write(stdout);
@@ -258,31 +217,6 @@ function reqHandler(req, res) {
 			console.log(stdout);
 			} );
 		// res.end();
-		return;	}
-
-	// * from Javascript I get the pinyin sequence
-	// * do a shell escape to key in the sequence
-	// * return control to Javascript (which then extracts the HTML element from the Google input box)
-	if (fileName.startsWith("/keystrokes")) {
-		res.writeHead(200, {
-				'Content-Type': 'text/event-stream',
-			});
-
-		// req.setEncoding("utf8");		// This causes an error, seems chunk cannot be string
-		const buffer4 = [];
-		req.on('data', chunk => buffer4.push(chunk));
-		req.on('end', () => {
-			const data4 = Buffer.concat(buffer4);
-			const data4b = decodeURIComponent(data4).toString('utf8');
-			var exec = require('child_process').exec;
-			exec("./keystrokes-into-box.sh " + data4b,
-				function (error, stdout, stderr)
-					{ console.log(stdout); });
-			console.log("sent keystrokes: " + data4b);
-			// console.log("scraping data: " + data3b);
-			// console.log(unescape(encodeURIComponent(data3b)));
-		});
-		res.end();
 		return;	}
 
 	// **** Issued from Conkey's index.html
@@ -330,55 +264,50 @@ function reqHandler(req, res) {
 		res.end();
 		return;	}
 
-	// **** Issued from Conkey's index.html
-	if (fileName.startsWith("/saveDatabase/")) {
-		var filename = path.basename(url.parse(req.url).pathname);
-
+	// * from Javascript I get the pinyin sequence
+	// * do a shell escape to key in the sequence
+	// * return control to Javascript (which then extracts the HTML element from the Google input box)
+	if (fileName.startsWith("/keystrokes")) {
 		res.writeHead(200, {
-				'Content-Type': 'text/event-stream; charset=utf-8',
+				'Content-Type': 'text/event-stream',
 			});
 
+		// req.setEncoding("utf8");		// This causes an error, seems chunk cannot be string
 		const buffer4 = [];
 		req.on('data', chunk => buffer4.push(chunk));
 		req.on('end', () => {
 			const data4 = Buffer.concat(buffer4);
-
-			// Save to file
-			var fs = require('fs');
-			var stream = fs.createWriteStream("./web/" + filename, {encoding: 'utf8'});
-			stream.once('open', function(fd) {
-				stream.write(data4);
-				stream.end();
-			});
-			console.log(filename + " saved!");
-			// console.log("log data: " + data4);
-			// console.log(unescape(encodeURIComponent(data4)));
+			const data4b = decodeURIComponent(data4).toString('utf8');
+			var exec = require('child_process').exec;
+			exec("./keystrokes-into-box.sh " + data4b,
+				function (error, stdout, stderr)
+					{ console.log(stdout); });
+			console.log("sent keystrokes: " + data4b);
+			// console.log("scraping data: " + data3b);
+			// console.log(unescape(encodeURIComponent(data3b)));
 		});
 		res.end();
 		return;	}
 
-	if (fileName.startsWith("/loadDatabase/")) {
-		var dbName = path.basename(url.parse(req.url).pathname);
-		console.log("DB name = " + dbName);
+	// **** Seems unused anywhere?
+	if (fileName.startsWith("/dump")) {
+		const cmd = decodeURIComponent(path.basename(req.url));
+		console.log("Dump: " + cmd);
 
 		res.writeHead(200, {
-			"Content-Type":"text/html",
-			"Cache-Control":"no-cache",
-			"Connection":"keep-alive"
+				'Content-Type': 'text/event-stream',
 			});
 
-		fs = require('fs');
-		fs.readFile("./web/" + dbName, "utf-8", function (err, data) {
-			if (err) {
-				console.log(err)
-				res.writeHead(404);
-				res.end();
-				return;
-			}
-		res.writeHead(200, {"Content-Type": "text/html"});
-		res.end(data, "utf-8");
+		const buffer = [];
+		req.on('data', chunk => buffer.push(chunk));
+		req.on('end', () => {
+			const data = Buffer.concat(buffer);
+			const dataD = decodeURIComponent(data).toString('utf8');
+			console.log("Dumped: " + dataD + '\n');
 		});
-		return; }
+
+		res.end();
+		return;	}
 
 	// **** seems unused anywhere?
 	if (fileName.startsWith("/appendFile/")) {

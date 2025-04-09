@@ -41,7 +41,7 @@ function saveLog(name) {
 	var timeStamp = datetime.toLocaleDateString().replace(/\//g, "-")
 			+ "(" +   datetime.getHours() + ":" + datetime.getMinutes() + ")";
 	// the string following by "!log " is the Nickname
-	logName = "./logs/" + name.replace(/ /g, "_") + "." + timeStamp + ".txt";
+	logName = name.replace(/ /g, "_") + "." + timeStamp + ".txt";
 	console.log("log file name = " + logName);
 
 	var str = chat_history.join('');
@@ -49,8 +49,7 @@ function saveLog(name) {
 
 	$.ajax({
 		method: "POST",
-		// "./logs/" dir is already added above
-		url: "http://localhost:8484/saveFile/" + logName,
+		url: "http://localhost:8484/saveFile/./logs/" + logName,
 		contentType: "application/json; charset=utf-8",
 		// dataType: "text",	// This affects the data to be received
 		processData: false,

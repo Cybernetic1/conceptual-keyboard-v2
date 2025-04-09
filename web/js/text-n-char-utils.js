@@ -142,7 +142,7 @@ var h_exceptions = new Array();
 
 $.ajax({
 method: "GET",
-url: "/loadDatabase/hcutf8-YKY.txt",		// Note: name with extension
+url: "/loadFile/./web/hcutf8-YKY.txt",		// Note: name with extension
 cache: false,
 success: function(data) {
 	var lines = data.split("\n");
@@ -168,7 +168,7 @@ var pin = new Object(); // or just {}
 
 $.ajax({
 method: "GET",
-url: "/loadDatabase/pinyins.txt",		// Note: name with extension
+url: "/loadFile/./web/pinyins.txt",		// Note: name with extension
 cache: false,
 success: function(data) {
 	var lines = data.split("\n");

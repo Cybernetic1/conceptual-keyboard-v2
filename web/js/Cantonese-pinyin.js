@@ -97,7 +97,7 @@ var yky = new Object();		// from char look up YKY-custom pinyin
 // **** Load YKY custom pinyins ****
 $.ajax({
 	method: "GET",
-	url: "/loadDatabase/YKY-custom-pinyins-ZH.txt",		// Note: use filename with extension
+	url: "/loadFile/./web/YKY-custom-pinyins-ZH.txt",		// Note: use filename with extension
 	cache: false,
 	success: function(data) {
 		var lines = data.split("\n");
@@ -117,7 +117,7 @@ var freq = new Object();
 /* **** Old File: char-rel-freq.txt
 $.ajax({
 method: "GET",
-url: "/loadDatabase/char-rel-freq.txt",
+url: "/loadFile/./web/char-rel-freq.txt",
 cache: false,
 success: function(data) {
 	var lines = data.split("\n");
@@ -150,8 +150,8 @@ success: function(data) {
 // **** Load char and word frequencies
 $.ajax({
 method: "GET",
-// url: "/loadDatabase/char-rel-freq",
-url: "/loadDatabase/all-freqs.txt",		// Note: use filename with extension
+// url: "/loadFile/./web/char-rel-freq",
+url: "/loadFile/./web/all-freqs.txt",		// Note: use filename with extension
 cache: false,
 success: function(data) {
 	var lines = data.split("\n");
@@ -183,7 +183,7 @@ function freq0(w) {
 function loadGooglePins() {
 	$.ajax({
 	method: "GET",
-	url: "/loadDatabase/exact-Google-pinyins.txt",		// Note: use filename with extension
+	url: "/loadFile/./web/exact-Google-pinyins.txt",		// Note: use filename with extension
 	cache: false,
 	success: function(data) {
 		var lines = data.split("\n");
@@ -240,7 +240,7 @@ function loadGooglePins() {
 function loadDistincts() {
 	$.ajax({
 	method: "GET",
-	url: "/loadDatabase/distinct-sounds.txt",		// Note: use filename with extension
+	url: "/loadFile/./web/distinct-sounds.txt",		// Note: use filename with extension
 	cache: false,
 	success: function(data) {
 		for (var i = 0; i < data.length; ++i) {
