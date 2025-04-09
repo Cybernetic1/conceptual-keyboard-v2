@@ -1,11 +1,15 @@
 // New server for Conkey, in Node.js
 
 // TO-DO:
-// * alert when new girls arrive
+// * unify all read-file & write-file operations
+// * nickname-list is gotten by contentscript2.js, perhaps saved on server-side?
+//		then it can be read by a local web page
+// * read and write notify-list
 // * ./loadDatabase/:name, Read the latest database_default.##.txt
 // * ./saveDatabase/:name
 
 // FIXED:
+// * alert when new girls arrive
 // * ./speakMandarin/, extra "text=" at beginning of data
 //		(fixed in contentscript2, ajax POST)
 // * log data is not decoded, with extra "data="
