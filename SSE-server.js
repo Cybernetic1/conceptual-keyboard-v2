@@ -1,7 +1,7 @@
 // New server for Conkey, in Node.js
 
 // TO-DO:
-// * nickname-list is gotten by contentscript2.js, perhaps saved on server-side?
+// * nickname-list is gotten by contentscript2.js, perhaps save on server-side?
 //		then it can be read by a local web page
 // * read and write notify-list
 // * ./loadDatabase/:name, Read the latest database_default.##.txt
@@ -60,8 +60,9 @@ var fs = require("fs");
 var url = require("url");
 var path = require("path");
 
-var sse_res = [null, null, null];		// for SSE = Server-Side Events
+// Note: order of list is important:
 const sse_servers = ["/background", "/UT-room", "/conkey"];
+var sse_res = [null, null, null];		// for SSE = Server-Side Events
 
 function reqHandler(req, res) {
 
@@ -73,7 +74,7 @@ function reqHandler(req, res) {
 	// the SSE[2]: /conkey stream is for sending messages to Conkey's index.html
 	// The following code is for event-stream connections:
 	if (req.headers.accept && req.headers.accept == 'text/event-stream') {
-		i = sse.servers.indexOf(req.url);
+		const i = sse_servers.indexOf(req.url);
 		if (i >= 0) {
 			res.writeHead(200, {
 				'Content-Type': 'text/event-stream; charset=utf-8',
@@ -88,7 +89,7 @@ function reqHandler(req, res) {
 			res.write(": \n\n");
 			// res.end();		// this causes "write after end" error
 			sse_res[i] = res;
-			console.log("Connected event stream #", i, req.url);
+			console.log("Connected SSE[" + i.toString() + "]", req.url);
 		} else {
 			res.writeHead(404);
 			res.end();
@@ -158,17 +159,17 @@ function reqHandler(req, res) {
 				'Content-Type': 'text/event-stream; charset=utf-8',
 			});
 
-		const buffer2 = [];
-		req.on('data', chunk => buffer2.push(chunk));
+		const buffer = [];
+		req.on('data', chunk => buffer.push(chunk));
 		req.on('end', () => {
-			// const data2 = unescape(Buffer.concat(buffer2));
-			const data2 = decodeURIComponent(Buffer.concat(buffer2));
+			// const data = unescape(Buffer.concat(buffer));
+			const data = decodeURIComponent(Buffer.concat(buffer));
 
 			// Save to file
 			var fs = require('fs');
 			var stream = fs.createWriteStream(fname, {encoding: 'utf8'});
 			stream.once('open', function(fd) {
-				stream.write(data2);
+				stream.write(data);
 				stream.end();
 			});
 			console.log(fname + " saved!");
@@ -179,8 +180,12 @@ function reqHandler(req, res) {
 		return;	}
 
 	if (fileName.startsWith("/loadFile/")) {
-		const fname = decodeURIComponent(req.url.substring(10));	// cut "/loadFile/"
-		console.log("filename =", fname);
+		var fname = decodeURIComponent(req.url.substring(10));	// cut "/loadFile/"
+		fname = fname.replace(/\?_=[0-9]*/, '');
+		// console.log("URL =", req.url);
+		// console.log("basename =",  decodeURIComponent(path.basename(req.url)));
+		// console.log("dirname =",  decodeURIComponent(path.dirname(req.url)));
+		console.log("Loading file:", fname);
 
 		res.writeHead(200, {
 			"Content-Type":"text/html",
@@ -220,46 +225,31 @@ function reqHandler(req, res) {
 		return;	}
 
 	// **** Issued from Conkey's index.html
-	if (fileName.startsWith("/speakMandarin")) {
+	if (fileName.startsWith("/speakMandarin") ||
+		fileName.startsWith("/speakCantonese")) {
 		res.writeHead(200, {
 				'Content-Type': 'text/event-stream',
 			});
 
 		// req.setEncoding("utf8");		// This causes an error, seems chunk cannot be string
-		const buffer3 = [];
-		req.on('data', chunk => buffer3.push(chunk));
+		const buffer = [];
+		req.on('data', chunk => buffer.push(chunk));
 		req.on('end', () => {
-			const data3 = Buffer.concat(buffer3);
-			const data3b = decodeURIComponent(data3).toString('utf8');
+			const data = Buffer.concat(buffer);
+			const str = decodeURIComponent(data).toString('utf8');
 			var exec = require('child_process').exec;
-			exec("ekho " + data3b,
-				function (error, stdout, stderr)
-					{ console.log(stdout); });
-			console.log("Speak: " + data3b);
-			// console.log("log data: " + data3b);
-			// console.log(unescape(encodeURIComponent(data3b)));
-		});
-		res.end();
-		return;	}
-
-	if (fileName.startsWith("/speakCantonese")) {
-		res.writeHead(200, {
-				'Content-Type': 'text/event-stream',
-			});
-
-		// req.setEncoding("utf8");		// This causes an error, seems chunk cannot be string
-		const buffer5 = [];
-		req.on('data', chunk => buffer5.push(chunk));
-		req.on('end', () => {
-			const data5 = Buffer.concat(buffer5);
-			const data5b = decodeURIComponent(data5).toString('utf8');
-			var exec = require('child_process').exec;
-			exec("ekho -v Cantonese " + data5b,
-				function (error, stdout, stderr)
-					{ console.log(stdout); });
-			console.log("Speak: " + data5b);
-			// console.log("log data: " + data5b);
-			// console.log(unescape(encodeURIComponent(data5b)));
+			if (fileName[6] == 'C') {
+				exec("ekho -v Cantonese " + str,
+					function (error, stdout, stderr)
+						{ console.log(stdout); });
+				}
+			else {	// Mandarin
+				exec("ekho " + str,
+					function (error, stdout, stderr)
+						{ console.log(stdout); });
+				}
+			console.log("Spoken: " + str);
+			// console.log(unescape(encodeURIComponent(str)));
 		});
 		res.end();
 		return;	}
