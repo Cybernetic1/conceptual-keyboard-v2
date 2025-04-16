@@ -131,6 +131,7 @@ myPort.onMessage.addListener(function (request) {
 				const nicklist = document.getElementsByTagName("frame")[7].contentDocument.childNodes[0].childNodes[1].childNodes[0].childNodes[1].childNodes[3].childNodes[0].childNodes[0].childNodes[0];
 				console.log("Processing nicks:", nicklist.childElementCount);
 				// array index starts from 5, increment = 3
+				var alert = false;
 				for (i = 5; i < nicklist.childElementCount; i++) {
 					// if (!nicklist.childNodes[i].hasChildNodes())
 						// continue;
@@ -139,12 +140,19 @@ myPort.onMessage.addListener(function (request) {
 						const nickname = nicklist.childNodes[i].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].innerText.substring(3);
 						if (nickcolor == "FF33FF")
 							console.log(nickname);
-						if (notifyList.indexOf(nickname) > -1)
-							myPort.postMessage({alert: "scream"});
+						if (notifyList.indexOf(nickname) > -1) {
+							console.log("****** NOTIFY HIT *****")
+							alert = true;
+							}
 						} catch(error) {
 						//console.log("nick index:", i);
 						}
 					}
+				console.log("Notify =", alert);
+				if (alert)
+					myPort.postMessage({alert: "scream"});
+				else
+					myPort.postMessage({alert: "notify-empty"});
 				}
 			return true;
 			}
@@ -500,7 +508,7 @@ setInterval( function () {
 					// **** prevent xyz123 說： 女 https://is.gd/[...]
 					if (stuff.indexOf("女 https://is.gd/") >= 0)
 						console.log("spam =>", stuff);
-					if (stuff.endsWith("說： 女"))
+					else if (stuff.endsWith("說： 女"))
 						console.log("spam =>", stuff);					
 					else {
 						alert = true
