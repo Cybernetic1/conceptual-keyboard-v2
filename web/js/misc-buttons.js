@@ -119,7 +119,7 @@ function shortsend(dream = false) {
 	*/
 
 	recordHistory(str);
-	display_pinyin(str);
+	// display_pinyin(str);		// used to be automatic
 
 	/***** Send to Pidgin #0?
 	if ($("#to-pidgin0").prop("checked") === true) {
