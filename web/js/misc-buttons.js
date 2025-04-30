@@ -209,6 +209,7 @@ document.getElementById("quick-complex").addEventListener("click", function() {
 
 document.getElementById("clear-white").addEventListener("click", function() {
 	document.getElementById("pinyin-box").innerHTML = "";
+	document.getElementById("pinyin-box").style.display = "none";
 	white_box.value = "";
 	white_box.focus();
 	upperLevels.innerHTML = ""
@@ -442,12 +443,14 @@ document.getElementById("do-Russian-1").addEventListener("click", function() {
 	str = document.getElementById("white-box").value;
 	var str2 = translateRussianToEnglish(str);
 	document.getElementById("pinyin-box").innerHTML = str2;
+	document.getElementById("pinyin-box").style.display = "initial";
 }, false);
 
 document.getElementById("do-Russian").addEventListener("click", function() {
 	str = document.getElementById("white-box").value;
 	var str2 = translateEnglishToRussian(str);
 	document.getElementById("pinyin-box").innerHTML = str2;
+	document.getElementById("pinyin-box").style.display = "initial";
 }, false);
 
 // For 中文

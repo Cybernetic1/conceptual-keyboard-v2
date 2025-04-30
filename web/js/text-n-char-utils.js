@@ -133,6 +133,7 @@ function display_pinyin(str) {
 	}
 	// Copy to Pinyin Box
 	document.getElementById("pinyin-box").innerHTML = str2;
+	document.getElementById("pinyin-box").style.display = "initial";
 }
 
 // **** Read hcutf8.txt into buffer ****
