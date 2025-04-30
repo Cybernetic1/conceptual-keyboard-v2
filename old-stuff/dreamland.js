@@ -1,3 +1,5 @@
+// Old stuff -- did not find anything particularly useful here
+
 var database = new Array();
 
 var currentNode = null;		// node (within database) currently selected by user

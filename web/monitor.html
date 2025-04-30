@@ -7,78 +7,22 @@
 <style type="text/css">
 	body {
 		font-size: 130%;
-		font-family: "Trebuchet MS",Verdana, Arial, Helvetica, sans-serif;
-		padding-top: 0px;
-		background-color: #000000;
-		color: #eeeeee;
-		overflow-x: hidden;		// hide horizontal scroll bar
+		background-color: #FFF;
+		color: #A00;
 	}
 
-	button {
-		border: None;
-		border-radius: 5px;
-		color: #444444;
-		background-color: #aaaaaa;
-		padding: 5px;
-		font-size: 92%;
-		font-weight: bold;
-		line-height: 1.1;
-		cursor: pointer;
-		margin-top: 5px;
-	}
-
-	button:hover {
-		background-color: #FF0000;
-	}
-
-	textarea, input[type=text] {
-		font-size: 130%;
-		background-color: #c0c030;		// yellowish "grey-out" color
-		color: #aaaaaa;
-	}
-
-	textarea:focus,
-	input[type=text]:focus {
-		background-color: #000000;
-		color: #ffffff;
-	}
-
-	a {
-		color: #aaaaFF;
-		text-decoration: none;
-		border-bottom: 1px dotted #0066cc;
-	}
-
-	span {
-		cursor: pointer;
-	}
-
-	#pinyin-bar {
-		display: inline-block; 
-		// height: 50px;
-		width: 125px;
-		color: #ff5555;
-		font-family: "Courier New", Courier, monospace;
-		font-size: 20px;
-		font-weight: bold;
-		// padding: 6px 0px 0px 0px;	// top right bottom left
-		// margin: 5px 5px;
-	}
-
-	#filelist pre {
-		// white-space: pre-wrap;
+	#notifyList {
+		background-color: #338;
+		color: #0A0;
 		overflow: auto;
-		// word-wrap: break-word;
 		}
 </style>
 </head>
 
 <body>
-	<textarea id="white-box" style="width:98%; height:40px;" ondrop="drop(event);" ondragover="allowDrop(event)"></textarea>
+	<p>Test</p>
 
-	<div id="filelist"></div>
-
-	<span id="pinyin-box" style="width:100%; color:#8888ff">abc</span>
+	<div id="notifyList">Blah</div>
 
 	<script src="js/min/jquery-1.10.1.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/SSE-event-handler.js"></script>

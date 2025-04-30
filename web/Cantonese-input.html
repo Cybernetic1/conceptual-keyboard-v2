@@ -9,16 +9,16 @@
 				font-size: 130%;
 				font-family: "Trebuchet MS",Verdana, Arial, Helvetica, sans-serif;
 				padding-top: 0px;
-				background-color: #000000;
-				color: #eeeeee;
+				background-color: #ffffff;
+				color: #111111;
 				overflow-x: hidden;		// hide horizontal scroll bar
 			}
 
 			button {
 				border: None;
 				border-radius: 5px;
-				color: #444444;
-				background-color: #aaaaaa;
+				color: black;
+				background-color: #ccc;
 				padding: 5px;
 				font-size: 92%;
 				font-weight: bold;
@@ -33,28 +33,30 @@
 
 			textarea, input[type=text] {
 				font-size: 130%;
-				background-color: #c0c030;		// yellowish "grey-out" color
+				background-color: #CCC;		// CC3 = yellowish "grey-out"
 				color: #aaaaaa;
 			}
 
 			textarea:focus,
 			input[type=text]:focus {
-				background-color: #000000;
-				color: #ffffff;
+				background-color: #fff;
+				color: #000;
 			}
 
 			a {
-				color: #aaaaFF;
+				color: green;
 				text-decoration: none;
-				border-bottom: 1px dotted #0066cc;
+				border-bottom: 1px dotted green;
 			}
 
 			span {
 				cursor: pointer;
 			}
 
+			// This seems for use with YKY-custom pinyin 
 			#pinyin-bar {
-				display: inline-block; 
+				display: none;
+				// display: inline-block; 
 				// height: 50px;
 				width: 125px;
 				color: #ff5555;
@@ -109,7 +111,7 @@
 
 			#columnB span {
 				display:inline-block;
-				background: #275D80;
+				background: #446688;
 				padding-top: 1px;
 				padding-right: 1px;
 				padding-bottom: 1px;
@@ -123,7 +125,7 @@
 			#columnA span:hover,
 			#columnB span:hover,
 			#column2 span:hover {
-				background: #ff0000;
+				background: #ff6666;
 				color: #000000;
 				}
 
@@ -157,25 +159,26 @@
 			}
 
 			.W {
-				background: #275D80;
+				background: #468;		// unknown?
 			}
 
 			.C {
-				background: #606060;
+				background: #666;
 			}
 
 			#upperLevels span:hover,
+			#sub-dirs tr:hover,
 			#column2 span:hover {
-				background: #ff0000;
+				background: #f88;
 				color: #000000;
 				}
 
 			#header-bar span {
-				background: #000000;
-				padding: 1px;
-				border: 1px solid #ff0000;
-				margin: 1px;
-				color: #ff0000;
+				background: #fff;
+				// padding: 0px;
+				// border: 1px solid #f00;
+				// margin: 1px;
+				color: #f00;
 			}
 
 			#column1 {
@@ -197,7 +200,7 @@
 			}
 
 			#suggestions span {
-				background: #336633;
+				background: #88ff88;
 				padding: 1px;
 				// border: 1px solid #00bb00;
 				border: None;
@@ -212,8 +215,8 @@
 
 			/* Drop-down button */
 			.dropbtn {
-				background-color: #3498DB;
-				color: blue;
+				background-color: #fff;
+				color: green;
 				padding: 2px;
 				border: none;
 				cursor: pointer;
@@ -229,7 +232,8 @@
 			.dropdown-content {
 				display: none;
 				position: absolute;
-				background-color: #3498DB;
+				background-color: #666;
+				color: white;
 				padding: 10px;
 				/* text-align: justify; */
 				/* text-align-last: center; */
@@ -258,6 +262,7 @@
 		<textarea id="white-box" style="width:98%; height:40px;" ondrop="drop(event);" ondragover="allowDrop(event)"></textarea>
 
 		<div><span id="▼" style="color:gray;">▼</span>
+		<!-- pinyin-bar seems used in YKY-custom pinyin only -->
 		<span id="pinyin-bar"></span>
 		<button type="button" id="quick-simplify">简</button>
 		<button type="button" id="quick-complex">烦</button>
@@ -300,11 +305,12 @@
 		<button type="button" id="paste2">2</button>
 		<button type="button" id="paste3">3</button>
 
-		<button type="button" id="whichRoom" style="background-color:white;">&nbsp;</button>
+		<button type="button" id="whichRoom" style="background-color:#aaa;">&nbsp;</button>
 		<button type="button" id="chin-or-eng" style="color:white; background-color:green;">En</button>
 		</div>
 
-		<span id="pinyin-box" style="width:100%; color:#8888ff">abc</span>
+		<span id="pinyin-box" style="width:100%; color:#8888ff; display:none">
+		pin yin</span>
 
 		<div id="upperLevels">
 			<div id="columnA">&nbsp;
@@ -337,8 +343,10 @@
 			<input type="checkbox" id="delete" style="width:20px; height:20px;">delete
 			<input type="checkbox" id="change" style="width:20px; height:20px;">change
 			<input type="checkbox" id="append" style="width:20px; height:20px;">add
-			<button type="button" id="insert" style="color: #aaffaa;">+</button>
-			<button type="button" id="add-child" style="color: #aaffaa;">+node</button>
+			<button type="button" id="insert" style="color: green;">
+				+</button>
+			<button type="button" id="add-child" style="color: green;">
+				+node</button>
 
 			<br>
 			<button type="button" id="loadDB">load</button>
@@ -347,9 +355,6 @@
 			&nbsp; <a href="javascript:loadDB('rogets_thesaurus.txt')">Roget's</a>
 			&nbsp; <button type="button" id="flush-typings">typings</button>
 		</div>
-
-		<!-- dummy variables: -->
-		<span id="pinyin-box" style="display:none;"></span>
 
 		<script src="js/min/jquery-1.10.1.min.js"></script>
 		<script src="js/min/neo4j-web.min.js"></script>

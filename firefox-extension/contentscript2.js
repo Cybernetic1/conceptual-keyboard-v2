@@ -137,7 +137,7 @@ myPort.onMessage.addListener(function (request) {
 						// continue;
 					try {
 						const nickcolor = nicklist.childNodes[i].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].attributes["bgcolor"].value;
-						const nickname = nicklist.childNodes[i].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].innerText.substring(3);
+						const nickname = nicklist.childNodes[i].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].innerText.substring(3).trimEnd();
 						if (nickcolor == "FF33FF")
 							console.log(nickname);
 						if (notifyList.indexOf(nickname) > -1) {
