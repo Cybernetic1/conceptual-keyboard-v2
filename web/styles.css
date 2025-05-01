@@ -1,0 +1,249 @@
+body {
+	font-size: 130%;
+	font-family: "Trebuchet MS",Verdana, Arial, Helvetica, sans-serif;
+	padding-top: 0px;
+	background-color: #ffffff;
+	color: #111111;
+	overflow-x: hidden;		/* hide horizontal scroll bar */
+}
+
+button {
+	border: None;
+	border-radius: 5px;
+	color: black;
+	background-color: #ccc;
+	padding: 5px;
+	font-size: 92%;
+	font-weight: bold;
+	line-height: 1.1;
+	cursor: pointer;
+	margin-top: 5px;
+}
+
+button:hover {
+	background-color: #FF0000;
+}
+
+textarea, input[type=text] {
+	font-size: 130%;
+	background-color: #CCC;		/* CC3 = yellowish "grey-out" */
+	color: #aaaaaa;
+}
+
+textarea:focus,
+input[type=text]:focus {
+	background-color: #fff;
+	color: #000;
+}
+
+a {
+	color: green;
+	text-decoration: none;
+	border-bottom: 1px dotted green;
+}
+
+span {
+	cursor: pointer;
+}
+
+/* This seems for use with YKY-custom pinyin */
+#pinyin-bar {
+	display: none;
+	/* display: inline-block; */
+	/* height: 50px; */
+	width: 125px;
+	color: #ff5555;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 20px;
+	font-weight: bold;
+	/* padding: 6px 0px 0px 0px;	/* top right bottom left */
+	/* margin: 5px 5px; */
+}
+
+/*** NOTE: columnA and B are for YKY-custom Cantonese pinyin ***/
+/*** For Conkey-database stuff, see column1 and 2 ***/
+#columnA {
+	width: 54%;
+	height:120px;
+	overflow-y: auto;
+	float: left;
+	font-family: "Courier New", Courier, monospace;
+	margin-left: 0px
+	margin-right: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	line-height: 1.2;
+	/* border: 2px solid #007700; */
+}
+
+#columnB {
+	width: 44%;
+	height:120px;
+	overflow-y: auto;
+	overflow: auto;
+	float: right;
+	margin-left: 0px
+	margin-right: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	/* padding: 5px 5px; */
+	line-height: 1.2;
+	/* border: 2px solid #7777bb; */
+}
+
+#columnA span {
+	display:inline-block;
+	background: #606060;
+	padding-top: 5px;
+	padding-right: 3px;
+	padding-bottom: 1px;
+	padding-left: 1px;
+	/* border: 1px solid #606060; */
+	border: none;
+	border-radius: 5px;
+	margin: 5px 5px;
+}
+
+#columnB span {
+	display:inline-block;
+	background: #446688;
+	padding-top: 1px;
+	padding-right: 1px;
+	padding-bottom: 1px;
+	padding-left: 1px;
+	/* border: 1px solid #9999bb; */
+	border: None;
+	border-radius: 5px;
+	margin: 5px 5px;
+}
+
+#columnA span:hover,
+#columnB span:hover,
+#column2 span:hover {
+	background: #ff6666;
+	color: #000000;
+	}
+
+#filelist pre {
+	/* white-space: pre-wrap; */
+	overflow: auto;
+	/* word-wrap: break-word; */
+	}
+
+#upperLevels {
+	height:120px;
+	overflow: auto;
+	overflow-y: auto;
+	float: left;
+	font-family: "Courier New", Courier, monospace;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	line-height: 1.2;
+}
+
+span {
+	display:inline-block;
+	padding-top: 5px;
+	padding-right: 3px;
+	padding-bottom: 1px;
+	padding-left: 1px;
+	/* border: 1px solid #606060; */
+	border: none;
+	border-radius: 5px;
+	margin: 5px 5px;
+}
+
+.W {
+	background: #468;		/* unknown? */
+}
+
+.C {
+	background: #666;
+}
+
+#upperLevels span:hover,
+#sub-dirs tr:hover,
+#column2 span:hover {
+	background: #f88;
+	color: #000000;
+	}
+
+#header-bar span {
+	background: #fff;
+	/* padding: 0px; */
+	/* border: 1px solid #f00; */
+	/* margin: 1px; */
+	color: #f00;
+}
+
+#column1 {
+	overflow: auto;
+	float:left;
+	width:25%;
+	padding:0px;
+	border:1px solid #f66;
+}
+
+#column2 {
+	/* overflow: auto; */
+	float:left;
+	width:74%;
+	padding:0px;
+	line-height: 170%;
+	/* margin: 5px 5px; */
+	/* border:1px solid #ccffff; */
+}
+
+#suggestions span {
+	background: #88ff88;
+	padding: 1px;
+	/* border: 1px solid #00bb00; */
+	border: None;
+	border-radius: 5px;
+	margin: 3px;
+}
+
+.selected td {
+	background: #003333;
+	border: 1px solid #00bb00;
+}
+
+/* Drop-down button */
+.dropbtn {
+	background-color: #fff;
+	color: green;
+	padding: 2px;
+	border: none;
+	cursor: pointer;
+}
+
+/* container <div> -- needed to position the dropdown content */
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+/* dropdown content (hidden by default) */
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #666;
+	color: white;
+	padding: 10px;
+	/* text-align: justify; */
+	/* text-align-last: center; */
+	max-width: 410px;
+	margin-left: 70px;
+	z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}

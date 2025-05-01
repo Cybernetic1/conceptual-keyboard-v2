@@ -66,6 +66,34 @@ function history() {
 		console.log(chat_history[i]);
 }
 
+function saveNotifyList() {
+	console.log("Saving notify list...");
+	var str = notifyList.join('\n');
+
+	$.ajax({
+		method: "POST",
+		url: "http://localhost:8484/saveFile/./logs/notify-list.txt",
+		contentType: "application/json; charset=utf-8",
+		processData: false,
+		data: str,
+		success: function(resp) {
+			console.log("Successfully saved notify list.");
+		}
+	});
+}
+
+function loadNotifyList() {
+	console.log("Loading notify list...");
+	$.ajax({
+		url: "http://localhost:8484/notify-list.txt",
+		dataType: "text",
+		success: function(resp) {
+			notifyList = resp.split('\n');
+			console.log("notify list =", notifyList);
+		}
+	});
+}
+
 // browser.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 myPort.onMessage.addListener(function (request) {
@@ -121,6 +149,16 @@ myPort.onMessage.addListener(function (request) {
 		if (str.indexOf("!test") > -1) {
 			console.log("Testing sound...");
 			myPort.postMessage({alert: "testing"});
+			return true;
+			}
+
+		if (str.indexOf("!saveNotify") > -1) {
+			saveNotifyList();
+			return true;
+			}
+
+		if (str.indexOf("!loadNotify") > -1) {
+			loadNotifyList();
 			return true;
 			}
 
@@ -702,6 +740,7 @@ setTimeout(function() {
 		e1.checked = false;
 	}
 	console.log("click 進出訊息，得左！");
+	loadNotifyList();
 },
 3000);
 

@@ -324,6 +324,8 @@ function reqHandler(req, res) {
 	fileName = "./web" + fileName;
 
 	fileTypes = {
+		".txt"	: ["text"					, "utf-8"],
+		".css"	: ["text/css"				, "utf-8"],
 		".html" : ["text/html"				, "utf-8"],
 		".js"   : ["application/javascript" , "utf-8"],
 		".ogg"  : ["audio/ogg"				, "base64"],
