@@ -342,6 +342,51 @@ function item_DoubleClick() {
 	send2Chat(clicked_str);
 }
 
+function set_wmctrl() {
+	// wmctrl -r "iCant" -b remove,maximized_horz,maximized_vert
+	// wmctrl -r "iCant" -e 1,500,200,620,450
+	// wmctrl -r "iCant" -b add,above
+
+	var command = 'wmctrl -r "iCant" -b remove,maximized_horz,maximized_vert';
+	var str = encodeURIComponent(command);
+	$.ajax({
+		method: "POST",
+		url: "http://localhost:8484/shellCommand/" + str,
+		contentType: "application/json; charset=utf-8",
+		processData: false,
+		data: "nil",
+		success: function(resp) {
+				console.log("Sent command:", str);
+			}
+		});
+
+	command = 'wmctrl -r "iCant" -e 1,500,200,620,450';
+	str = encodeURIComponent(command);
+	$.ajax({
+		method: "POST",
+		url: "http://localhost:8484/shellCommand/" + str,
+		contentType: "application/json; charset=utf-8",
+		processData: false,
+		data: "nil",
+		success: function(resp) {
+				console.log("Sent command:", str);
+			}
+		});
+
+	command = 'wmctrl -r "iCant" -b add,above';
+	str = encodeURIComponent(command);
+	$.ajax({
+		method: "POST",
+		url: "http://localhost:8484/shellCommand/" + str,
+		contentType: "application/json; charset=utf-8",
+		processData: false,
+		data: "nil",
+		success: function(resp) {
+				console.log("Sent command:", str);
+			}
+		});
+	}
+
 // Load database from server
 function loadDB(dbname)
 {
@@ -416,6 +461,7 @@ function loadDB(dbname)
 
 		fillDirs();			// update web-page panels according to new database
 		console.log("Loaded Conkey database.");
+		set_wmctrl();
 		},
 	error: function(XMLHttpRequest, textStatus, errorThrown) {
 		console.log("Load Conkey database error.");

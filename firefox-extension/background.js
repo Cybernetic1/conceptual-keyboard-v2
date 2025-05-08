@@ -126,7 +126,7 @@ function backListener(request, sender) {
 			whichRoom = "梦3";
 		// console.log("whichRoom =", whichRoom);
 
-		fetch('http://localhost:8484/whichRoom/', {
+		fetch('http://localhost:8484/conkey/', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json, text/plain, */*',

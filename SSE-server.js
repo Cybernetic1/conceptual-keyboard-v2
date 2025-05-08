@@ -61,6 +61,7 @@ var url = require("url");
 var path = require("path");
 
 // Note: order of list is important:
+// Note: I use these names for server routes also, which may be confusing
 const sse_servers = ["/background", "/UT-room", "/conkey"];
 var sse_res = [null, null, null];		// for SSE = Server-Side Events
 
@@ -135,8 +136,9 @@ function reqHandler(req, res) {
 	// **** Notify Conkey's index.html of active chatroom
 	// 1) contentscript2:mouseover notifies background.js which room is active
 	// 2) background.js POSTs here
-	// 3) here sends via SSE[2] to Conkey's index.html
-	if (fileName === "/whichRoom/") {
+	// 3) here sends via SSE[2] to Conkey's index.html,
+	//    the latter is processed by SSE-event-handler.js
+	if (fileName === "/conkey/") {
 		const buffer = [];
 		req.on('data', chunk => buffer.push(chunk));
 		req.on('end', () => {
@@ -144,7 +146,7 @@ function reqHandler(req, res) {
 			// send to SSE[2] /background stream
 			if (sse_res[2] != null)
 				sse_res[2].write("data: " + data + '\n\n');
-			console.log("/whichRoom/" + data + " --> SSE[2] --> index.html");
+			console.log("/conkey/" + data + " --> SSE[2] --> index.html");
 		});
 		res.end();
 		return;	}

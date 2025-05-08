@@ -17,16 +17,18 @@ node SSE-server.js > server-log.txt &
 Conkey_PID=$!
 echo $Conkey_PID > conkey_PID.txt
 sleep 1.5
-##### start chrome browser
+##### start chrome browser;
 # if chromium-browser --version >/dev/null; then
 chromium-browser --app=http://localhost:8484/Cantonese-input.html &
+# **** must put '&' at the end of command if script continues
 # else
 # google-chrome --new-window http://localhost:8484/index.html
 # vivaldi --app=http://localhost:8484/index.html
 # browser --app=http://localhost:8484/Cantonese-input.html
 # fi
-sleep 6
+##### problem is the sleep time is often not enough esp during 1st start
 ##### set size and flags of Conkey broswer window
-wmctrl -r "iCant" -b remove,maximized_horz,maximized_vert
-wmctrl -r "iCant" -e 1,500,200,620,450
-wmctrl -r "iCant" -b add,above
+# wmctrl -r "iCant" -b remove,maximized_horz,maximized_vert
+# wmctrl -r "iCant" -e 1,500,200,620,450
+# wmctrl -r "iCant" -b add,above
+# These are now moved to "web/Conkey_database.js :set_wmctrl()"

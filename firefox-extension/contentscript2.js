@@ -3,11 +3,12 @@
 // Multiple copies of this script talks to background.js
 
 // To-do:
+// * encrypt sensitive data such as: conkey_database, logs
 // * feed logs into some HTML window
 // * Log all Ip* rooms
-// * save/load notify list from somewhere
 
 // Done:
+// * save/load notify list from /web
 // * 来客发声
 // * Be able to speak in various 寻梦园 rooms (ip4, ip69, ip203)
 // * record whom I am speaking to
@@ -16,11 +17,11 @@ var roomHKSentText = "";
 var ip131SentText = "";
 var ipXSentText = "";
 
-var logName = "log.txt";					// Name of the log file, to be filled
+var logName = "log.txt";			// Name of the log file, to be filled
 
-var notifyList = ["淫蕩角色扮演網愛", "OL愛聊色" ];
+var notifyList = [];
 
-var chat_history = new Array();				// log of chat messages
+var chat_history = new Array();		// log of chat messages
 
 // **** Establish connection with background script
 
