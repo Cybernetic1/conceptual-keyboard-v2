@@ -68,12 +68,12 @@ function history() {
 }
 
 function saveNotifyList() {
-	console.log("Saving notify list...");
+	console.log("Saving notify list =", notifyList);
 	var str = notifyList.join('\n');
 
 	$.ajax({
 		method: "POST",
-		url: "http://localhost:8484/saveFile/./logs/notify-list.txt",
+		url: "http://localhost:8484/saveFile/./web/notify-list.txt",
 		contentType: "application/json; charset=utf-8",
 		processData: false,
 		data: str,
