@@ -545,7 +545,7 @@ setInterval( function () {
 				if ((el.tagName == "TABLE") &&
 					(el.getAttribute("bgcolor") == "FFCCFF")) {
 					// **** prevent xyz123 說： 女 https://is.gd/[...]
-					if (stuff.indexOf("女 https://is.gd/") >= 0)
+					if (stuff.indexOf("女 chat https://is.gd/") >= 0)
 						console.log("spam =>", stuff);
 					else if (stuff.endsWith("說： 女"))
 						console.log("spam =>", stuff);					
