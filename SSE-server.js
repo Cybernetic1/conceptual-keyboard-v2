@@ -189,11 +189,11 @@ function reqHandler(req, res) {
 		// console.log("dirname =",  decodeURIComponent(path.dirname(req.url)));
 		console.log("Loading file:", fname);
 
-		res.writeHead(200, {
-			"Content-Type":"text/html",
-			"Cache-Control":"no-cache",
-			"Connection":"keep-alive"
-			});
+		//res.writeHead(200, {
+		//	"Content-Type":"text/html",
+		//	"Cache-Control":"no-cache",
+		//	"Connection":"keep-alive"
+		//	});
 
 		fs = require('fs');
 		fs.readFile(fname, "utf-8", function (err, data) {
