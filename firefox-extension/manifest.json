@@ -35,7 +35,7 @@
 			"*://ip4.ek21.com/ofi_11/*",
 			"*://ip69.ek21.com/ofi_11/*",
 			"*://ip203.ek21.com/obzc_1/*",
-			"*://chatroom.hk/"
+			"*://chatroom.hk/index.php"
 			],
 		"js": ["contentscript-login.js"],
 		"run_at": "document_start"
