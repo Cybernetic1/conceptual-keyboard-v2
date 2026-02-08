@@ -549,6 +549,8 @@ setInterval( function () {
 						console.log("spam =>", stuff);
 					else if (stuff.indexOf("女 https://is.gd/") >= 0)
 						console.log("spam =>", stuff);
+					else if (stuff.indexOf("https://is.gd/") >= 0)
+                        console.log("spam =>", stuff);
 					else if (stuff.endsWith("說： 女"))
 						console.log("spam =>", stuff);					
 					else {
