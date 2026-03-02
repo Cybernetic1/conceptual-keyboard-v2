@@ -160,6 +160,7 @@ myPort.onMessage.addListener(function (request) {
 
 		if (str.indexOf("!loadNotify") > -1) {
 			loadNotifyList();
+			console.log(notifyList);
 			return true;
 			}
 
