@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Conkey",
-    "version": "8.22",
+    "version": "8.23",
     "description": "allow communication between Conkey and chatroom pages",
 
 	"browser_specific_settings": {

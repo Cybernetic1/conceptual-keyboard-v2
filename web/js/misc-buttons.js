@@ -599,6 +599,15 @@ document.getElementById("do-Google-IME").addEventListener("click", function() {
 	});
 }, false);
 
+document.getElementById("do-okay").addEventListener("click", function(evt) {
+	$.ajax({
+		method: "POST",
+		url: "./shellCommand/xdotool%20search%20--name%20%22UT%E7%B6%B2%E9%9A%9B%E7%A9%BA%E9%96%93%22%20key%20Return",
+		contentType: "application/json; charset=utf-8",
+		processData: false
+	});
+}, false);
+
 document.getElementById("do-last-logs").addEventListener("click", function(evt) {
 	$.ajax({
 		method: "POST",
