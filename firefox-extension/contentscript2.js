@@ -86,7 +86,7 @@ function saveNotifyList() {
 function loadNotifyList() {
 	console.log("Loading notify list...");
 	$.ajax({
-		url: "http://localhost:8484/notify-list.txt",
+		url: "http://localhost:8484/./web/notify-list.txt",
 		dataType: "text",
 		success: function(resp) {
 			notifyList = resp.split('\n');

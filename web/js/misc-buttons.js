@@ -608,6 +608,28 @@ document.getElementById("do-okay").addEventListener("click", function(evt) {
 	});
 }, false);
 
+// Feed input to Google chat input box
+document.getElementById("do-feed").addEventListener("click", function(evt) {
+
+	whiteBox.focus();
+	whiteBox.select();
+	try {
+		var successful = document.execCommand('copy');
+		// var msg = successful ? 'success' : 'failure';
+		// console.log('Copying text:' + msg);
+	} catch (err) {
+		console.error('Oops, unable to copy:', err);
+	}
+
+	const cmd = "./shellCommand/xdotool%20windowactivate%206291926%20key%20ctrl+v";
+	$.ajax({
+		method: "POST",
+		url: cmd,
+		contentType: "application/json; charset=utf-8",
+		processData: false
+	});
+}, false);
+
 document.getElementById("do-last-logs").addEventListener("click", function(evt) {
 	$.ajax({
 		method: "POST",

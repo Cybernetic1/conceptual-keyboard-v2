@@ -201,7 +201,8 @@ function backListener(request, sender) {
 		document.execCommand("Copy");
 		} */
 
-// End of message-listener
+	// End of message-listener
+	return true;
 }
 
 console.log("Background Script.js (25-Dec-2022) RE/LOADED");
