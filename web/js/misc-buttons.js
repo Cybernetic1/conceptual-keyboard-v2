@@ -599,13 +599,33 @@ document.getElementById("do-Google-IME").addEventListener("click", function() {
 	});
 }, false);
 
+// Press "OK" button in the Firefox window beneath Conkey
 document.getElementById("do-okay").addEventListener("click", function(evt) {
+	// See the file "hit-enter.py"
 	$.ajax({
 		method: "POST",
-		url: "./shellCommand/xdotool%20search%20--name%20%22UT%E7%B6%B2%E9%9A%9B%E7%A9%BA%E9%96%93%22%20key%20Return",
+		url:
+		"./shellCommand/python3%20hit-enter.py",
 		contentType: "application/json; charset=utf-8",
-		processData: false
+		processData: false,
+		success: function(resp) {
+			console.log("hit-enter.py:", resp);
+		}
 	});
+
+/*
+	$.ajax({
+		method: "POST",
+		url:
+		// xdotool search --name "UT網際空間" key Return"
+		"./shellCommand/xdotool%20search%20--name%20%22UT%E7%B6%B2%E9%9A%9B%E7%A9%BA%E9%96%93%22%20key%20Return",
+		contentType: "application/json; charset=utf-8",
+		processData: false,
+		success: function(resp) {
+			console.log("Xdotool success:", resp);
+		}
+	});
+*/
 }, false);
 
 // Feed input to Google chat input box

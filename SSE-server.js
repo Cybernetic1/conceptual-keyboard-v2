@@ -218,7 +218,7 @@ function reqHandler(req, res) {
 			});
 
 		const exec = require('child_process').exec;
-		exec(cmd, function (error, stdout, stderr) {
+		exec(cmd, { cwd: '/home/yky/misc-programs/conceptual-keyboard-v2' }, function (error, stdout, stderr) {
 			res.write(stdout);
 			res.end();
 			console.log(stdout);
