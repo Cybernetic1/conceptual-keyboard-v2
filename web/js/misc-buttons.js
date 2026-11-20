@@ -653,21 +653,27 @@ document.getElementById("do-feed").addEventListener("click", function(evt) {
 
 // Make Conkey window transparent
 var transparency = true;
-document.getElementById("transparent").addEventListener("click", function(evt) {
-	var cmd = "./shellCommand/python3%20transparent.py";
-	if (transparency)
-		transparency = false;
-	else {
-		cmd = "./shellCommand/python3%20opaque.py";
-		transparency = true;
-	}
+document.addEventListener("click", (event) => {
+	// console.log('target:', event.target);
+	// console.log('currentTarget:', event.currentTarget);
+	const tag = event.target.tagName;
+	// console.log('tag:', tag);
+	if (tag == 'DIV' || tag == 'HTML' || tag == 'TABLE') {
+		var cmd = "./shellCommand/python3%20transparent.py";
+		if (transparency)
+			transparency = false;
+		else {
+			cmd = "./shellCommand/python3%20opaque.py";
+			transparency = true;
+		}
 
-	$.ajax({
-		method: "POST",
-		url: cmd,
-		contentType: "application/json; charset=utf-8",
-		processData: false
-	});
+		$.ajax({
+			method: "POST",
+			url: cmd,
+			contentType: "application/json; charset=utf-8",
+			processData: false
+		});
+	}
 }, false);
 
 document.getElementById("do-last-logs").addEventListener("click", function(evt) {

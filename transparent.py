@@ -11,7 +11,7 @@ print("Conkey window =", winID_self)
 
 # Make window transparent
 # xprop -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY `printf 0x%x $((0xFFFFFFFF * 80 / 100))`
-color = '0x22222222'
+color = '0x33333333'
 subprocess.run(
 	['xprop', '-id', str(winID_self), '-f', '_NET_WM_WINDOW_OPACITY', '32c', '-set', '_NET_WM_WINDOW_OPACITY', color]
 	)
