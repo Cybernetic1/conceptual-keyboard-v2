@@ -629,6 +629,7 @@ document.getElementById("do-okay").addEventListener("click", function(evt) {
 }, false);
 
 // Feed input to Google chat input box
+// Not working yet, needs to fill in window ID
 document.getElementById("do-feed").addEventListener("click", function(evt) {
 
 	whiteBox.focus();
@@ -642,6 +643,25 @@ document.getElementById("do-feed").addEventListener("click", function(evt) {
 	}
 
 	const cmd = "./shellCommand/xdotool%20windowactivate%206291926%20key%20ctrl+v";
+	$.ajax({
+		method: "POST",
+		url: cmd,
+		contentType: "application/json; charset=utf-8",
+		processData: false
+	});
+}, false);
+
+// Make Conkey window transparent
+var transparency = true;
+document.getElementById("transparent").addEventListener("click", function(evt) {
+	var cmd = "./shellCommand/python3%20transparent.py";
+	if (transparency)
+		transparency = false;
+	else {
+		cmd = "./shellCommand/python3%20opaque.py";
+		transparency = true;
+	}
+
 	$.ajax({
 		method: "POST",
 		url: cmd,

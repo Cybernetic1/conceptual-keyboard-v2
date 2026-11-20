@@ -45,7 +45,7 @@ for winID in stackorder:
 	# if winID == winID_self:
 		# found = True
 
-subprocess.run(['beep'])
+# subprocess.run(['beep'])
 
 # Press Return key
 # xdotool key --window "$winID_target" Return
